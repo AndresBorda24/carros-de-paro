@@ -11,13 +11,15 @@
   <?= $this->loadAssets("app") ?>
   <title>Hola Mundo</title>
 </head>
-<body>
-  <div x-data="vite" class="container">
-    <h1 class="text-center">Hola</h1>
-    <p>Insert Id: <?= $insertId ?></p>
-    <button
-    class="btn btn-sm btn-primary"
-    @click="showMessage">Message</button>
-  </div>
+<body class="bg-body">
+  <?= $this->fetch("./partials/header.php") ?>
+  <main class="d-grid container" style="grid-template-columns: 270px 1fr;">
+    <div>
+      <?= $this->fetch("./partials/sidebar.php") ?>
+    </div>
+    <div class="p-4">
+      <h1 class="fs-4 text-center">Nombre del Carro</h1>
+    </div>
+  </main>
 </body>
 </html>
