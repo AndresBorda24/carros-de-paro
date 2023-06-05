@@ -11,7 +11,7 @@ if (! function_exists('App\responseJson')) {
     */
     function responseJson(
         Response $response,
-        mixed $data,
+        $data,
         int $statusCode = 201
     ): Response {
         $payload = json_encode(
