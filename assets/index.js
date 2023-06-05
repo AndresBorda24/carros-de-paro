@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import "./css/general.css";
 
 window.Alpine = Alpine;
 
