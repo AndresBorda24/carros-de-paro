@@ -15,7 +15,10 @@
   "license": "ISC",
   "dependencies": {
     "alpinejs": "^3.12.2",
-    "dotenv": "^16.1.3"
+    "axios": "^1.4.0",
+    "core-js": "^3.30.2",
+    "dotenv": "^16.1.3",
+    "noty": "^3.2.0-beta-deprecated"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",

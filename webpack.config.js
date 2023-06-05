@@ -13,7 +13,7 @@ Encore
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     //.setManifestKeyPrefix('build/')
-    .addEntry('app', './assets/index.js')
+    .addEntry('carro/app', './assets/carro/index.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     /*

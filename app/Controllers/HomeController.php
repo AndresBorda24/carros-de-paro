@@ -17,7 +17,7 @@ class HomeController
 
     public function index(Response $response): Response
     {
-        return $this->views->render($response, "index.php");
+        return $this->views->render($response, "carro.php");
 
     }
 }
