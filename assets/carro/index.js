@@ -1,16 +1,11 @@
 import Alpine from "alpinejs";
-import "./css/general.css";
+import createCarro from "./components/create-carro";
+import "../css/general.css";
 
 window.Alpine = Alpine;
 
 document.addEventListener("alpine:init", function() {
-    Alpine.data("vite", () => ({
-        message: "Funciona",
-
-        showMessage() {
-            alert(this.message);
-        }
-    }));
+    Alpine.data("createCarro", createCarro);
 });
 
 document.addEventListener("DOMContentLoaded", function() {

@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+@import "~noty/lib/noty.css";
+@import "~noty/lib/themes/mint.css";
+
 :root {
     --color-main: #03254c;
     --color-blue-dk: #1167b1;
@@ -6,8 +9,12 @@
     --color-blue-sm: #2a9df4;
     --color-blue-light: #d0efff;
 }
+[x-cloak]{ display: none !important; }
 body {
     font-family: 'Source Sans Pro', sans-serif;
+}
+.text-sm {
+    font-size: .7rem;
 }
 .bg-blue-main {
     background-color: var(--color-main) !important;

@@ -8,8 +8,8 @@
   rel="stylesheet"
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous">
-  <?= $this->loadAssets("app") ?>
-  <title>Hola Mundo</title>
+  <?= $this->loadAssets("carro/app") ?>
+  <title>Carros de Paro</title>
 </head>
 <body class="bg-body">
   <?= $this->fetch("./partials/header.php") ?>
@@ -21,5 +21,8 @@
       <h1 class="fs-4 text-center">Nombre del Carro</h1>
     </div>
   </main>
+
+  <!-- Modals -->
+  <?= $this->fetch("./partials/carro/create-carro.php") ?>
 </body>
 </html>
