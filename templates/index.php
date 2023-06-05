@@ -14,6 +14,7 @@
 <body>
   <div x-data="vite" class="container">
     <h1 class="text-center">Hola</h1>
+    <p>Insert Id: <?= $insertId ?></p>
     <button
     class="btn btn-sm btn-primary"
     @click="showMessage">Message</button>

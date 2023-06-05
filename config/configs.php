@@ -6,9 +6,13 @@ return [
         "base" => $_ENV["APP_PATH"],
         "url"  => $_ENV["APP_URL"]
     ],
-    // "db" => [
-    //     "source" => $_ENV["FOX_SOURCE"]
-    // ],
+    "db" => [
+        "host" => $_ENV["DB_HOST"],
+        "name" => $_ENV["DB_NAME"],
+        "user" => $_ENV["DB_USER"],
+        "pass" => $_ENV["DB_PASS"],
+        "port" => (int) $_ENV["DB_PORT"]
+    ],
     "assets" => [
         "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
         "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
