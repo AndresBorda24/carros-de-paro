@@ -37,6 +37,20 @@ class Carro
         }
     }
 
+    /**
+     * Obtiene todos los carros
+    */
+    public function getAll(): ?array
+    {
+        try {
+            return $this->db->select($this->table, [
+                "id" => ["nombre", "ubicacion"]
+            ]);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function getInsertId(): int
     {
         return (int) $this->db->id();

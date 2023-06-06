@@ -12,5 +12,9 @@ function loadApiRoutes(App $app) {
             CarroController::class,
             "create"
         ]);
+        $api->get("/carros/get-all", [
+            CarroController::class,
+            "getAll"
+        ]);
     })->add(JsonBodyParserMiddleware::class);
 }
