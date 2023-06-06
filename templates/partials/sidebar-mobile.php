@@ -1,20 +1,13 @@
-<div
-x-data="carrosList"
-x-bind="events"
-class="position-sticky top-0">
-  <div class="d-none d-lg-block p-3">
-    <h5>Listado de Carros:</h5>
-
-    <!-- Funciona como un loader chiquito -->
-    <img
-    id="carro-list-loader"
-    width="40"
-    style="display: block;"
-    class="d-none m-auto"
-    src="<?= $this->asset("img/loader-1.png") ?>"
-    alt="loader-list">
-
-    <nav class="d-flex flex-column gap-1 mb-3" role="menu">
+<div class="fixed-bottom bg-blue-main d-flex d-lg-none p-1 justify-content-between">
+  <details class="position-relative">
+    <summary class="btn btn-sm text-sm border-0 text-light">
+      Carros
+    </summary>
+    <nav
+    style="width: 230px;"
+    class="position-absolute rounded-1 border shadow bottom-100
+    d-flex flex-column gap-1 small bg-light p-2 mb-1"
+    role="menu">
       <template x-for="id in Object.keys(carros)" :key="id">
         <button
         type="button"
@@ -34,15 +27,13 @@ class="position-sticky top-0">
         </button>
       </template>
     </nav>
+  </details>
 
-    <button
+  <button
     @click="$dispatch('create-carro')"
     style="font-size: .7rem;"
-    class="btn btn-outline-success btn-sm text-end ms-auto d-block">
+    class="btn btn-success btn-sm text-end ms-auto d-block">
       <?= $this->fetch("./icons/plus.php") ?>
       Nuevo Carro
     </button>
-  </div>
-
-  <?= $this->fetch("./partials/sidebar-mobile.php") ?>
 </div>
