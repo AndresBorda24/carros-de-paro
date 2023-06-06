@@ -19,6 +19,7 @@
     </div>
     <div class="p-4">
       <h1 class="fs-4 text-center">Nombre del Carro</h1>
+      <?= $this->fetch("./partials/carro/grilla-medicamentos.php") ?>
     </div>
   </main>
 

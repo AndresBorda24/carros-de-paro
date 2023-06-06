@@ -1,0 +1,6 @@
+@import "./general.css";
+@import "datatables.net-dt";
+
+.grilla-medicamentos {
+    background-color: var(--color-blue-light);
+}
