@@ -38,4 +38,19 @@ class CarroController
             ], 422);
         }
     }
+
+    /**
+     * Retorna un array con todos los carros.
+    */
+    public function getAll(Response $response): Response
+    {
+        try {
+            return responseJson($response, $this->carro->getAll());
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
 }
