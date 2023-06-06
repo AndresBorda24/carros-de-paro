@@ -1,4 +1,11 @@
 <div x-data="grillaMedicamentos" class="small w-100">
+  <button
+  @click="$dispatch('create-medicamento', getCarroId())"
+  class="btn btn-success btn-sm text-sm mb-3">
+    <?= $this->fetch("./icons/plus.php") ?>
+    Adjuntar Medicamento
+  </button>
+
   <table
   id="grilla-medicamentos"
   style="width:100%"

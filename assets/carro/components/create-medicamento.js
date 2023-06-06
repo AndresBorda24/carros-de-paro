@@ -1,0 +1,39 @@
+import axios from "axios";
+import { errorAlert, successAlert } from "../../partials/alerts";
+
+export default () => ({
+    show: false,
+    state: {},
+    api: process.env.API + "/medicamentos/create",
+    events: {
+        ['@create-medicamento.document.stop']: "open"
+    },
+
+    /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
+    open({ detail: carroId }) {
+        this.show  = true;
+        this.state = {
+            carro_id: carroId
+        };
+
+        this.$nextTick(() => {
+            document
+                .querySelector('[x-model="state.p_activo"]')
+                .focus();
+        });
+    },
+
+    /** Cerramos el Modal. No se reinicia `state` ya que se hace en open */
+    close() {
+        this.show = false;
+    },
+
+    /** Realiza la consulta */
+    async save() {
+        try {
+            this.close();
+        } catch(e) {
+            errorAlert();
+        }
+    }
+});
