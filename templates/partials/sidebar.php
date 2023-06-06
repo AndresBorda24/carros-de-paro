@@ -18,6 +18,8 @@ class="position-sticky top-0 p-3">
       <button
       type="button"
       role="menuitem"
+      :class="{'active': selected === id}"
+      @click="carroClicked( id )"
       class="rounded-1 align-items-center btn btn-sm carro-nav-item d-flex gap-2">
         <?= $this->fetch("./icons/bookmark.php") ?>
         <span>
