@@ -68,7 +68,20 @@ export default () => ({
                 { data: 'presentacion', targets: 2 },
                 { data: 'invima', targets: 3 },
                 { data: 'lote', targets: 4 },
-                { data: 'vencimiento', targets: 5 },
+                {
+                    data: 'vencimiento',
+                    targets: 5,
+                    createdCell: (td, data) => {
+                        const _ = jQuery(td);
+                        _.attr(
+                            "x-data",
+                            `resaltarVencimiento('${data}')`
+                        ).attr(
+                            "x-bind",
+                            "binds"
+                        );
+                    }
+                },
                 { data: 'cantidad', targets: 6 },
                 { data: 'vida_util', targets:  7 },
                 { data: 'riesgo', targets:  8 },

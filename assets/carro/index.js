@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 import carro from "./components/carro";
 import carrosList from "./components/carros-list";
+import deleteCarro from "./partials/delete-carro";
 import createCarro from "./components/create-carro";
 
 import createMedicamento from "./components/create-medicamento";
@@ -11,7 +12,7 @@ import createDispositivo from "./components/create-dispositivo";
 import grillaDispositivos from "./partials/grilla-dispositivos";
 import deleteDispositivo from "./partials/delete-dispositivo";
 
-import deleteCarro from "./partials/delete-carro";
+import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
 import "../css/carro.css";
 
@@ -31,6 +32,7 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("grillaDispositivos", grillaDispositivos);
 
     Alpine.data("deleteCarro", deleteCarro);
+    Alpine.data("resaltarVencimiento", resaltarVencimiento);
 });
 
 document.addEventListener("DOMContentLoaded", function() {
