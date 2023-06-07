@@ -7,6 +7,7 @@ export default () => ({
 
     setCarroId({ detail: carro }) {
         this.CARRO = carro;
+        this.grillaShow = 1;
     },
 
     hasCarro() {
