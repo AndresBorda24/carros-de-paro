@@ -1,7 +1,7 @@
 <div x-data="grillaMedicamentos" x-bind="events" class="small w-100">
   <button
   @click="$dispatch('create-medicamento', getCarroId())"
-  class="btn btn-success btn-sm text-sm mb-3">
+  class="btn btn-success btn-sm text-sm">
     <?= $this->fetch("./icons/plus.php") ?>
     Adjuntar Medicamento
   </button>

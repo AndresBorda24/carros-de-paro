@@ -7,8 +7,8 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
   style="width: 80%; max-width: 300px;"
   class="mt-4 mx-2 p-2 bg-body mx-auto rounded-1">
-    <h5 class="border-bottom text-center">Nuevo Carro</h5>
-    <form @submit.prevent="save" class="small" autocomplete="off">
+    <h5 class="border-bottom text-center">Carro</h5>
+    <form @submit.prevent="guardar" class="small" autocomplete="off">
       <label
       for="new-carro-nombre"
       class="form-label small text-muted">Nombre:</label>
@@ -39,7 +39,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         class="btn btn-sm text-sm btn-danger">Cancelar</button>
         <button
         type="submit"
-        class="btn btn-sm text-sm btn-success">Crear</button>
+        class="btn btn-sm text-sm btn-success">Guardar</button>
       </div>
     </form>
   </div>

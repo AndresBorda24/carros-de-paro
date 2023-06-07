@@ -37,15 +37,50 @@ class Carro
         }
     }
 
+    /** Actualiza un Nuevo Carro de Paro */
+    public function update(int $id, array $data): int
+    {
+        try {
+            $this->checkRequired($data);
+
+            $_ = $this->db->update($this->table, [
+                "nombre"    => trim($data["nombre"]),
+                "ubicacion" => trim($data["ubicacion"])
+            ], [
+                "id" => $id
+            ]);
+
+            return $_->rowCount();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Elimina un dispositivo.
+     *
+     * @return int Devuelve la cantidad de filas afectadas
+    */
+    public function delete(int $id): int
+    {
+        try {
+            $_ = $this->db->delete($this->table, [
+                "id" => $id
+            ]);
+
+            return $_->rowCount();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     /**
      * Obtiene todos los carros
     */
     public function getAll(): ?array
     {
         try {
-            return $this->db->select($this->table, [
-                "id" => ["nombre", "ubicacion"]
-            ]);
+            return $this->db->select($this->table, "*");
         } catch (\Exception $e) {
             throw $e;
         }

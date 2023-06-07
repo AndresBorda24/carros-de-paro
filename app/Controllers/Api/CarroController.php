@@ -39,6 +39,38 @@ class CarroController
         }
     }
 
+    public function update(
+        Request $request,
+        Response $response,
+        int $id
+    ): Response {
+        try {
+            $data = $request->getParsedBody();
+
+            return responseJson(
+                $response,
+                $this->carro->update($id, $data)
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
+    public function delete(Response $response, int $id): Response
+    {
+        try {
+            return responseJson($response, $this->carro->delete($id));
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
     /**
      * Retorna un array con todos los carros.
     */

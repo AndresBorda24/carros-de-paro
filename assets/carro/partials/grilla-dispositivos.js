@@ -139,6 +139,10 @@ export default () => ({
          * CARRO Almacena la info del carro. Esta en el componente Carro
         */
         this.$watch("CARRO", async () => {
+            if (this.getCarroId() === null) {
+                return;
+            }
+
             if (this.ctrlId !== this.getCarroId()) {
                 this.ctrlId = this.getCarroId();
                 await this.getData();
