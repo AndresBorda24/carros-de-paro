@@ -11,6 +11,8 @@ import createDispositivo from "./components/create-dispositivo";
 import grillaDispositivos from "./partials/grilla-dispositivos";
 import deleteDispositivo from "./partials/delete-dispositivo";
 
+import deleteCarro from "./partials/delete-carro";
+
 import "../css/carro.css";
 
 window.Alpine = Alpine;
@@ -27,6 +29,8 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("createDispositivo", createDispositivo);
     Alpine.data("deleteDispositivo", deleteDispositivo);
     Alpine.data("grillaDispositivos", grillaDispositivos);
+
+    Alpine.data("deleteCarro", deleteCarro);
 });
 
 document.addEventListener("DOMContentLoaded", function() {

@@ -8,21 +8,21 @@
     class="position-absolute rounded-top border-bottom-0 border shadow bottom-100
     d-flex flex-column gap-1 small bg-light p-2 mb-1"
     role="menu">
-      <template x-for="id in Object.keys(carros)" :key="id">
+      <template x-for="carro in carros" :key="carro.id">
         <button
         type="button"
         role="menuitem"
-        :class="{'active': selected === id}"
-        @click="carroClicked( id )"
+        :class="{'active': selected === carro.id}"
+        @click="carroClicked( carro.id )"
         class="rounded-1 align-items-center btn btn-sm carro-nav-item d-flex gap-2">
           <?= $this->fetch("./icons/bookmark.php") ?>
           <span>
             <span
             class="d-block"
-            x-text="carros[ id ].nombre"></span>
+            x-text="carro.nombre"></span>
             <span
             class="fw-light small d-block"
-            x-text="carros[ id ].ubicacion"></span>
+            x-text="carro.ubicacion"></span>
           </span>
         </button>
       </template>

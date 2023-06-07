@@ -15,7 +15,9 @@
     </div>
     <button
     type="button"
+    @click="delCarro"
     x-show="hasCarro"
+    x-data="deleteCarro"
     x-cloak
     class="btn btn-danger btn-sm text-sm">
       <?= $this->fetch("./icons/trash.php") ?>
