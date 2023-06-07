@@ -29,7 +29,11 @@ function loadApiRoutes(App $app) {
             MedicamentoController::class,
             "create"
         ]);
-        $api->delete("/medicamentos/{medicamentoId:[0-9]+}/delete", [
+        $api->put("/medicamentos/{id:[0-9]+}/update", [
+            MedicamentoController::class,
+            "update"
+        ]);
+        $api->delete("/medicamentos/{id:[0-9]+}/delete", [
             MedicamentoController::class,
             "delete"
         ]);

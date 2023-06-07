@@ -53,15 +53,45 @@ class Medicamento
     }
 
     /**
+     * Actualiza la info de un medicamento
+     *
+     * @return int Devuelve la cantidad de filas afectadas
+    */
+    public function update(int $id, array $data)
+    {
+        try {
+            $this->checkRequired($data);
+
+            $_ = $this->db->update($this->table, [
+                "lote"  => trim($data["lote"]),
+                "invima"    => trim($data["invima"]),
+                "medida"    => trim($data["medida"]),
+                "carro_id"  => trim($data["carro_id"]),
+                "cantidad"  => $data["cantidad"],
+                "forma_farma"   => trim($data["forma_farma"]),
+                "presentacion"  => trim($data["presentacion"]),
+                "vencimiento"   => trim($data["vencimiento"]),
+                "p_activo_concentracion"  => trim($data["p_activo_concentracion"])
+            ], [
+                "id" => $id
+            ]);
+
+            return $_->rowCount();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Elimina un medicamento.
      *
-     * @return int Devuelve la cantidad de filas eliminadas
+     * @return int Devuelve la cantidad de filas afectadas
     */
-    public function delete(int $medicamentoId): int
+    public function delete(int $id): int
     {
         try {
             $_ = $this->db->delete($this->table, [
-                "id" => $medicamentoId
+                "id" => $id
             ]);
 
             return $_->rowCount();
