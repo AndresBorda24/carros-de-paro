@@ -4,6 +4,7 @@ import { showLoader, hideLoader } from "../../partials/loader";
 
 export default () => ({
     carros: {},
+    selected: undefined,
     loader: "#carro-list-loader",
     api: process.env.API + "/carros/get-all",
     events: {
@@ -26,5 +27,18 @@ export default () => ({
         } catch(e) {
             errorAlert();
         }
+    },
+
+    /**
+     * Cuando Se selecciona un carro, despacha un evento
+     * para informar a otros componentes
+    */
+    carroClicked( id ) {
+        this.selected = id;
+
+        this.$dispatch("carro-selected", {
+            id: id,
+            ...this.carros[ id ]
+        });
     }
 });

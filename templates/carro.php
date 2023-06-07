@@ -13,16 +13,19 @@
 </head>
 <body class="bg-body">
   <?= $this->fetch("./partials/header.php") ?>
-  <main class="d-grid container" style="grid-template-columns: 270px 1fr;">
-    <div>
+  <main class="d-lg-flex container g-0">
+    <div class="col-lg-3">
       <?= $this->fetch("./partials/sidebar.php") ?>
     </div>
-    <div class="p-4">
-      <h1 class="fs-4 text-center">Nombre del Carro</h1>
+
+    <div class="col-lg-9">
+      <?= $this->fetch("./partials/carro/carro.php") ?>
     </div>
   </main>
 
   <!-- Modals -->
   <?= $this->fetch("./partials/carro/create-carro.php") ?>
+  <?= $this->fetch("./partials/carro/create-medicamento.php") ?>
+  <?= $this->fetch("./partials/loader.php") ?>
 </body>
 </html>
