@@ -24,5 +24,6 @@
   </div>
 
   <div x-show="grillaShow === 2">
+    <?= $this->fetch("./partials/carro/grillas/dispositivos.php") ?>
   </div>
 </div>
