@@ -10,7 +10,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
     <h5 class="border-bottom text-center">Medicamento</h5>
     <form
     id="create-medicamento"
-    @submit.prevent="save"
+    @submit.prevent="guardar"
     class="small d-grid gap-2"
     style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));"
     autocomplete="off">

@@ -12,7 +12,8 @@ export default () => ({
     data: [],
     events: {
         ['@new-medicamento-created.document']: "newMedicamento",
-        ['@medicamento-deleted.document']: "removeMedicamento"
+        ['@medicamento-deleted.document']: "removeMedicamento",
+        ['@medicamento-updated.document']: "updateMedicamento"
     },
 
     init() {
@@ -39,9 +40,20 @@ export default () => ({
 
         if (index !== -1) {
             this.data.splice(index, 1);
+            this.updateTableRows( this.data );
         }
+    },
 
-        this.updateTableRows( this.data );
+    /**
+     * Actualiza un medicamento y actualiza la tabla
+    */
+    updateMedicamento({ detail: medicamento }) {
+        const index = this.data.findIndex(m => m.id == medicamento.id);
+
+        if (index !== -1) {
+            this.data[ index ] = medicamento;
+            this.updateTableRows( this.data );
+        }
     },
 
     /** Crea la tabla */
