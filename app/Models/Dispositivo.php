@@ -73,7 +73,7 @@ class Dispositivo
                 "cantidad" => $data["cantidad"],
                 "carro_id" => trim($data["carro_id"]),
                 "vida_util" => trim($data["vida_util"]),
-                "vencimiento" => trim($data["vencimiento"]),
+                "vencimiento" => $data["vencimiento"],
                 "presentacion" => trim($data["presentacion"]),
             ], [
                 "id" => $id

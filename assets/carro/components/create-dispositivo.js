@@ -16,7 +16,8 @@ export default () => ({
     open({ detail: dispositivoId }) {
         this.show = true;
         this.state = {
-            carro_id: dispositivoId
+            carro_id: dispositivoId,
+            vida_util: "N/A"
         };
 
         this.$nextTick(() => {
@@ -60,7 +61,9 @@ export default () => ({
     /** Realiza la consulta */
     async save() {
         try {
-            showLoader()
+            showLoader();
+            this.checkFechaVencimiento();
+
             const { data } = await axios
                 .post(this.api + "/dispositivos/create", this.state)
                 .finally(hideLoader);
@@ -80,7 +83,9 @@ export default () => ({
     */
     async update() {
         try {
-            showLoader()
+            showLoader();
+            this.checkFechaVencimiento();
+
             await axios.put(
                 `${this.api}/dispositivos/${this.state.id}/update`,
                 this.state
@@ -91,6 +96,16 @@ export default () => ({
             this.close();
         } catch (e) {
             errorAlert();
+        }
+    },
+
+    /**
+     * Revisa si se selecciono una fecha de vencimiento o no. Esto se hace
+     * para evitar que quede guardada una fecha '0000-00-00'
+    */
+    checkFechaVencimiento() {
+        if (! Boolean(this.state.vencimiento)) {
+            this.state.vencimiento = null;
         }
     }
 });

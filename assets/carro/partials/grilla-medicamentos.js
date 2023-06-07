@@ -7,6 +7,7 @@ import { showLoader, hideLoader } from "../../partials/loader";
 
 export default () => ({
     table: undefined,
+    ctrlId: undefined,
     api: process.env.API,
     selector: "#grilla-medicamentos",
     data: [],
@@ -137,10 +138,12 @@ export default () => ({
          * CARRO Almacena la info del carro. Esta en el componente Carro
         */
         this.$watch("CARRO", async () => {
-            this.ctrlId = this.getCarroId();
-            await this.getData();
+            if (this.ctrlId !== this.getCarroId()) {
+                this.ctrlId = this.getCarroId();
+                await this.getData();
 
-            console.log("Cambio el ID: ", this.getCarroId());
+                console.log("Cambio el ID dispositivo: ", this.getCarroId());
+            }
         });
 
 
