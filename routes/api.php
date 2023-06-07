@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Slim\App;
 use App\Controllers\Api\CarroController;
+use App\Controllers\Api\MedicamentoController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 
@@ -15,6 +16,15 @@ function loadApiRoutes(App $app) {
         $api->get("/carros/get-all", [
             CarroController::class,
             "getAll"
+        ]);
+
+
+        /* ---------------------------------------------------------------------
+        *  Medicamentos
+        */
+        $api->post("/medicamentos/create", [
+            MedicamentoController::class,
+            "create"
         ]);
     })->add(JsonBodyParserMiddleware::class);
 }
