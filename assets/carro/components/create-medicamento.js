@@ -19,7 +19,7 @@ export default () => ({
 
         this.$nextTick(() => {
             document
-                .querySelector('[x-model="state.p_activo"]')
+                .querySelector('[x-model="state.p_activo_concentracion"]')
                 .focus();
         });
     },

@@ -12,14 +12,13 @@
   class="display compact responsive small">
     <thead>
       <tr>
-        <th data-priority="1">Principio Activo</th>
-        <th data-priority="2">Concentraci&oacute;n</th>
-        <th data-priority="2">Forma Farmaceutica</th>
-        <th data-priority="2">Medida</th>
-        <th data-priority="2">Presentaci&oacute;n</th>
-        <th data-priority="3">Invima</th>
-        <th data-priority="3">Lote</th>
-        <th data-priority="2">Vencimiento</th>
+        <th data-priority="1">Principio Activo / Concentraci&oacute;n</th>
+        <th data-priority="3">Forma Farmaceutica</th>
+        <th data-priority="3">Unidad de Medida</th>
+        <th data-priority="3">Presentaci&oacute;n Comercial</th>
+        <th data-priority="4">Invima</th>
+        <th data-priority="4">Lote</th>
+        <th data-priority="2">Fecha Vencimiento</th>
         <th data-priority="1">Cantidad</th>
       </tr>
     </thead>

@@ -41,16 +41,14 @@ export default () => ({
             responsive: true,
             paging: false,
             columnDefs: [
-                // { data: false, targets: 0 },
-                { data: 'p_activo', targets: 1 - 1  },
-                { data: 'concentracion', targets: 2 - 1  },
-                { data: 'forma_farma', targets: 3 - 1  },
-                { data: 'medida', targets: 4 - 1  },
-                { data: 'presentacion', targets: 5 - 1  },
-                { data: 'invima', targets: 6 - 1  },
-                { data: 'lote', targets: 7 - 1  },
-                { data: 'vencimiento', targets: 8 - 1  },
-                { data: 'cantidad', targets: 9 - 1  },
+                { data: 'p_activo_concentracion', targets: 0 },
+                { data: 'forma_farma', targets: 1 },
+                { data: 'medida', targets: 2 },
+                { data: 'presentacion', targets:  3 },
+                { data: 'invima', targets: 4 },
+                { data: 'lote', targets: 5 },
+                { data: 'vencimiento', targets: 6 },
+                { data: 'cantidad', targets: 7 },
             ]
         });
     }

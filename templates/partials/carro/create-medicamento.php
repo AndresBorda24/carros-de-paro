@@ -17,26 +17,15 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-p-activo"
-        class="form-label small text-muted">Principio Activo:</label>
+        class="form-label small text-muted"
+        >Principio Activo / Concentraci&oacute;n:</label>
         <input
         id="new-medicamento-p-activo"
-        x-model="state.p_activo"
+        x-model="state.p_activo_concentracion"
         type="text"
         minlength="3"
         required
         autofocus
-        class="form-control form-control-sm">
-      </div>
-
-      <div>
-        <label
-        for="new-medicamento-concentracion"
-        class="form-label small text-muted">Concentraci&oacute;n:</label>
-        <input
-        id="new-medicamento-concentracion"
-        x-model="state.concentracion"
-        type="text"
-        required
         class="form-control form-control-sm">
       </div>
 
@@ -55,12 +44,11 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-medida"
-        class="form-label small text-muted">Medida:</label>
+        class="form-label small text-muted">Unidad de Medida:</label>
         <input
         id="new-medicamento-medida"
         x-model="state.medida"
         type="text"
-        minlength="3"
         required
         class="form-control form-control-sm">
       </div>
@@ -68,7 +56,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-presentacion"
-        class="form-label small text-muted">Presentaci&oacute;n:</label>
+        class="form-label small text-muted">Presentaci&oacute;n Comercial:</label>
         <input
         id="new-medicamento-presentacion"
         x-model="state.presentacion"

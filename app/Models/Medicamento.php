@@ -19,13 +19,12 @@ class Medicamento
             "lote",
             "medida",
             "invima",
-            "p_activo",
+            "p_activo_concentracion",
             "carro_id",
             "cantidad",
             "forma_farma",
             "vencimiento",
             "presentacion",
-            "concentracion",
         ];
     }
 
@@ -40,12 +39,11 @@ class Medicamento
                 "invima"    => trim($data["invima"]),
                 "medida"    => trim($data["medida"]),
                 "carro_id"  => trim($data["carro_id"]),
-                "p_activo"  => trim($data["p_activo"]),
                 "cantidad"  => $data["cantidad"],
                 "forma_farma"   => trim($data["forma_farma"]),
                 "presentacion"  => trim($data["presentacion"]),
                 "vencimiento"   => trim($data["vencimiento"]),
-                "concentracion" => trim($data["concentracion"])
+                "p_activo_concentracion"  => trim($data["p_activo_concentracion"])
             ]);
 
             return true;
