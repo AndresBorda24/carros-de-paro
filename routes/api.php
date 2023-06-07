@@ -18,6 +18,10 @@ function loadApiRoutes(App $app) {
             CarroController::class,
             "update"
         ]);
+        $api->delete("/carros/{id:[0-9]+}/delete", [
+            CarroController::class,
+            "delete"
+        ]);
         $api->get("/carros/get-all", [
             CarroController::class,
             "getAll"
