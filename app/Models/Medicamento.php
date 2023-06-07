@@ -52,6 +52,20 @@ class Medicamento
         }
     }
 
+    /**
+     * Obtiene todos los medicamentos relacionados a un carro.
+    */
+    public function getFromCarro(int $carroId): array
+    {
+        try {
+            return $this->db->select($this->table, "*", [
+                "carro_id" => $carroId
+            ]);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function getInsertId(): int
     {
         return (int) $this->db->id();
