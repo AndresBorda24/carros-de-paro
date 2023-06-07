@@ -25,5 +25,7 @@
 
   <!-- Modals -->
   <?= $this->fetch("./partials/carro/create-carro.php") ?>
+  <?= $this->fetch("./partials/carro/create-medicamento.php") ?>
+  <?= $this->fetch("./partials/loader.php") ?>
 </body>
 </html>
