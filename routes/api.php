@@ -29,5 +29,13 @@ function loadApiRoutes(App $app) {
             MedicamentoController::class,
             "create"
         ]);
+        $api->put("/medicamentos/{id:[0-9]+}/update", [
+            MedicamentoController::class,
+            "update"
+        ]);
+        $api->delete("/medicamentos/{id:[0-9]+}/delete", [
+            MedicamentoController::class,
+            "delete"
+        ]);
     })->add(JsonBodyParserMiddleware::class);
 }

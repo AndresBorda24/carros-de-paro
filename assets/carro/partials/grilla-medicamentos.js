@@ -11,7 +11,9 @@ export default () => ({
     selector: "#grilla-medicamentos",
     data: [],
     events: {
-        ['@new-medicamento-created.document']: "newMedicamento"
+        ['@new-medicamento-created.document']: "newMedicamento",
+        ['@medicamento-deleted.document']: "removeMedicamento",
+        ['@medicamento-updated.document']: "updateMedicamento"
     },
 
     init() {
@@ -28,6 +30,30 @@ export default () => ({
         this.table.row.add(
             medicamento
         ).draw();
+    },
+
+    /**
+     * Elimina un medicamento de `data` y actualiza la tabla
+    */
+    removeMedicamento({ detail: medicamentoId }) {
+        const index = this.data.findIndex(m => m.id == medicamentoId);
+
+        if (index !== -1) {
+            this.data.splice(index, 1);
+            this.updateTableRows( this.data );
+        }
+    },
+
+    /**
+     * Actualiza un medicamento y actualiza la tabla
+    */
+    updateMedicamento({ detail: medicamento }) {
+        const index = this.data.findIndex(m => m.id == medicamento.id);
+
+        if (index !== -1) {
+            this.data[ index ] = medicamento;
+            this.updateTableRows( this.data );
+        }
     },
 
     /** Crea la tabla */
@@ -49,7 +75,7 @@ export default () => ({
                     data: 'id',
                     render: (data) => `
                         <button
-                        @click="$dispatch(console.log(${data}))"
+                        @click="dispatchEdit(${data})"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
                         </button>
@@ -59,6 +85,26 @@ export default () => ({
                 }
             ]
         });
+    },
+
+    /**
+     * Actualiza las filas de la tabla
+    */
+    updateTableRows( data ) {
+        this.table.clear();
+        this.table.rows.add( data );
+        this.table.draw();
+    },
+
+    /** I
+     * ndica que se debe modificar un medicamento
+    */
+    dispatchEdit( medicamentoId ) {/**/
+        const med = this.data.find( m => m.id == medicamentoId );
+
+        if (Boolean(med)) {
+            this.$dispatch("edit-medicamento", med);
+        }
     },
 
     /**
@@ -75,9 +121,7 @@ export default () => ({
             this.data = data;
 
             // Actualizamos la tabla
-            this.table.clear();
-            this.table.rows.add( this.data );
-            this.table.draw();
+            this.updateTableRows( this.data );
         } catch(e) {
             console.error("Error get med: ", e);
             errorAlert("Error al obtener los medicamentos")

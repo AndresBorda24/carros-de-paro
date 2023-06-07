@@ -5,6 +5,7 @@ import createCarro from "./components/create-carro";
 import createMedicamento from "./components/create-medicamento";
 import grillaMedicamentos from "./partials/grilla-medicamentos";
 import "../css/carro.css";
+import deleteMedicamento from "./partials/delete-medicamento";
 
 window.Alpine = Alpine;
 
@@ -13,6 +14,7 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("carrosList", carrosList);
     Alpine.data("createCarro", createCarro);
     Alpine.data("createMedicamento", createMedicamento);
+    Alpine.data("deleteMedicamento", deleteMedicamento);
     Alpine.data("grillaMedicamentos", grillaMedicamentos);
 });
 

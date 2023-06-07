@@ -35,12 +35,47 @@ class MedicamentoController
         }
     }
 
+    public function update(
+        Request $request,
+        Response $response,
+        int $id
+    ): Response {
+        try {
+            $data = $request->getParsedBody();
+
+            return responseJson(
+                $response,
+                $this->medicamento->update($id, $data)
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
     public function getFromCarro(Response $response, int $carroId): Response
     {
         try {
             return responseJson(
                 $response,
                 $this->medicamento->getFromCarro($carroId)
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
+    public function delete(Response $response, int $id): Response
+    {
+        try {
+            return responseJson(
+                $response,
+                $this->medicamento->delete($id)
             );
         } catch(\Exception $e) {
             return responseJson($response, [
