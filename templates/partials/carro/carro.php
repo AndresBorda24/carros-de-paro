@@ -1,7 +1,26 @@
 <div x-data="carro" x-bind="events" class="p-3 p-md-4">
-  <h5
-  class="text-center border-bottom"
-  x-text="getCarroNombre() || 'Selecciona un Carro'"></h5>
+  <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3">
+    <div class="flex-grow-1 gap-1 text-center d-flex justify-content-center align-items-center">
+      <h5
+      class="m-0"
+      x-text="getCarroNombre() || 'Selecciona un Carro'"></h5>
+      <span
+      role="button"
+      x-show="hasCarro"
+      x-cloak
+      class="text-sm text-success">
+        <?= $this->fetch("./icons/edit.php") ?>
+      </span>
+    </div>
+    <button
+    type="button"
+    x-show="hasCarro"
+    x-cloak
+    class="btn btn-danger btn-sm text-sm">
+      <?= $this->fetch("./icons/trash.php") ?>
+      <span class="d-none d-md-inline">Eliminar</span>
+    </button>
+  </div>
 
   <template x-if="hasCarro">
     <div class="btn-group mb-3" role="group">
