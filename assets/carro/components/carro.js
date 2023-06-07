@@ -2,10 +2,11 @@ export default () => ({
     CARRO: undefined,
     grillaShow: undefined,
     events: {
-        ["@carro-selected.document"]: "setCarroId"
+        ["@carro-selected.document"]: "setCarro",
+        ["@carro-updated.document"]: "setCarro"
     },
 
-    setCarroId({ detail: carro }) {
+    setCarro({ detail: carro }) {
         this.CARRO = carro;
         this.grillaShow = 1;
     },

@@ -8,7 +8,8 @@ export default () => ({
     loader: "#carro-list-loader",
     api: process.env.API + "/carros/get-all",
     events: {
-        ['@new-carro-created.document']: "getList"
+        ['@new-carro-created.document']: "getList",
+        ["@carro-updated.document"]: "updateCarro"
     },
 
     async init() {
@@ -27,6 +28,16 @@ export default () => ({
         } catch(e) {
             errorAlert();
         }
+    },
+
+    /**
+     * Actualiza la info del carro
+    */
+    updateCarro({ detail: carro }) {
+        this.carros[ carro.id ] = {
+            "nombre": carro.nombre,
+            "ubicacion": carro.ubicacion
+        };
     },
 
     /**

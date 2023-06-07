@@ -37,6 +37,25 @@ class Carro
         }
     }
 
+    /** Actualiza un Nuevo Carro de Paro */
+    public function update(int $id, array $data): int
+    {
+        try {
+            $this->checkRequired($data);
+
+            $_ = $this->db->update($this->table, [
+                "nombre"    => trim($data["nombre"]),
+                "ubicacion" => trim($data["ubicacion"])
+            ], [
+                "id" => $id
+            ]);
+
+            return $_->rowCount();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     /**
      * Obtiene todos los carros
     */

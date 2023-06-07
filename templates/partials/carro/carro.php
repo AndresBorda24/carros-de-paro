@@ -6,6 +6,7 @@
       x-text="getCarroNombre() || 'Selecciona un Carro'"></h5>
       <span
       role="button"
+      @click="$dispatch('update-carro', getCarroFull())"
       x-show="hasCarro"
       x-cloak
       class="text-sm text-success">

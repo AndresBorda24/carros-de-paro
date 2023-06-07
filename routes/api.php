@@ -14,6 +14,10 @@ function loadApiRoutes(App $app) {
             CarroController::class,
             "create"
         ]);
+        $api->put("/carros/{id:[0-9]+}/update", [
+            CarroController::class,
+            "update"
+        ]);
         $api->get("/carros/get-all", [
             CarroController::class,
             "getAll"
