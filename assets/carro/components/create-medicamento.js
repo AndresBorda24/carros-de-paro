@@ -7,7 +7,9 @@ export default () => ({
     state: {},
     api: process.env.API + "/medicamentos/create",
     events: {
-        ['@create-medicamento.document.stop']: "open"
+        ['@create-medicamento.document.stop']: "open",
+        ['@edit-medicamento.document.stop']: "openEdit",
+        ['@medicamento-deleted.document']: "close"
     },
 
     /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
@@ -16,6 +18,19 @@ export default () => ({
         this.state = {
             carro_id: carroId
         };
+
+        this.$nextTick(() => {
+            document
+                .querySelector('[x-model="state.p_activo_concentracion"]')
+                .focus();
+        });
+    },
+
+
+    /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
+    openEdit({ detail: carro }) {
+        this.show  = true;
+        this.state = JSON.parse(JSON.stringify(carro));
 
         this.$nextTick(() => {
             document

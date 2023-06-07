@@ -7,7 +7,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
   style="width: 80%; max-width: 500px; max-height: 80%;"
   class="mt-4 mx-2 p-2 bg-body mx-auto rounded-1 overflow-auto">
-    <h5 class="border-bottom text-center">Adjuntar Medicamento</h5>
+    <h5 class="border-bottom text-center">Medicamento</h5>
     <form
     id="create-medicamento"
     @submit.prevent="save"
@@ -119,11 +119,21 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <button
       @click="close"
       type="button"
-      class="btn btn-sm text-sm btn-danger">Cancelar</button>
+      class="btn btn-sm text-sm btn-outline-danger">Cancelar</button>
+
+      <button
+      x-data="deleteMedicamento"
+      @click="delMed"
+      x-show="showButton"
+      class="btn btn-sm text-sm btn-danger">
+        <?= $this->fetch("./icons/trash.php") ?>
+        Eliminar
+      </button>
+
       <button
       form="create-medicamento"
       type="submit"
-      class="btn btn-sm text-sm btn-success">Crear</button>
+      class="btn btn-sm text-sm btn-success">Guardar</button>
     </div>
   </div>
 </div>

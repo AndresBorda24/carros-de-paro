@@ -53,6 +53,24 @@ class Medicamento
     }
 
     /**
+     * Elimina un medicamento.
+     *
+     * @return int Devuelve la cantidad de filas eliminadas
+    */
+    public function delete(int $medicamentoId): int
+    {
+        try {
+            $_ = $this->db->delete($this->table, [
+                "id" => $medicamentoId
+            ]);
+
+            return $_->rowCount();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Obtiene todos los medicamentos relacionados a un carro.
     */
     public function getFromCarro(int $carroId): array

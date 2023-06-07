@@ -49,4 +49,19 @@ class MedicamentoController
             ], 422);
         }
     }
+
+    public function delete(Response $response, int $medicamentoId): Response
+    {
+        try {
+            return responseJson(
+                $response,
+                $this->medicamento->delete($medicamentoId)
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
 }
