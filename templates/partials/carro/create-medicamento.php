@@ -119,7 +119,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         class="form-label small text-muted">Cantidad:</label>
         <input
         id="new-medicamento-cantidad"
-        x-model="state.cantidad"
+        x-model.number="state.cantidad"
         type="number"
         min="0"
         required

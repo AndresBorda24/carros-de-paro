@@ -1,4 +1,4 @@
-<div x-data="grillaMedicamentos" class="small w-100">
+<div x-data="grillaMedicamentos" x-bind="events" class="small w-100">
   <button
   @click="$dispatch('create-medicamento', getCarroId())"
   class="btn btn-success btn-sm text-sm mb-3">
@@ -12,7 +12,6 @@
   class="display compact responsive small">
     <thead>
       <tr>
-        <th></th>
         <th data-priority="1">Principio Activo</th>
         <th data-priority="2">Concentraci&oacute;n</th>
         <th data-priority="2">Forma Farmaceutica</th>
@@ -24,19 +23,5 @@
         <th data-priority="1">Cantidad</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td></td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-        <td>1735hsgavdh</td>
-      </tr>
-    </tbody>
   </table>
 </div>
