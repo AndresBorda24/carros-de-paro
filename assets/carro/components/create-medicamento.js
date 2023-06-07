@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showLoader, hideLoader } from "../../partials/loader";
 import { errorAlert, successAlert } from "../../partials/alerts";
 
 export default () => ({
@@ -31,6 +32,14 @@ export default () => ({
     /** Realiza la consulta */
     async save() {
         try {
+            showLoader()
+            const { data } = await axios
+                .post(this.api, this.state)
+                .finally(() => hideLoader());
+
+            this.state.id = data.id;
+            this.$dispatch("new-medicamento-created", this.state);
+            successAlert();
             this.close();
         } catch(e) {
             errorAlert();

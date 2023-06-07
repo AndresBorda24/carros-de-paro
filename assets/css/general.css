@@ -39,3 +39,6 @@ body {
     outline: 4px solid var(--color-blue-sm);
     color: white;
 }
+.flex {
+    display: flex;
+}
