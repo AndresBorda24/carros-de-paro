@@ -34,4 +34,19 @@ class MedicamentoController
             ], 422);
         }
     }
+
+    public function getFromCarro(Response $response, int $carroId): Response
+    {
+        try {
+            return responseJson(
+                $response,
+                $this->medicamento->getFromCarro($carroId)
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
 }

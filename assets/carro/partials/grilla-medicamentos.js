@@ -1,33 +1,27 @@
+import axios from "axios";
 import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
+import { errorAlert } from "../../partials/alerts";
+import { showLoader, hideLoader } from "../../partials/loader";
 
 export default () => ({
-    selector: "#grilla-medicamentos",
     table: undefined,
+    api: process.env.API,
+    selector: "#grilla-medicamentos",
     data: [],
     events: {
         ['@new-medicamento-created.document']: "newMedicamento"
     },
 
     init() {
-        this.$watch("CARRO", () => {
-            console.log("Cambio el ID: ", this.getCarroId());
-        });
-
-        this.$watch("grillaShow", (val) => {
-            if (val == 1) {
-                this.$nextTick(() => {
-                    this.table
-                        .columns.adjust()
-                        .responsive.recalc();
-                });
-            }
-        });
-
+        this.setWatchers();
         this.getTable();
     },
 
+    /**
+    * Cuando un medicamento se crea, se anexa a la grilla y al array de datos
+    */
     newMedicamento({ detail: medicamento }) {
         this.data.push( medicamento );
 
@@ -36,6 +30,7 @@ export default () => ({
         ).draw();
     },
 
+    /** Crea la tabla */
     getTable() {
         this.table = new DataTable(this.selector, {
             responsive: true,
@@ -49,7 +44,73 @@ export default () => ({
                 { data: 'lote', targets: 5 },
                 { data: 'vencimiento', targets: 6 },
                 { data: 'cantidad', targets: 7 },
+                {
+                    targets: -1,
+                    data: 'id',
+                    render: (data) => `
+                        <button
+                        @click="$dispatch(console.log(${data}))"
+                        class="btn btn-primary btn-sm px-1 py-0">
+                            <span>&#9881;</span>
+                        </button>
+                    `,
+                    searchable: false,
+                    orderable: false
+                }
             ]
         });
-    }
+    },
+
+    /**
+     * Obtiene los datos de la tabla.
+    */
+    async getData() {
+        try {
+            showLoader();
+
+            const { data } = await axios.get(
+                `${this.api}/carros/${this.getCarroId()}/get-medicamentos`
+            ).finally(hideLoader);
+
+            this.data = data;
+
+            // Actualizamos la tabla
+            this.table.clear();
+            this.table.rows.add( this.data );
+            this.table.draw();
+        } catch(e) {
+            console.error("Error get med: ", e);
+            errorAlert("Error al obtener los medicamentos")
+        }
+    },
+
+    /**
+     * El componente debe rastrear ciertos cambios en el estado. Para eso
+     * son los watchers
+    */
+    setWatchers() {
+        /**
+         * CARRO Almacena la info del carro. Esta en el componente Carro
+        */
+        this.$watch("CARRO", async () => {
+            this.ctrlId = this.getCarroId();
+            await this.getData();
+
+            console.log("Cambio el ID: ", this.getCarroId());
+        });
+
+
+        /**
+         * Para que funcione el `Responsive` de la tabla.
+        */
+        this.$watch("grillaShow", (val) => {
+            if (val == 1) {
+                this.$nextTick(() => {
+                    this.table
+                        .columns.adjust()
+                        .responsive.recalc();
+                });
+            }
+        });
+    },
 });

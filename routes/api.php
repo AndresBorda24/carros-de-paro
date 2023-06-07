@@ -17,7 +17,10 @@ function loadApiRoutes(App $app) {
             CarroController::class,
             "getAll"
         ]);
-
+        $api->get("/carros/{carroId:[0-9]+}/get-medicamentos", [
+            MedicamentoController::class,
+            "getFromCarro"
+        ]);
 
         /* ---------------------------------------------------------------------
         *  Medicamentos
