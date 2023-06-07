@@ -1,11 +1,11 @@
 <div class="fixed-bottom bg-blue-main d-flex d-lg-none p-1 justify-content-between">
   <details class="position-relative">
-    <summary class="btn btn-sm text-sm border-0 text-light">
+    <summary class="btn btn-sm btn-outline-light text-sm">
       Carros
     </summary>
     <nav
-    style="width: 230px;"
-    class="position-absolute rounded-1 border shadow bottom-100
+    style="width: 230px; border-color: var(--color-main) !important;"
+    class="position-absolute rounded-top border-bottom-0 border shadow bottom-100
     d-flex flex-column gap-1 small bg-light p-2 mb-1"
     role="menu">
       <template x-for="id in Object.keys(carros)" :key="id">
