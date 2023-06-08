@@ -7,6 +7,7 @@ use Medoo\Medoo;
 
 class Carro
 {
+    public CONST TABLE = "carros";
     private Medoo $db;
     private string $table;
     private array $required = [
@@ -74,6 +75,38 @@ class Carro
         }
     }
 
+    /**
+     * Obtiene la Info de un carro en especifico
+    */
+    public function find(int $id)
+    {
+        try {
+            return $this->db->get($this->table, "*", [
+                "id" => $id
+            ]);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Encuentra la info necesaria para el historico.
+    */
+    public function findForReg(int $id)
+    {
+        try {
+            $carro = $this->find($id);
+            if (! $carro) return false;
+
+            return [
+                "carro_id" => $id,
+                "carro_nombre" => $carro["nombre"],
+                "nombre" =>$carro["nombre"]
+            ];
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
     /**
      * Obtiene todos los carros
     */
