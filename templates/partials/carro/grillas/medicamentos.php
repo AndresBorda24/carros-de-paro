@@ -6,6 +6,12 @@
     Adjuntar Medicamento
   </button>
 
+  <button
+  @click="showData"
+  class="btn btn-success btn-sm text-sm">
+    Mostrar datos
+  </button>
+
   <table
   id="grilla-medicamentos"
   style="width:100%"

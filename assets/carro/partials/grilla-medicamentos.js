@@ -1,5 +1,5 @@
 import axios from "axios";
-import jQuery from "jquery";
+import jQuery, { type } from "jquery";
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import { errorAlert } from "../../partials/alerts";
@@ -48,13 +48,17 @@ export default () => ({
     /**
      * Actualiza un medicamento y actualiza la tabla
     */
-    updateMedicamento({ detail: medicamento }) {
-        const index = this.data.findIndex(m => m.id == medicamento.id);
+    updateMedicamento({ detail: data }) {
+        this.table
+            .row( data.rowIndex )
+            .data( data.medicamento )
+            .draw();
+        // const index = this.data.findIndex(m => m.id == medicamento.id);
 
-        if (index !== -1) {
-            this.data[ index ] = medicamento;
-            this.updateTableRows( this.data );
-        }
+        // if (index !== -1) {
+        //     this.data[ index ] = medicamento;
+        //     this.updateTableRows( this.data );
+        // }
     },
 
     /** Crea la tabla */
@@ -87,9 +91,9 @@ export default () => ({
                 {
                     targets: -1,
                     data: 'id',
-                    render: (data) => `
+                    render: (data, type, row, meta) => `
                         <button
-                        @click="dispatchEdit(${data})"
+                        @click="dispatchEdit(${meta.row})"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
                         </button>
@@ -113,11 +117,14 @@ export default () => ({
     /** I
      * ndica que se debe modificar un medicamento
     */
-    dispatchEdit( medicamentoId ) {/**/
-        const med = this.data.find( m => m.id == medicamentoId );
+    dispatchEdit( rowIndex ) {
+        const med = this.table.row(rowIndex).data();
 
         if (Boolean(med)) {
-            this.$dispatch("edit-medicamento", med);
+            this.$dispatch("edit-medicamento", {
+                medicamento: med,
+                rowIndex: rowIndex
+            });
         }
     },
 
@@ -163,7 +170,6 @@ export default () => ({
             }
         });
 
-
         /**
          * Para que funcione el `Responsive` de la tabla.
         */
@@ -176,5 +182,17 @@ export default () => ({
                 });
             }
         });
+    },
+
+    /**
+     * Muestra la data de la tabla
+    */
+    showData() {
+        const _ = this.table.rows().data();
+        const x = Object.values(_).slice(0, _.length);
+
+        console.log("Datos en `data`: ", JSON.parse( JSON.stringify(this.data)))
+
+        console.log("Datos en datatable: ", JSON.parse( JSON.stringify(x) ));
     },
 });

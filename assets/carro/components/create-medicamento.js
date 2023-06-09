@@ -6,6 +6,7 @@ export default () => ({
     show: false,
     state: {},
     api: process.env.API,
+    __rowIndex: undefined,
     events: {
         ['@create-medicamento.document.stop']: "open",
         ['@edit-medicamento.document.stop']: "openEdit",
@@ -18,6 +19,7 @@ export default () => ({
         this.state = {
             carro_id: carroId
         };
+        this.__rowIndex = undefined;
 
         this.$nextTick(() => {
             document
@@ -28,9 +30,10 @@ export default () => ({
 
 
     /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
-    openEdit({ detail: carro }) {
-        this.show = true;
-        this.state = JSON.parse(JSON.stringify(carro));
+    openEdit({ detail: data }) {
+        this.show  = true;
+        this.state = JSON.parse( JSON.stringify(data.medicamento) );
+        this.__rowIndex = data.rowIndex;
 
         this.$nextTick(() => {
             document
@@ -49,7 +52,7 @@ export default () => ({
      * la consulta.
     */
     async guardar() {
-        if (Boolean(this.state.id)) {
+        if (Boolean(this.__rowIndex)) {
             await this.update()
             return;
         }
@@ -80,13 +83,10 @@ export default () => ({
     */
     async update() {
         try {
-            showLoader()
-            await axios.put(
-                `${this.api}/medicamentos/${this.state.id}/update`,
-                this.state
-            ).finally(hideLoader);
-
-            this.$dispatch("medicamento-updated", this.state);
+            this.$dispatch("medicamento-updated", {
+                medicamento: this.state,
+                rowIndex: this.__rowIndex
+            });
             successAlert();
             this.close();
         } catch (e) {
