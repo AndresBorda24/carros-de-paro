@@ -14,7 +14,7 @@ class Medicamento
     public function __construct(Medoo $db)
     {
         $this->db       = $db;
-        $this->table    = "reg_medicamentos";
+        $this->table    = "carro_reg_medicamentos";
         $this->required = [
             "lote",
             "medida",
@@ -96,6 +96,28 @@ class Medicamento
 
             return $_->rowCount();
         } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Encuentra la info necesaria para el historico.
+    */
+    public function findForReg(int $id)
+    {
+        try {
+            $ct = Carro::TABLE;
+
+            return $this->db->get($this->table, [
+                "[>]$ct"  => ["carro_id" => "id"]
+            ], [
+                "$this->table.p_activo_concentracion (med_nombre)",
+                "$this->table.carro_id",
+                "$ct.nombre (carro_nombre)"
+            ], [
+                "$this->table.id" => $id
+            ]);
+        } catch(\Exception $e) {
             throw $e;
         }
     }
