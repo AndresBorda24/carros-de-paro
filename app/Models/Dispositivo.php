@@ -14,7 +14,7 @@ class Dispositivo
     public function __construct(Medoo $db)
     {
         $this->db       = $db;
-        $this->table    = "reg_dispositivos";
+        $this->table    = "carro_reg_dispositivos";
         $this->required = [
             "lote",
             "desc",
