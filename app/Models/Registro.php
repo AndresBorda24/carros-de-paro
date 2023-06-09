@@ -51,6 +51,7 @@ class Registro
             $data = [];
 
             $this->db->select($this->table, [
+                "id",
                 "hora",
                 "fecha",
                 "model",
@@ -69,6 +70,7 @@ class Registro
                 }
 
                 array_push($data[ $r["fecha"] ], [
+                    "id" => $r["id"],
                     "hora" => $r["hora"],
                     "model" => $r["model"],
                     "action" => $r["action"],
