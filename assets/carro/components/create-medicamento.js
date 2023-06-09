@@ -63,13 +63,9 @@ export default () => ({
     /** Realiza la consulta */
     async save() {
         try {
-            showLoader()
-            const { data } = await axios
-                .post(this.api + "/medicamentos/create", this.state)
-                .finally(hideLoader);
-
-            this.state.id = data.id;
+            this.state.id = 0;
             this.$dispatch("new-medicamento-created", this.state);
+
             successAlert();
             this.close();
         } catch (e) {

@@ -26,8 +26,6 @@ export default () => ({
     * Cuando un medicamento se crea, se anexa a la grilla y al array de datos
     */
     newMedicamento({ detail: medicamento }) {
-        this.data.push( medicamento );
-
         this.table.row.add(
             medicamento
         ).draw();
