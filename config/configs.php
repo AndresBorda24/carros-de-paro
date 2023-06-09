@@ -17,14 +17,5 @@ return [
         "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
         "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
     ],
-    /**
-     * Aquí se guardan los errores que ocurran cuando se intenta guardar el
-     * registro de alguna accion en cualquier "modelo" (Medicamento,
-     * Dispositivo, Carro...)
-     *
-     * Se guardan en un txt para que no detenga o afecte el flujo del
-     * programa si falla
-    */
-    "errores_reg" => __DIR__ . "/.." . $_ENV["ERROR_LOG"],
     "temp" => __DIR__ . "/../temp"
 ];

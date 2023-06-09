@@ -15,13 +15,6 @@ export default () => ({
 
     async init() {
         await this.getList();
-
-        // Selecciona automaticamente el primer carro de la lista
-        if (Boolean(this.carros[0])) {
-            this.carroClicked(
-                this.carros[0].id
-            );
-        }
     },
 
     /** Realiza la consulta */

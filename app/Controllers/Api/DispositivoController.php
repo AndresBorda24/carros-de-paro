@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Models\Dispositivo;
-use App\Services\RegistroService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -12,31 +11,22 @@ use function App\responseJson;
 
 class DispositivoController
 {
-    private RegistroService $reg;
     private Dispositivo $dispositivo;
 
-    public function __construct(Dispositivo $dispositivo, RegistroService $reg)
+    public function __construct(Dispositivo $dispositivo)
     {
-        $this->reg = $reg;
         $this->dispositivo = $dispositivo;
     }
 
     public function create(Request $request, Response $response): Response
     {
         try {
-            // Insercion
             $data = $request->getParsedBody();
             $this->dispositivo->create($data);
-            $id = $this->dispositivo->getInsertId();
 
-            // Registro
-            $this->reg->dispositivo(
-                $this->dispositivo->findForReg($id),
-                \App\Models\Registro::INSERT,
-                $data
-            );
-
-            return responseJson($response, ["id" => $id]);
+            return responseJson($response, [
+                "id" => $this->dispositivo->getInsertId()
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -51,18 +41,12 @@ class DispositivoController
         int $id
     ): Response {
         try {
-            // Update
             $data = $request->getParsedBody();
-            $rows = $this->dispositivo->update($id, $data);
 
-            // Registro
-            $this->reg->dispositivo(
-                $this->dispositivo->findForReg($id),
-                \App\Models\Registro::UPDATE,
-                $data
+            return responseJson(
+                $response,
+                $this->dispositivo->update($id, $data)
             );
-
-            return responseJson($response, $rows);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -89,16 +73,10 @@ class DispositivoController
     public function delete(Response $response, int $id): Response
     {
         try {
-            $data = $this->dispositivo->findForReg($id);
-            $rows = $this->dispositivo->delete($id);
-
-            // Registro
-            $this->reg->dispositivo(
-                $data,
-                \App\Models\Registro::DELETE
+            return responseJson(
+                $response,
+                $this->dispositivo->delete($id)
             );
-
-            return responseJson($response, $rows);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,

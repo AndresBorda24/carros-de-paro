@@ -5,7 +5,6 @@ use Slim\App;
 use App\Controllers\Api\CarroController;
 use App\Controllers\Api\DispositivoController;
 use App\Controllers\Api\MedicamentoController;
-use App\Controllers\Api\RegistroController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
 
@@ -66,14 +65,6 @@ function loadApiRoutes(App $app) {
         $api->delete("/dispositivos/{id:[0-9]+}/delete", [
             DispositivoController::class,
             "delete"
-        ]);
-
-        /* ---------------------------------------------------------------------
-        *  Dispositivos
-        */
-        $api->get("/registro/{carroId:[0-9]+}/get-registro", [
-            RegistroController::class,
-            "getReg"
         ]);
     })->add(JsonBodyParserMiddleware::class);
 }
