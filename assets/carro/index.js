@@ -12,6 +12,7 @@ import createDispositivo from "./components/create-dispositivo";
 import grillaDispositivos from "./partials/grilla-dispositivos";
 import deleteDispositivo from "./partials/delete-dispositivo";
 
+import verHistorico from "./components/ver-historico";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
 import "../css/carro.css";
@@ -33,6 +34,8 @@ document.addEventListener("alpine:init", function() {
 
     Alpine.data("deleteCarro", deleteCarro);
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
+
+    Alpine.data("verHistorico", verHistorico);
 });
 
 document.addEventListener("DOMContentLoaded", function() {

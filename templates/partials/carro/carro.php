@@ -47,6 +47,11 @@
         @click="grillaShow = 2"
         :class="{'active': grillaShow === 2}"
         class="btn btn-outline-primary btn-sm text-sm">Dispositivos</button>
+        <button
+        type="button"
+        @click="grillaShow = 3"
+        :class="{'active': grillaShow === 3}"
+        class="btn btn-outline-primary btn-sm text-sm">Hist&oacute;rico</button>
       </div>
     </template>
 
@@ -83,5 +88,9 @@
 
   <div x-show="grillaShow === 2">
     <?= $this->fetch("./partials/carro/grillas/dispositivos.php") ?>
+  </div>
+
+  <div x-show="grillaShow === 3">
+    <?= $this->fetch("./partials/carro/ver-historico.php") ?>
   </div>
 </div>

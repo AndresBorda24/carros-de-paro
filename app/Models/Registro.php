@@ -41,6 +41,54 @@ class Registro
         }
     }
 
+    /**
+     * Devuelve los registros de cierto carro que esten entre las fechas
+     * `$start` y `$end` y agrupados por fecha.
+    */
+    public function getReg(int $carroId, string $start, string $end): array
+    {
+        try {
+            $data = [];
+
+            $this->db->select($this->table, [
+                "id",
+                "hora",
+                "fecha",
+                "model",
+                "action",
+                "detalle",
+                "usuario_id",
+                "model_nombre"
+            ], [
+                "AND" => [
+                    "carro_id"  => $carroId,
+                    "fecha[<>]" => [$start, $end]
+                ]
+            ], function($r) use(&$data) {
+                if (! array_key_exists($r["fecha"], $data)) {
+                    $data[ $r["fecha"] ] = [];
+                }
+
+                array_push($data[ $r["fecha"] ], [
+                    "id" => $r["id"],
+                    "hora" => $r["hora"],
+                    "model" => $r["model"],
+                    "action" => $r["action"],
+                    "detalle" => $r["detalle"],
+                    "usuario_id" => $r["usuario_id"],
+                    "model_nombre" => $r["model_nombre"]
+                ]);
+            });
+
+            return $data;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Obtiene el ultimo error de mysql
+    */
     public function getError()
     {
         return $this->db->error;

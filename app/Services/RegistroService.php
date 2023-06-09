@@ -12,11 +12,20 @@ class RegistroService
     private Registro $reg;
     private Config $config;
 
+    // Textos usados para formatear el mensaje
+    private array $actions;
+
     public function __construct(Registro $reg, Config $config)
     {
         $this->reg = $reg;
         $this->quien = 126534;
         $this->config = $config;
+
+        $this->actions = [
+            \App\Models\Registro::INSERT => "Se agrega",
+            \App\Models\Registro::UPDATE => "Se modifica",
+            \App\Models\Registro::DELETE => "Se elimina"
+        ];
     }
 
     /**
@@ -98,6 +107,33 @@ class RegistroService
         } catch(\Exception $e) {
             $this->storeInLog($e);
         }
+    }
+
+    /**
+     * Genera el mensaje para el Registro.
+     *
+     * @param array $acc La variable donde se guardaran los datos
+    */
+    public function formatter(array &$acc) {
+        return function($reg) use ($acc) {
+            if (! array_key_exists($reg["fecha"], $acc)) {
+                $acc[ $reg["fecha"] ] = [];
+            }
+
+            $detalle = isset($reg["detalle"])
+                ? ": " . $reg["detalle"]
+                : ".";
+            $txt = sprintf("%s || %s %s: {%s} por %s %s",
+                $reg["hora"],
+                $this->actions[ $reg["action"] ],
+                $reg["model"],
+                $reg["model_nombre"],
+                $reg["usuario_id"],
+                $detalle
+            );
+
+            array_push($acc[ $reg["fecha"] ], $txt);
+        };
     }
 
     /**
