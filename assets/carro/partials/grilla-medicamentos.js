@@ -34,13 +34,11 @@ export default () => ({
     /**
      * Elimina un medicamento de `data` y actualiza la tabla
     */
-    removeMedicamento({ detail: medicamentoId }) {
-        const index = this.data.findIndex(m => m.id == medicamentoId);
-
-        if (index !== -1) {
-            this.data.splice(index, 1);
-            this.updateTableRows( this.data );
-        }
+    removeMedicamento({ detail: rowIndex }) {
+        this.table
+            .row( rowIndex )
+            .remove()
+            .draw();
     },
 
     /**
@@ -51,12 +49,6 @@ export default () => ({
             .row( data.rowIndex )
             .data( data.medicamento )
             .draw();
-        // const index = this.data.findIndex(m => m.id == medicamento.id);
-
-        // if (index !== -1) {
-        //     this.data[ index ] = medicamento;
-        //     this.updateTableRows( this.data );
-        // }
     },
 
     /** Crea la tabla */
@@ -64,6 +56,7 @@ export default () => ({
         this.table = new DataTable(this.selector, {
             responsive: true,
             paging: false,
+            rowId: 'id',
             columnDefs: [
                 { data: 'p_activo_concentracion', targets: 0 },
                 { data: 'forma_farma', targets: 1 },
@@ -89,9 +82,9 @@ export default () => ({
                 {
                     targets: -1,
                     data: 'id',
-                    render: (data, type, row, meta) => `
+                    render: (data) => `
                         <button
-                        @click="dispatchEdit(${meta.row})"
+                        @click="dispatchEdit('#${data}')"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
                         </button>

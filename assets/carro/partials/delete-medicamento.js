@@ -12,13 +12,8 @@ export default () => ({
                 return;
             }
 
-            showLoader()
-            await axios.delete(
-                `${this.api}/medicamentos/${this.state.id}/delete`
-            ).finally(hideLoader);
-
             successAlert("Medicamento Eliminado!");
-            this.$dispatch("medicamento-deleted", this.state.id);
+            this.$dispatch("medicamento-deleted", this.__rowIndex);
         } catch(e) {
             console.error("Eliminar Medicamento: ", e);
             errorAlert();
@@ -27,6 +22,6 @@ export default () => ({
 
     /** Determina si se muestra el boton de eliminar o no */
     showButton() {
-        return Boolean( this.state.id );
+        return typeof this.__rowIndex !== 'undefined';
     }
 });

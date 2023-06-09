@@ -63,7 +63,7 @@ export default () => ({
     /** Realiza la consulta */
     async save() {
         try {
-            this.state.id = 0;
+            this.state.id = (Math.random() + 3).toString(36).substring(3);
             this.$dispatch("new-medicamento-created", this.state);
 
             successAlert();
