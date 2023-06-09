@@ -7,6 +7,14 @@
   </button>
 
   <button
+  @click="revertChanges"
+  x-show="hasChanged"
+  class="btn btn-info btn-sm text-sm">
+    <?= $this->fetch("./icons/return.php") ?>
+    Revertir Cambios
+  </button>
+
+  <button
   @click="showData"
   class="btn btn-success btn-sm text-sm">
     Mostrar datos

@@ -9,6 +9,7 @@ export default () => ({
     table: undefined,
     ctrlId: undefined,
     api: process.env.API,
+    hasChanged: false,
     selector: "#grilla-medicamentos",
     data: [],
     events: {
@@ -26,6 +27,7 @@ export default () => ({
     * Cuando un medicamento se crea, se anexa a la grilla y al array de datos
     */
     newMedicamento({ detail: medicamento }) {
+        this.hasChanged = true;
         this.table.row.add(
             medicamento
         ).draw();
@@ -35,6 +37,7 @@ export default () => ({
      * Elimina un medicamento de `data` y actualiza la tabla
     */
     removeMedicamento({ detail: rowIndex }) {
+        this.hasChanged = true;
         this.table
             .row( rowIndex )
             .remove()
@@ -45,10 +48,23 @@ export default () => ({
      * Actualiza un medicamento y actualiza la tabla
     */
     updateMedicamento({ detail: data }) {
+        this.hasChanged = true;
         this.table
             .row( data.rowIndex )
             .data( data.medicamento )
             .draw();
+    },
+
+    /**
+     * Deshace todos los cambios `NO` guardados.
+    */
+    revertChanges() {
+        if (! confirm("Se perderan TODOS los cambios sin guardar. Continuar?")) {
+            return;
+        }
+
+        this.updateTableRows( this.data );
+        this.hasChanged = false;
     },
 
     /** Crea la tabla */
