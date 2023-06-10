@@ -46,6 +46,10 @@ function loadApiRoutes(App $app) {
             MedicamentoController::class,
             "update"
         ]);
+        $api->put("/medicamentos/{carroId:[0-9]+}/update-carro", [
+            MedicamentoController::class,
+            "updateCarro"
+        ]);
         $api->delete("/medicamentos/{id:[0-9]+}/delete", [
             MedicamentoController::class,
             "delete"

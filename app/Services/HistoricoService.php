@@ -86,15 +86,15 @@ class HistoricoService
      * @param int $model Tipo de Modelo, Medicamento o Dispositivo. Es
      * recomendable que sea una de las constantes de esta clase.
     */
-    public function store(array $data, int $model): bool
+    public function store(array $data, int $model, int $carroId): bool
     {
         try {
             $error = null;
 
-            $this->db->action(function() use($data, $model, &$error) {
+            $this->db->action(function() use($data, $model, $carroId, &$error) {
                 try {
                     // preparar la info que llega
-                    $this->extractData($data, $model);
+                    $this->extractData($data, $model, $carroId);
 
                     // Consultar los datos anteriores a la actualizacion
                     $this->setCurrentData();
@@ -138,8 +138,8 @@ class HistoricoService
                 "carro_id" => $this->carro_id,
                 "model"  => $this->model,
                 "quien"  => "usr-id",
-                "before[JSON]" => $this->before,
-                "after[JSON]"  => $this->updateData
+                "before" => $this->before,
+                "after"  => $this->updateData
             ]);
         } catch(\Exception $e) {
             throw $e;
@@ -150,21 +150,15 @@ class HistoricoService
      * Setea `carro_id` y los datos a actualizar. Ademas, revisa que el tipo
      * del modelo corresponda con los soportados.
     */
-    private function extractData(array $data, int $model)
+    private function extractData(array $data, int $model, int $carroId)
     {
         // Verificamos Carro_id
-        if (
-            ! array_key_exists("carro_id", $data) ||  // Si no existe
-            gettype($data["carro_id"]) !== 'integer' // O no es un entero
-        ) {
-            throw new \Exception("Falta Info: carro_id");
+        if ($carroId <= 0) {
+            throw new \Exception("Error: carro_id");
         }
 
         // Verificamos data
-        if (
-            ! array_key_exists("data", $data) ||  // Si no existe
-            gettype($data["data"]) !== 'array' // O no es un array
-        ) {
+        if ( gettype($data) !== 'array' ) {
             throw new \Exception("Falta Info: data");
         }
 
@@ -177,8 +171,8 @@ class HistoricoService
         }
 
         $this->model = $model;
-        $this->carro_id = $data["carro_id"];
-        $this->updateData = $data["data"];
+        $this->carro_id = $carroId;
+        $this->updateData = $data;
     }
 
     /**
@@ -280,7 +274,7 @@ class HistoricoService
             $model = $this->getModel();
 
             foreach($this->updates as $updateData) {
-                $this->$model->update($updateData["id"], $updateData);
+                $this->$model->update((int) $updateData["id"], $updateData);
             }
         } catch(\Exception $e) {
             throw $e;
@@ -296,7 +290,7 @@ class HistoricoService
             $model = $this->getModel();
 
             foreach($this->deletes as $deleteData) {
-                $this->$model->delete($deleteData["id"]);
+                $this->$model->delete((int) $deleteData["id"]);
             }
         } catch(\Exception $e) {
             throw $e;

@@ -9,7 +9,7 @@ class Historico
 {
     private Medoo $db;
     private string $table;
-    private array $required = $COLUMNS = [
+    private array $required = [
         "after",
         "model",
         "quien",
@@ -31,13 +31,13 @@ class Historico
             $this->checkRequired($data);
 
             $this->db->insert($this->table, [
-                "after" => $data["after"],
                 "model" => $data["model"],
                 "quien" => $data["quien"],
-                "before"    => $data["before"],
+                "fecha" => Medoo::raw("CURDATE()"),
+                "hora"  => Medoo::raw("CURTIME()"),
                 "carro_id"  => $data["carro_id"],
-                "fecha"  => Medoo::raw("CURDATE()"),
-                "hora"   => Medoo::raw("CURTIME()"),
+                "before[JSON]" => $data["before"],
+                "after[JSON]"  => $data["after"],
             ]);
 
             return true;
