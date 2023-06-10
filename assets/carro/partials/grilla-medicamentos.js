@@ -15,7 +15,8 @@ export default () => ({
     events: {
         ['@new-medicamento-created.document']: "newMedicamento",
         ['@medicamento-deleted.document']: "removeMedicamento",
-        ['@medicamento-updated.document']: "updateMedicamento"
+        ['@medicamento-updated.document']: "updateMedicamento",
+        ["@carro-medicamentos-updated.document"]: "getData"
     },
 
     init() {
@@ -141,6 +142,7 @@ export default () => ({
     async getData() {
         try {
             showLoader();
+            this.hasChanged = false;
 
             const { data } = await axios.get(
                 `${this.api}/carros/${this.getCarroId()}/get-medicamentos`
@@ -189,6 +191,15 @@ export default () => ({
                 });
             }
         });
+    },
+
+    /**
+     * Obtiene los datos actuales de la tabla
+    */
+    getTableData() {
+        const _ = this.table.rows().data();
+        const x = Object.values(_).slice(0, _.length);
+        return x;
     },
 
     /**
