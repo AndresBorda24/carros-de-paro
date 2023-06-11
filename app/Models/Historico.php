@@ -47,6 +47,59 @@ class Historico
     }
 
     /**
+     * Obtiene la fecha de todos los historicos de un carro y los agrupa
+     * por modelo
+    */
+    public function getListFromCarro(int $carroId): array
+    {
+        try {
+            $data = [
+                "medicamentos" => [],
+                "dispositivos" => []
+            ];
+
+            $this->db->select($this->table, ["id", "fecha", "hora", "model"], [
+                "carro_id" => $carroId
+            ], function($reg) use(&$data) {
+                $key = ((int) $reg["model"] === \App\Services\HistoricoService::DISPOSITIVO)
+                    ? "dispositivos"
+                    : "medicamentos";
+
+                array_push($data[$key], [
+                    "id" => $reg["id"],
+                    "fecha" => $reg["fecha"],
+                    "hora"  => $reg["hora"]
+                ]);
+            });
+
+            return $data;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Obtiene un registro en base a su ID
+    */
+    public function find(int $id): ?array
+    {
+        try {
+            $h = $this->db->get($this->table, "*", [
+                "id" => $id
+            ]);
+
+            if ($h) {
+                $h["after"]  = json_decode($h["after"]);
+                $h["before"] = json_decode($h["before"]);
+            }
+
+            return $h;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Obtiene todos los carros
     */
     public function getAll(): ?array
