@@ -1,5 +1,3 @@
-import axios from "axios";
-import { showLoader, hideLoader } from "../../partials/loader";
 import { errorAlert, successAlert } from "../../partials/alerts";
 
 export default () => ({
@@ -88,5 +86,13 @@ export default () => ({
         } catch (e) {
             errorAlert();
         }
+    },
+
+    /**
+     * Determina si la modificacion es en base a un nuevo registro o es
+     * una modificacion
+    */
+    isEdit() {
+        return Boolean( parseInt(this.state.id) );
     }
 });

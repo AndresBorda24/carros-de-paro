@@ -66,6 +66,19 @@ export default () => ({
         return "";
     },
 
+
+    /**
+     * Devuelve el nombre del medicamento o del dispositivo dependiendo
+     * del `model`
+    */
+    getItemNombre( item ) {
+        const key = (this.model == 1)
+            ? "p_activo_concentracion"
+            : "desc";
+
+        return item[ key ];
+    },
+
     /**
      * Manejador para seleccion de cambio, guarda el modelo (medicamento o
      * dispositivo) y el ID del registro.

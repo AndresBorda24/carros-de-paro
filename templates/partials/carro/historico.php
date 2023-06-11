@@ -36,37 +36,5 @@
   </div>
 
   <!-- Container de Cambios -->
-  <template x-if="Boolean(changes)">
-    <div class="d-grid" style="grid-template-columns: 1fr auto 1fr;">
-      <div class="p-3">
-        <h6 class="text-center">Antes</h6>
-        <ul class="list-group text-sm">
-          <template x-for="antes in changes.before">
-            <li class="list-group-item list-group-item-light d-flex">
-              <span
-              class="flex-grow-1"
-              x-text="antes.p_activo_concentracion"></span>
-              <span
-              x-text="antes.cantidad"></span>
-            </li>
-          </template>
-        </ul>
-      </div>
-      <div class="border"></div>
-      <div class="p-3">
-        <h6 class="text-center">Despu&eacute;s</h6>
-        <ul class="list-group text-sm">
-          <template x-for="desp in changes.after">
-            <li class="list-group-item list-group-item-primary d-flex">
-              <span
-              class="flex-grow-1"
-              x-text="desp.p_activo_concentracion"></span>
-              <span
-              x-text="desp.cantidad"></span>
-            </li>
-          </template>
-        </ul>
-      </div>
-    </div>
-  </template>
+  <?= $this->fetch('./partials/carro/historico/comparacion.php') ?>
 </div>
