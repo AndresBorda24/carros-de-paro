@@ -47,13 +47,16 @@
         @click="grillaShow = 2"
         :class="{'active': grillaShow === 2}"
         class="btn btn-outline-primary btn-sm text-sm">Dispositivos</button>
-        <button
-        type="button"
-        @click="grillaShow = 3"
-        :class="{'active': grillaShow === 3}"
-        class="btn btn-warning btn-sm text-sm active">Hist&oacute;rico</button>
       </div>
     </template>
+
+    <button
+    x-cloak
+    x-show="hasCarro"
+    type="button"
+    @click="grillaShow = 3"
+    :class="{'active': grillaShow === 3}"
+    class="btn btn-warning btn-sm text-sm active">Hist&oacute;rico</button>
 
     <details
     x-cloak

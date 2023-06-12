@@ -114,24 +114,9 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         class="form-control form-control-sm">
       </div>
 
-      <template x-if="isEdit">
-        <div>
-          <label
-          for="motivo-edicion"
-          class="form-label small text-muted">Motivo Modificaci&oacute;n:</label>
-          <select
-          required
-          x-model="state.motivo_edicion"
-          id="motivo-edicion"
-          class="form-control form-control-sm">
-            <option value="" selected hidden>-- Motivo --</option>
-            <option value="Motivo 1">Motivo 1</option>
-            <option value="Motivo 2">Motivo 2</option>
-            <option value="Motivo 3">Motivo 3</option>
-          </select>
-        </div>
-      </template>
+      <?= $this->fetch("./partials/carro/historico/select-motivos.php") ?>
     </form>
+
     <div class="d-flex justify-content-between mt-3 border-top p-1">
       <button
       @click="close"
