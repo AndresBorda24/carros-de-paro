@@ -15,6 +15,12 @@ export default () => ({
 
     async init() {
         await this.getList();
+
+        if (this.carros.length > 0) {
+            this.carroClicked(
+                this.carros[0].id
+            )
+        }
     },
 
     /** Realiza la consulta */
