@@ -61,7 +61,7 @@ class Historico
             $this->db->select($this->table, ["id", "fecha", "hora", "model"], [
                 "carro_id" => $carroId
             ], function($reg) use(&$data) {
-                $key = ((int) $reg["model"] === \App\Services\HistoricoService::DISPOSITIVO)
+                $key = ($reg["model"] === \App\Services\HistoricoService::DISPOSITIVO)
                     ? "dispositivos"
                     : "medicamentos";
 

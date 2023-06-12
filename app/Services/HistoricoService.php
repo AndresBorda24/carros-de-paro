@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Medoo\Medoo;
+use App\Contracts\ModelInterface;
 use App\Models\Historico;
-use App\Models\Medicamento;
-use App\Models\Dispositivo;
+use Medoo\Medoo;
 
 /**
  * Esta clase se encarga de almacenar todos los historicos y, por ende, guarda
@@ -14,14 +13,14 @@ use App\Models\Dispositivo;
 */
 class HistoricoService
 {
-    public CONST MEDICAMENTO = 1;
-    public CONST DISPOSITIVO = 2;
+    public CONST MEDICAMENTO = "Medicamento";
+    public CONST DISPOSITIVO = "Dispositivo";
 
     /**
      * Representa el tipo del modelo, lo recomendable es que sea una de las
      * constantes de la clase
     */
-    private ?int $model = null;
+    private ?ModelInterface $model = null;
 
     /**
      * Id del carro a actalizar
@@ -58,8 +57,6 @@ class HistoricoService
      * Modelos necesarios para las consultas en la base de datos
     */
     private Historico $h;
-    private Medicamento $m;
-    private Dispositivo $d;
 
     /**
      * Base de datos
@@ -68,13 +65,9 @@ class HistoricoService
 
     public function __construct(
         Historico $h,
-        Medicamento $m,
-        Dispositivo $d,
         Medoo $db
     ) {
         $this->h  = $h;
-        $this->m  = $m;
-        $this->d  = $d;
         $this->db = $db;
     }
 
@@ -83,10 +76,10 @@ class HistoricoService
      *
      * @param array $data Array con 2 llaves. `[carro_id]` que es, bueno, eso
      * y `[data]` que es la info en si.
-     * @param int $model Tipo de Modelo, Medicamento o Dispositivo. Es
+     * @param ModelInterface $model Tipo de Modelo, Medicamento o Dispositivo. Es
      * recomendable que sea una de las constantes de esta clase.
     */
-    public function store(array $data, int $model, int $carroId): bool
+    public function store(array $data, ModelInterface $model, int $carroId): bool
     {
         try {
             $error = null;
@@ -134,9 +127,11 @@ class HistoricoService
     private function saveHistorico()
     {
         try {
+            preg_match('/(\w+)$/', get_class($this->model), $t);
+
             $this->h->create([
                 "carro_id" => $this->carro_id,
-                "model"  => $this->model,
+                "model"  => $t[0],
                 "quien"  => "usr-id",
                 "before" => $this->before,
                 "after"  => $this->updateData
@@ -150,7 +145,7 @@ class HistoricoService
      * Setea `carro_id` y los datos a actualizar. Ademas, revisa que el tipo
      * del modelo corresponda con los soportados.
     */
-    private function extractData(array $data, int $model, int $carroId)
+    private function extractData(array $data, ModelInterface $model, int $carroId)
     {
         // Verificamos Carro_id
         if ($carroId <= 0) {
@@ -160,14 +155,6 @@ class HistoricoService
         // Verificamos data
         if ( gettype($data) !== 'array' ) {
             throw new \Exception("Falta Info: data");
-        }
-
-        // Verificamos que el tipo del modelo sea adecuado
-        if ( ! in_array($model, [
-            static::DISPOSITIVO,
-            static::MEDICAMENTO
-        ])) {
-            throw new \Exception("Modelo no soportado");
         }
 
         $this->model = $model;
@@ -181,15 +168,7 @@ class HistoricoService
     */
     public function setCurrentData()
     {
-        if ($this->model === static::MEDICAMENTO) {
-            $this->before = $this->m->getFromCarro( $this->carro_id );
-            return;
-        }
-
-        if ($this->model === static::DISPOSITIVO) {
-            $this->before = $this->d->getFromCarro( $this->carro_id );
-            return;
-        }
+        $this->before = $this->model->getFromCarro( $this->carro_id );
     }
 
     /**
@@ -255,10 +234,8 @@ class HistoricoService
     private function doInserts()
     {
         try {
-            $model = $this->getModel();
-
             foreach($this->inserts as $insertData) {
-                $this->$model->create($insertData);
+                $this->model->create($insertData);
             }
         } catch(\Exception $e) {
             throw $e;
@@ -271,10 +248,8 @@ class HistoricoService
     private function doUpdates()
     {
         try {
-            $model = $this->getModel();
-
             foreach($this->updates as $updateData) {
-                $this->$model->update((int) $updateData["id"], $updateData);
+                $this->model->update((int) $updateData["id"], $updateData);
             }
         } catch(\Exception $e) {
             throw $e;
@@ -287,29 +262,11 @@ class HistoricoService
     private function doDeletes()
     {
         try {
-            $model = $this->getModel();
-
             foreach($this->deletes as $deleteData) {
-                $this->$model->delete((int) $deleteData["id"]);
+                $this->model->delete((int) $deleteData["id"]);
             }
         } catch(\Exception $e) {
             throw $e;
         }
     }
-
-    /**
-     * Obtiene el nombre de la propiedad que corresponde al modelo. Esto es
-     * para poder usar los inserts, updates y deletes de forma dinamca.
-    */
-    private function getModel(): string
-    {
-        if ($this->model === static::MEDICAMENTO) {
-            return "m";
-        }
-
-        if ($this->model === static::DISPOSITIVO) {
-            return "d";
-        }
-    }
-
 }

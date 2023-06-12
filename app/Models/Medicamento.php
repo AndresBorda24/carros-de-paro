@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\ModelInterface;
 use Medoo\Medoo;
 
-class Medicamento
+class Medicamento implements ModelInterface
 {
     private Medoo $db;
     private string $table;

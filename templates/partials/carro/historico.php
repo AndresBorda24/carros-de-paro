@@ -9,7 +9,7 @@
     <div class="text-sm">
       <label class="form-label text-muted">Cambios en Medicamentos:</label>
       <select
-      @change="changeSelected(<?= \App\Services\HistoricoService::MEDICAMENTO ?>, $el.value)"
+      @change="changeSelected('<?= \App\Services\HistoricoService::MEDICAMENTO ?>', $el.value)"
       class="form-control form-control-sm">
         <option hidden selected> Cambio </option>
         <template x-for="cambio in changesList.medicamentos">
@@ -23,7 +23,7 @@
     <div class="text-sm">
       <label class="form-label text-muted">Cambios en Dispositivos:</label>
       <select
-      @change="changeSelected(<?= \App\Services\HistoricoService::DISPOSITIVO ?>, $el.value)"
+      @change="changeSelected('<?= \App\Services\HistoricoService::DISPOSITIVO ?>', $el.value)"
       class="form-control form-control-sm">
         <option hidden selected> Cambio </option>
         <template x-for="cambio in changesList.dispositivos">

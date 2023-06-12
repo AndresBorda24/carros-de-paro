@@ -59,15 +59,7 @@ export default () => ({
             return "";
         }
 
-        if (this.model == 1) {
-            return "Medicamento";
-        }
-
-        if (this.model == 2) {
-            return "Dispositivo";
-        }
-
-        return "";
+        return this.model;
     },
 
 
@@ -76,7 +68,7 @@ export default () => ({
      * del `model`
     */
     getItemNombre( item ) {
-        const key = (this.model == 1)
+        const key = (this.model == 'Medicamento')
             ? "p_activo_concentracion"
             : "desc";
 

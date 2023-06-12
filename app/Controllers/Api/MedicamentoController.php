@@ -76,7 +76,7 @@ class MedicamentoController
             $data = $request->getParsedBody();
             $this->historico->store(
                 $data,
-                HistoricoService::MEDICAMENTO,
+                $this->medicamento,
                 $carroId
             );
 

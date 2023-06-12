@@ -74,7 +74,7 @@ class DispositivoController
             $data = $request->getParsedBody();
             $this->historico->store(
                 $data,
-                HistoricoService::DISPOSITIVO,
+                $this->dispositivo,
                 $carroId
             );
 
