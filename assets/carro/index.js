@@ -9,7 +9,9 @@ import * as Medicamentos from "./medicamentos/index";
 import * as Dispositivos from "./dispositivos/index";
 
 import historico from "./components/historico";
+import printTable from "./partials/print-table";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
+
 
 import "../css/carro.css";
 
@@ -33,6 +35,8 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("historico", historico);
     Alpine.data("deleteCarro", deleteCarro);
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
+
+    Alpine.data("printTable", printTable);
 });
 
 document.addEventListener("DOMContentLoaded", function() {

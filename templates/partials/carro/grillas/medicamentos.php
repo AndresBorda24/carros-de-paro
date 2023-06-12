@@ -7,6 +7,14 @@
       Adjuntar Medicamento
     </button>
 
+    <button
+    x-data="printTable"
+    @click="print"
+    class="btn btn-dark btn-sm text-sm">
+      <?= $this->fetch("./icons/print.php") ?>
+      Imprimir Tabla
+    </button>
+
     <div class="d-flex gap-1">
       <button
       @click="revertChanges"
