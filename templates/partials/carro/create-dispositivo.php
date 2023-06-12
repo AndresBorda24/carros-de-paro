@@ -11,7 +11,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
     <form
     id="create-dispositivo"
     @submit.prevent="guardar"
-    class="small d-grid gap-2 p-3 m-0 overflow-auto"
+    class="small d-grid gap-2 p-2 m-0 overflow-auto"
     style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));"
     autocomplete="off">
       <div>

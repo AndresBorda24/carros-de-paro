@@ -40,6 +40,12 @@ export default () => ({
     async getChanges( id ) {
         try {
             showLoader();
+
+            // Limpiamos los selects
+            document
+                .querySelectorAll('[x-data="historico"] select')
+                .forEach(el => el.value = "");
+
             const { data } = await axios.get(
                 `${this.api}/historico/${id}/get`
             ).finally(hideLoader);
@@ -85,6 +91,20 @@ export default () => ({
     async changeSelected(model, value) {
         this.model = model;
         await this.getChanges( value );
+    },
+
+    /**
+     * Determina si el modelo es un medicamento
+    */
+    isMed() {
+        return this.model === 'Medicamento';
+    },
+
+    /**
+     * Determina si el modelo es un dispositivo
+    */
+    isDisp() {
+        return this.model === 'Dispositivo';
     },
 
     /**
