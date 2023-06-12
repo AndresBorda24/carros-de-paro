@@ -1,5 +1,5 @@
 import axios from "axios";
-import jQuery, { type } from "jquery";
+import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import { errorAlert } from "../../partials/alerts";

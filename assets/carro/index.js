@@ -12,6 +12,7 @@ import guardarCarroMedicamentos from "./partials/guardar-carro-medicamentos";
 import createDispositivo from "./components/create-dispositivo";
 import grillaDispositivos from "./partials/grilla-dispositivos";
 import deleteDispositivo from "./partials/delete-dispositivo";
+import guardarCarroDispositivos from "./partials/guardar-carro-dispositivos";
 
 import historico from "./components/historico";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
@@ -33,6 +34,7 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("createDispositivo", createDispositivo);
     Alpine.data("deleteDispositivo", deleteDispositivo);
     Alpine.data("grillaDispositivos", grillaDispositivos);
+    Alpine.data("guardarCarroDispositivos", guardarCarroDispositivos);
 
     Alpine.data("historico", historico);
     Alpine.data("deleteCarro", deleteCarro);

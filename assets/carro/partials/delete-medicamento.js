@@ -1,12 +1,7 @@
-import axios from "axios";
-import { showLoader, hideLoader } from "../../partials/loader";
 import { errorAlert, successAlert } from "../../partials/alerts";
 
 export default () => ({
-    api: process.env.API,
-
-    /** Realiza la consulta */
-    async delMed() {
+    delMed() {
         try {
             if (! confirm("Realmente desea eliminar el registro?") ) {
                 return;

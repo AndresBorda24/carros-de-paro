@@ -1,11 +1,10 @@
-import axios from "axios";
-import { showLoader, hideLoader } from "../../partials/loader";
 import { errorAlert, successAlert } from "../../partials/alerts";
 
 export default () => ({
     show: false,
     state: {},
     api: process.env.API,
+    __rowIndex: undefined,
     events: {
         ['@create-dispositivo.document.stop']: "open",
         ['@edit-dispositivo.document.stop']: "openEdit",
@@ -19,6 +18,7 @@ export default () => ({
             carro_id: dispositivoId,
             vida_util: "N/A"
         };
+        this.__rowIndex = undefined;
 
         this.$nextTick(() => {
             document
@@ -29,9 +29,10 @@ export default () => ({
 
 
     /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
-    openEdit({ detail: dispositivo }) {
+    openEdit({ detail: data }) {
         this.show = true;
-        this.state = JSON.parse(JSON.stringify(dispositivo));
+        this.__rowIndex = data.rowIndex;
+        this.state = JSON.parse(JSON.stringify(data.dispositivo));
 
         this.$nextTick(() => {
             document
@@ -50,7 +51,7 @@ export default () => ({
      * la consulta.
     */
     async guardar() {
-        if (Boolean(this.state.id)) {
+        if (Boolean(this.__rowIndex)) {
             await this.update()
             return;
         }
@@ -61,14 +62,9 @@ export default () => ({
     /** Realiza la consulta */
     async save() {
         try {
-            showLoader();
             this.checkFechaVencimiento();
 
-            const { data } = await axios
-                .post(this.api + "/dispositivos/create", this.state)
-                .finally(hideLoader);
-
-            this.state.id = data.id;
+            this.state.id = (Math.random() + 3).toString(36).substring(3);
             this.$dispatch("new-dispositivo-created", this.state);
             successAlert();
             this.close();
@@ -83,15 +79,12 @@ export default () => ({
     */
     async update() {
         try {
-            showLoader();
             this.checkFechaVencimiento();
 
-            await axios.put(
-                `${this.api}/dispositivos/${this.state.id}/update`,
-                this.state
-            ).finally(hideLoader);
-
-            this.$dispatch("dispositivo-updated", this.state);
+            this.$dispatch("dispositivo-updated", {
+                dispositivo: this.state,
+                rowIndex: this.__rowIndex
+            });
             successAlert();
             this.close();
         } catch (e) {
@@ -107,5 +100,13 @@ export default () => ({
         if (! Boolean(this.state.vencimiento)) {
             this.state.vencimiento = null;
         }
+    },
+
+    /**
+     * Determina si la modificacion es en base a un nuevo registro o es
+     * una modificacion
+    */
+    isEdit() {
+        return Boolean( parseInt(this.state.id) );
     }
 });
