@@ -10,6 +10,10 @@ export default () => ({
         "medicamentos": [],
         "dispositivos": []
     },
+    events: {
+        ["@carro-dispositivos-updated.document"]: "getListOfChanges",
+        ['@carro-medicamentos-updated.document']: "getListOfChanges"
+    },
 
     init() {
         this.setWatchers();
