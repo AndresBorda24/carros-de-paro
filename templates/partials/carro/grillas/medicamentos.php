@@ -1,4 +1,7 @@
-<div x-data="grillaMedicamentos" x-bind="events" class="small w-100">
+<div
+x-data="grillaMedicamentos"
+x-bind="events"
+class="small w-100 p-2 border rounded bg-body">
   <div class="d-flex flex-wrap gap-2 justify-content-between mb-2">
     <button
     @click="$dispatch('create-medicamento', getCarroId())"

@@ -1,8 +1,13 @@
-<div x-data="historico" x-bind="events">
+<div
+x-data="historico"
+x-bind="events"
+class="p-2 border rounded bg-body">
   <h5
   class="text-center">
     Registro de Cambios
-    <span x-text="getModel()"></span>
+    <span
+    class="badge text-bg-warning"
+    x-text="getModel()"></span>
   </h5>
   <!-- Selects de Cambios -->
   <div class="d-flex gap-2 justify-content-between">

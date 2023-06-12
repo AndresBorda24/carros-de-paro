@@ -1,4 +1,7 @@
-<div x-data="grillaDispositivos" x-bind="events" class="small w-100">
+<div
+x-data="grillaDispositivos"
+x-bind="events"
+class="small w-100 p-2 border rounded bg-body">
   <div class="d-flex mb-2 flex-wrap justify-content-between">
     <button
     @click="$dispatch('create-dispositivo', getCarroId())"
