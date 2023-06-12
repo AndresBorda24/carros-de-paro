@@ -35,7 +35,7 @@ export default () => ({
     },
 
     /**
-     * Elimina un dispositivo de `data` y actualiza la tabla
+     * Elimina un dispositivo de la grilla
     */
     removeDispositivo({ detail: rowIndex }) {
         this.hasChanged = true;
@@ -46,7 +46,7 @@ export default () => ({
     },
 
     /**
-     * Actualiza un dispositivo y actualiza la tabla
+     * Actualiza un dispositivo de la grilla
     */
     updateDispositivo({ detail: data }) {
         this.hasChanged = true;
@@ -126,7 +126,7 @@ export default () => ({
     /** I
      * Indica que se debe modificar un dispositivo
     */
-    dispatchEdit( rowIndex ) {/**/
+    dispatchEdit( rowIndex ) {
         const disp = this.table.row(rowIndex).data();
 
         if (Boolean(disp)) {
@@ -205,7 +205,7 @@ export default () => ({
     },
 
     /**
-     * Muestra la data de la tabla
+     * Muestra la data de la tabla esto es mas para debug jeje
     */
     showData() {
         const _ = this.table.rows().data();

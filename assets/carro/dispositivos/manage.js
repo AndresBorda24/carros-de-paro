@@ -1,4 +1,4 @@
-import { errorAlert, successAlert } from "../../partials/alerts";
+import { successAlert } from "../../partials/alerts";
 
 export default () => ({
     show: false,
@@ -12,33 +12,22 @@ export default () => ({
     },
 
     /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
-    open({ detail: dispositivoId }) {
+    open({ detail: carroId }) {
         this.show = true;
         this.state = {
-            carro_id: dispositivoId,
+            carro_id: carroId,
             vida_util: "N/A"
         };
         this.__rowIndex = undefined;
-
-        this.$nextTick(() => {
-            document
-                .querySelector('[x-model="state.desc"]')
-                .focus();
-        });
+        this.focus();
     },
-
 
     /** Abrimos el Modal Prinicpal y se 'reinicia' `state` */
     openEdit({ detail: data }) {
-        this.show = true;
-        this.__rowIndex = data.rowIndex;
+        this.show  = true;
         this.state = JSON.parse(JSON.stringify(data.dispositivo));
-
-        this.$nextTick(() => {
-            document
-                .querySelector('[x-model="state.desc"]')
-                .focus();
-        });
+        this.__rowIndex = data.rowIndex;
+        this.focus();
     },
 
     /** Cerramos el Modal. No se reinicia `state` ya que se hace en open */
@@ -47,49 +36,51 @@ export default () => ({
     },
 
     /**
+     * Focus para el formulario
+    */
+    focus() {
+        this.$nextTick(() => {
+            document
+                .querySelector('[x-model="state.desc"]')
+                .focus();
+        });
+    },
+
+    /**
      * Determina si es una actualizacion o una insercion y luego ejecuta
      * la consulta.
     */
-    async guardar() {
-        if (Boolean(this.__rowIndex)) {
-            await this.update()
-            return;
-        }
-
-        await this.save();
+    guardar() {
+        (this.isEdit())
+            ? this.update()
+            : this.save();
     },
 
     /** Realiza la consulta */
-    async save() {
-        try {
-            this.checkFechaVencimiento();
+    save() {
+        this.checkFechaVencimiento();
 
-            this.state.id = (Math.random() + 3).toString(36).substring(3);
-            this.$dispatch("new-dispositivo-created", this.state);
-            successAlert();
-            this.close();
-        } catch (e) {
-            errorAlert();
-        }
+        // Id temporal
+        this.state.id = (Math.random() + 3).toString(36).substring(3);
+        this.$dispatch("new-dispositivo-created", this.state);
+        successAlert();
+        this.close();
     },
 
     /**
      * Sip. Se parece mucho a `save` pero me pidieron que fuera rapido
      * asi que... Copy and Paste ...
     */
-    async update() {
-        try {
-            this.checkFechaVencimiento();
+    update() {
+        this.checkFechaVencimiento();
 
-            this.$dispatch("dispositivo-updated", {
-                dispositivo: this.state,
-                rowIndex: this.__rowIndex
-            });
-            successAlert();
-            this.close();
-        } catch (e) {
-            errorAlert();
-        }
+        this.$dispatch("dispositivo-updated", {
+            dispositivo: this.state,
+            rowIndex: this.__rowIndex
+        });
+
+        successAlert();
+        this.close();
     },
 
     /**
@@ -107,6 +98,7 @@ export default () => ({
      * una modificacion
     */
     isEdit() {
-        return Boolean( parseInt(this.state.id) );
+        return Boolean( parseInt(this.state.id) )
+            || typeof this.__rowIndex !== 'undefined';
     }
 });

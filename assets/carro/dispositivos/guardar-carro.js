@@ -10,9 +10,9 @@ export default () => ({
         try {
             showLoader();
             await axios.put(
-                    this.api + `/dispositivos/${this.getCarroId()}/update-carro`,
-                    this.getTableData()
-                ).finally(hideLoader);
+                this.api + `/dispositivos/${this.getCarroId()}/update-carro`,
+                this.getTableData()
+            ).finally(hideLoader);
 
             // notificamos que se ha creado un carro de manera exitosa.
             this.$dispatch("carro-dispositivos-updated");

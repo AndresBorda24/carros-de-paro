@@ -91,6 +91,7 @@ export default () => ({
      * una modificacion
     */
     isEdit() {
-        return Boolean( parseInt(this.state.id) );
+        return Boolean( parseInt(this.state.id) )
+        || typeof this.__rowIndex !== 'undefined';
     }
 });
