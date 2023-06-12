@@ -59,7 +59,11 @@ class Historico
             ];
 
             $this->db->select($this->table, ["id", "fecha", "hora", "model"], [
-                "carro_id" => $carroId
+                "carro_id" => $carroId,
+                "ORDER" => [
+                    "fecha" => "DESC",
+                    "hora" => "DESC"
+                ]
             ], function($reg) use(&$data) {
                 $key = ($reg["model"] === \App\Services\HistoricoService::DISPOSITIVO)
                     ? "dispositivos"

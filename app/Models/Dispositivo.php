@@ -111,7 +111,8 @@ class Dispositivo implements ModelInterface
     {
         try {
             return $this->db->select($this->table, "*", [
-                "carro_id" => $carroId
+                "carro_id" => $carroId,
+                "ORDER"    => "desc"
             ]);
         } catch (\Exception $e) {
             throw $e;
