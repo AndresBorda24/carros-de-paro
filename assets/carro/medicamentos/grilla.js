@@ -7,7 +7,7 @@ import { showLoader, hideLoader } from "../../partials/loader";
 
 export default () => ({
     table: undefined,
-    ctrlId: undefined,
+    ctrlId: undefined, // Id del carro seleccionado actual
     api: process.env.API,
     hasChanged: false,
     selector: "#grilla-medicamentos",
@@ -25,7 +25,7 @@ export default () => ({
     },
 
     /**
-    * Cuando un medicamento se crea, se anexa a la grilla y al array de datos
+    * Cuando un medicamento se crea, se anexa a la grilla
     */
     newMedicamento({ detail: medicamento }) {
         this.hasChanged = true;
@@ -35,7 +35,7 @@ export default () => ({
     },
 
     /**
-     * Elimina un medicamento de `data` y actualiza la tabla
+     * Elimina un medicamento y actualiza la tabla
     */
     removeMedicamento({ detail: rowIndex }) {
         this.hasChanged = true;
@@ -46,7 +46,7 @@ export default () => ({
     },
 
     /**
-     * Actualiza un medicamento y actualiza la tabla
+     * Actualiza la tabla
     */
     updateMedicamento({ detail: data }) {
         this.hasChanged = true;

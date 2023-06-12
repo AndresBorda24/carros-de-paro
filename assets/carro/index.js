@@ -4,10 +4,7 @@ import carrosList from "./components/carros-list";
 import deleteCarro from "./partials/delete-carro";
 import createCarro from "./components/create-carro";
 
-import createMedicamento from "./components/create-medicamento";
-import grillaMedicamentos from "./partials/grilla-medicamentos";
-import deleteMedicamento from "./partials/delete-medicamento";
-import guardarCarroMedicamentos from "./partials/guardar-carro-medicamentos";
+import * as Medicamento from "./medicamentos/index";
 
 import createDispositivo from "./components/create-dispositivo";
 import grillaDispositivos from "./partials/grilla-dispositivos";
@@ -26,10 +23,10 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("carrosList", carrosList);
     Alpine.data("createCarro", createCarro);
 
-    Alpine.data("createMedicamento", createMedicamento);
-    Alpine.data("deleteMedicamento", deleteMedicamento);
-    Alpine.data("grillaMedicamentos", grillaMedicamentos);
-    Alpine.data("guardarCarroMedicamentos", guardarCarroMedicamentos);
+    Alpine.data("createMedicamento", Medicamento.manage);
+    Alpine.data("deleteMedicamento", Medicamento.remove);
+    Alpine.data("grillaMedicamentos", Medicamento.grilla);
+    Alpine.data("guardarCarroMedicamentos", Medicamento.guardarCarro);
 
     Alpine.data("createDispositivo", createDispositivo);
     Alpine.data("deleteDispositivo", deleteDispositivo);
