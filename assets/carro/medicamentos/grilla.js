@@ -71,6 +71,7 @@ export default () => ({
     /** Crea la tabla */
     getTable() {
         this.table = new DataTable(this.selector, {
+            searching: false,
             responsive: true,
             paging: false,
             rowId: 'id',

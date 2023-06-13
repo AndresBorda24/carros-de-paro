@@ -48,17 +48,23 @@ class="small w-100 p-2 border rounded bg-body">
   <table
   id="grilla-dispositivos"
   style="width:100%"
-  class="display compact responsive small">
+  class="display compact responsive small nowrap">
     <thead>
       <tr>
         <th data-priority="1">Descripci&oacute;n</th>
         <th data-priority="3">Marca</th>
-        <th data-priority="3">Presentaci&oacute;n Comercial</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="3">Presentaci&oacute;n Comercial</th>
         <th data-priority="4">Invima</th>
         <th data-priority="4">Lote</th>
-        <th data-priority="2">Fecha Vencimiento</th>
-        <th data-priority="1">Cantidad</th>
-        <th data-priority="2">Vida &uacute;til</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Fecha Vencimiento</th>
+        <th data-priority="1">Cant.</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Vida &uacute;til</th>
         <th data-priority="3">Riesgo</th>
         <th data-priority="1"></th>
       </tr>

@@ -48,18 +48,26 @@ class="small w-100 p-2 border rounded bg-body">
   <table
   id="grilla-medicamentos"
   style="width:100%"
-  class="display compact responsive small">
+  class="display compact responsive small nowrap">
     <thead>
       <tr>
-        <th data-priority="1">Principio Activo / Concentraci&oacute;n</th>
-        <th data-priority="3">Forma Farmaceutica</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="1">Principio Activo / Concentraci&oacute;n</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="3">Forma Farmaceutica</th>
         <th data-priority="3">Unidad Medida</th>
-        <th data-priority="3">Presentaci&oacute;n Comercial</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="3">Presentaci&oacute;n Comercial</th>
         <th data-priority="4">Invima</th>
         <th data-priority="4">Lote</th>
-        <th data-priority="2">Fecha Vencimiento</th>
-        <th data-priority="1">Cantidad</th>
-        <th data-priority="1"></th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Fecha Vencimiento</th>
+        <th data-priority="1">Cant.</th>
+        <th data-priority="0"></th>
       </tr>
     </thead>
   </table>
