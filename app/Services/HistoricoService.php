@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Auth;
 use App\Contracts\ModelInterface;
+use App\Contracts\UserInterface;
 use App\Models\Historico;
 use Medoo\Medoo;
 
@@ -15,6 +17,11 @@ class HistoricoService
 {
     public CONST MEDICAMENTO = "Medicamento";
     public CONST DISPOSITIVO = "Dispositivo";
+
+    /**
+     * Usuario actualmente loggeado
+    */
+    private UserInterface $user;
 
     /**
      * Representa el tipo del modelo, lo recomendable es que sea una de las
@@ -65,10 +72,12 @@ class HistoricoService
 
     public function __construct(
         Historico $h,
-        Medoo $db
+        Medoo $db,
+        Auth $auth
     ) {
         $this->h  = $h;
         $this->db = $db;
+        $this->user = $auth->user();
     }
 
     /**
@@ -132,7 +141,7 @@ class HistoricoService
             $this->h->create([
                 "carro_id" => $this->carro_id,
                 "model"  => $t[0],
-                "quien"  => "usr-id",
+                "quien"  => $this->user->getId(),
                 "before" => $this->before,
                 "after"  => $this->updateData
             ]);

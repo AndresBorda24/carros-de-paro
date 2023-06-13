@@ -93,7 +93,9 @@ class Historico
             ]);
 
             if ($h) {
-                $h["after"]  = json_decode($h["after"]);
+                $h["after"]  = json_decode(
+                    mb_convert_encoding($h["after"], 'UTF-8')
+                );
                 $h["before"] = json_decode($h["before"]);
             }
 

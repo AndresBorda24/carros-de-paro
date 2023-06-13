@@ -27,7 +27,7 @@
       <!-- Si se ha modificado, mostrara el motivo -->
       <template x-if="after.motivo_edicion">
         <span
-        x-text="after.motivo_edicion"
+        x-html="after.motivo_edicion"
         class="badge text-bg-light">
         </span>
       </template>

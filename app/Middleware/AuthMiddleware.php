@@ -29,6 +29,6 @@ class AuthMiddleware implements MiddlewareInterface
         }
 
         $response = new Response(302);
-        return $response->withHeader('Location', '/login');
+        return $response->withHeader('Location', 'https://medoo.in/api/select');
     }
 }
