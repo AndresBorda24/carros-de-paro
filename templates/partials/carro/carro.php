@@ -1,4 +1,4 @@
-<div x-data="carro" x-bind="events" class="p-3 p-md-4 mb-4">
+<div x-data="carro" x-bind="events" class="p-2 p-md-3 mb-4">
 
   <!-- Titulo y Boton de Eliminar -->
   <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3">
@@ -50,6 +50,14 @@
       </div>
     </template>
 
+    <button
+    x-cloak
+    x-show="hasCarro"
+    type="button"
+    @click="grillaShow = 3"
+    :class="{'active': grillaShow === 3}"
+    class="btn btn-warning btn-sm text-sm active">Hist&oacute;rico</button>
+
     <details
     x-cloak
     x-show="hasCarro"
@@ -83,5 +91,10 @@
 
   <div x-show="grillaShow === 2">
     <?= $this->fetch("./partials/carro/grillas/dispositivos.php") ?>
+  </div>
+
+  <!-- Historico -->
+  <div x-show="grillaShow === 3">
+    <?= $this->fetch("./partials/carro/historico.php") ?>
   </div>
 </div>

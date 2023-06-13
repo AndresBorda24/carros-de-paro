@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\ModelInterface;
 use Medoo\Medoo;
 
-class Medicamento
+class Medicamento implements ModelInterface
 {
     private Medoo $db;
     private string $table;
@@ -107,7 +108,8 @@ class Medicamento
     {
         try {
             return $this->db->select($this->table, "*", [
-                "carro_id" => $carroId
+                "carro_id" => $carroId,
+                "ORDER" => "p_activo_concentracion"
             ]);
         } catch (\Exception $e) {
             throw $e;

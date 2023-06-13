@@ -16,7 +16,6 @@ export default (date) => ({
      * a una instancia de Date
     */
     convertDate() {
-        console.log( this.date );
         if (Boolean( this.date )) {
             const data = this.date.split('-');
 
@@ -58,5 +57,5 @@ export default (date) => ({
         if (this.diff > 360) {
             return "text-bg-success bg-opacity-75";
         }
-    }
+    },
 })

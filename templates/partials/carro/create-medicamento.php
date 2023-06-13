@@ -6,12 +6,12 @@ x-cloak
 class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
   style="width: 80%; max-width: 500px; max-height: 80%;"
-  class="mt-4 mx-2 p-2 bg-body mx-auto rounded-1 overflow-auto">
-    <h5 class="border-bottom text-center">Medicamento</h5>
+  class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto d-flex flex-column">
+    <h5 class="border-bottom text-center p-2">Medicamento</h5>
     <form
     id="create-medicamento"
     @submit.prevent="guardar"
-    class="small d-grid gap-2"
+    class="small d-grid gap-2 p-2 overflow-auto"
     style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));"
     autocomplete="off">
       <div>
@@ -114,8 +114,10 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         class="form-control form-control-sm">
       </div>
 
+      <?= $this->fetch("./partials/carro/historico/select-motivos.php") ?>
     </form>
-    <div class="d-flex justify-content-between mt-3 border-top p-1">
+
+    <div class="d-flex justify-content-between mt-3 border-top p-2">
       <button
       @click="close"
       type="button"
@@ -124,7 +126,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <button
       x-data="deleteMedicamento"
       @click="delMed"
-      x-show="showButton"
+      x-show="isEdit"
       class="btn btn-sm text-sm btn-danger">
         <?= $this->fetch("./icons/trash.php") ?>
         Eliminar

@@ -44,5 +44,8 @@ class="position-sticky top-0">
     </button>
   </div>
 
-  <?= $this->fetch("./partials/sidebar-mobile.php") ?>
+  <!-- Movemos el nav para main y asi evitamos overlapping -->
+  <template x-teleport="main">
+    <?= $this->fetch("./partials/sidebar-mobile.php") ?>
+  </template>
 </div>

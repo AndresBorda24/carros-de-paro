@@ -1,18 +1,17 @@
 import Alpine from "alpinejs";
+
 import carro from "./components/carro";
 import carrosList from "./components/carros-list";
 import deleteCarro from "./partials/delete-carro";
 import createCarro from "./components/create-carro";
 
-import createMedicamento from "./components/create-medicamento";
-import grillaMedicamentos from "./partials/grilla-medicamentos";
-import deleteMedicamento from "./partials/delete-medicamento";
+import * as Medicamentos from "./medicamentos/index";
+import * as Dispositivos from "./dispositivos/index";
 
-import createDispositivo from "./components/create-dispositivo";
-import grillaDispositivos from "./partials/grilla-dispositivos";
-import deleteDispositivo from "./partials/delete-dispositivo";
-
+import historico from "./components/historico";
+import printTable from "./partials/print-table";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
+
 
 import "../css/carro.css";
 
@@ -23,16 +22,21 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("carrosList", carrosList);
     Alpine.data("createCarro", createCarro);
 
-    Alpine.data("createMedicamento", createMedicamento);
-    Alpine.data("deleteMedicamento", deleteMedicamento);
-    Alpine.data("grillaMedicamentos", grillaMedicamentos);
+    Alpine.data("createMedicamento", Medicamentos.manage);
+    Alpine.data("deleteMedicamento", Medicamentos.remove);
+    Alpine.data("grillaMedicamentos", Medicamentos.grilla);
+    Alpine.data("guardarCarroMedicamentos", Medicamentos.guardarCarro);
 
-    Alpine.data("createDispositivo", createDispositivo);
-    Alpine.data("deleteDispositivo", deleteDispositivo);
-    Alpine.data("grillaDispositivos", grillaDispositivos);
+    Alpine.data("createDispositivo", Dispositivos.manage);
+    Alpine.data("deleteDispositivo", Dispositivos.remove);
+    Alpine.data("grillaDispositivos", Dispositivos.grilla);
+    Alpine.data("guardarCarroDispositivos", Dispositivos.guardarCarro);
 
+    Alpine.data("historico", historico);
     Alpine.data("deleteCarro", deleteCarro);
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
+
+    Alpine.data("printTable", printTable);
 });
 
 document.addEventListener("DOMContentLoaded", function() {

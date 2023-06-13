@@ -7,14 +7,16 @@ import { showLoader, hideLoader } from "../../partials/loader";
 
 export default () => ({
     table: undefined,
-    ctrlId: undefined,
+    ctrlId: undefined, // Id del carro seleccionado actual
     api: process.env.API,
+    hasChanged: false,
     selector: "#grilla-medicamentos",
     data: [],
     events: {
         ['@new-medicamento-created.document']: "newMedicamento",
         ['@medicamento-deleted.document']: "removeMedicamento",
-        ['@medicamento-updated.document']: "updateMedicamento"
+        ['@medicamento-updated.document']: "updateMedicamento",
+        ["@carro-medicamentos-updated.document"]: "getData"
     },
 
     init() {
@@ -23,38 +25,47 @@ export default () => ({
     },
 
     /**
-    * Cuando un medicamento se crea, se anexa a la grilla y al array de datos
+    * Cuando un medicamento se crea, se anexa a la grilla
     */
     newMedicamento({ detail: medicamento }) {
-        this.data.push( medicamento );
-
+        this.hasChanged = true;
         this.table.row.add(
             medicamento
         ).draw();
     },
 
     /**
-     * Elimina un medicamento de `data` y actualiza la tabla
+     * Elimina un medicamento y actualiza la tabla
     */
-    removeMedicamento({ detail: medicamentoId }) {
-        const index = this.data.findIndex(m => m.id == medicamentoId);
-
-        if (index !== -1) {
-            this.data.splice(index, 1);
-            this.updateTableRows( this.data );
-        }
+    removeMedicamento({ detail: rowIndex }) {
+        this.hasChanged = true;
+        this.table
+            .row( rowIndex )
+            .remove()
+            .draw();
     },
 
     /**
-     * Actualiza un medicamento y actualiza la tabla
+     * Actualiza la tabla
     */
-    updateMedicamento({ detail: medicamento }) {
-        const index = this.data.findIndex(m => m.id == medicamento.id);
+    updateMedicamento({ detail: data }) {
+        this.hasChanged = true;
+        this.table
+            .row( data.rowIndex )
+            .data( data.medicamento )
+            .draw();
+    },
 
-        if (index !== -1) {
-            this.data[ index ] = medicamento;
-            this.updateTableRows( this.data );
+    /**
+     * Deshace todos los cambios `NO` guardados.
+    */
+    revertChanges() {
+        if (! confirm("Se perderan TODOS los cambios sin guardar. Continuar?")) {
+            return;
         }
+
+        this.updateTableRows( this.data );
+        this.hasChanged = false;
     },
 
     /** Crea la tabla */
@@ -62,6 +73,7 @@ export default () => ({
         this.table = new DataTable(this.selector, {
             responsive: true,
             paging: false,
+            rowId: 'id',
             columnDefs: [
                 { data: 'p_activo_concentracion', targets: 0 },
                 { data: 'forma_farma', targets: 1 },
@@ -89,7 +101,7 @@ export default () => ({
                     data: 'id',
                     render: (data) => `
                         <button
-                        @click="dispatchEdit(${data})"
+                        @click="dispatchEdit('#${data}')"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
                         </button>
@@ -113,11 +125,14 @@ export default () => ({
     /** I
      * ndica que se debe modificar un medicamento
     */
-    dispatchEdit( medicamentoId ) {/**/
-        const med = this.data.find( m => m.id == medicamentoId );
+    dispatchEdit( rowIndex ) {
+        const med = this.table.row(rowIndex).data();
 
         if (Boolean(med)) {
-            this.$dispatch("edit-medicamento", med);
+            this.$dispatch("edit-medicamento", {
+                medicamento: med,
+                rowIndex: rowIndex
+            });
         }
     },
 
@@ -127,6 +142,7 @@ export default () => ({
     async getData() {
         try {
             showLoader();
+            this.hasChanged = false;
 
             const { data } = await axios.get(
                 `${this.api}/carros/${this.getCarroId()}/get-medicamentos`
@@ -163,7 +179,6 @@ export default () => ({
             }
         });
 
-
         /**
          * Para que funcione el `Responsive` de la tabla.
         */
@@ -176,5 +191,26 @@ export default () => ({
                 });
             }
         });
+    },
+
+    /**
+     * Obtiene los datos actuales de la tabla
+    */
+    getTableData() {
+        const _ = this.table.rows().data();
+        const x = Object.values(_).slice(0, _.length);
+        return x;
+    },
+
+    /**
+     * Muestra la data de la tabla
+    */
+    showData() {
+        const _ = this.table.rows().data();
+        const x = Object.values(_).slice(0, _.length);
+
+        console.log("Datos en `data`: ", JSON.parse( JSON.stringify(this.data)))
+
+        console.log("Datos en datatable: ", JSON.parse( JSON.stringify(x) ));
     },
 });

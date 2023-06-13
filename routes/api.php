@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Slim\App;
 use App\Controllers\Api\CarroController;
 use App\Controllers\Api\DispositivoController;
+use App\Controllers\Api\HistoricoController;
 use App\Controllers\Api\MedicamentoController;
 use App\Middleware\JsonBodyParserMiddleware;
 use Slim\Routing\RouteCollectorProxy as Group;
@@ -46,6 +47,10 @@ function loadApiRoutes(App $app) {
             MedicamentoController::class,
             "update"
         ]);
+        $api->put("/medicamentos/{carroId:[0-9]+}/update-carro", [
+            MedicamentoController::class,
+            "updateCarro"
+        ]);
         $api->delete("/medicamentos/{id:[0-9]+}/delete", [
             MedicamentoController::class,
             "delete"
@@ -62,9 +67,25 @@ function loadApiRoutes(App $app) {
             DispositivoController::class,
             "update"
         ]);
+        $api->put("/dispositivos/{carroId:[0-9]+}/update-carro", [
+            DispositivoController::class,
+            "updateCarro"
+        ]);
         $api->delete("/dispositivos/{id:[0-9]+}/delete", [
             DispositivoController::class,
             "delete"
+        ]);
+
+        /* ---------------------------------------------------------------------
+        *  Historico
+        */
+        $api->get("/historico/{carroId:[0-9]+}/list", [
+            HistoricoController::class,
+            "getList"
+        ]);
+        $api->get("/historico/{id:[0-9]+}/get", [
+            HistoricoController::class,
+            "getHistorico"
         ]);
     })->add(JsonBodyParserMiddleware::class);
 }

@@ -11,7 +11,7 @@
   <?= $this->loadAssets("carro/app") ?>
   <title>Carros de Paro</title>
 </head>
-<body class="bg-body">
+<body class="bg-body-tertiary">
   <?= $this->fetch("./partials/header.php") ?>
   <main class="d-lg-flex container g-0">
     <div class="col-lg-3">

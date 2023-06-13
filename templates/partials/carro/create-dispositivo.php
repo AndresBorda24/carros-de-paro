@@ -11,7 +11,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
     <form
     id="create-dispositivo"
     @submit.prevent="guardar"
-    class="small d-grid gap-2 p-3 m-0 overflow-auto"
+    class="small d-grid gap-2 p-2 m-0 overflow-auto"
     style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));"
     autocomplete="off">
       <div>
@@ -124,6 +124,8 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         required
         class="form-control form-control-sm">
       </div>
+
+      <?= $this->fetch("./partials/carro/historico/select-motivos.php") ?>
     </form>
 
     <div class="d-flex justify-content-between border-top p-1">
@@ -135,7 +137,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <button
       x-data="deleteDispositivo"
       @click="delDisp"
-      x-show="showButton"
+      x-show="isEdit"
       class="btn btn-sm text-sm btn-danger">
         <?= $this->fetch("./icons/trash.php") ?>
         Eliminar
