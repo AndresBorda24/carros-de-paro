@@ -88,8 +88,27 @@ class Historico
     public function find(int $id): ?array
     {
         try {
-            $h = $this->db->get($this->table, "*", [
-                "id" => $id
+            $userTable = User::TABLE;
+
+            $h = $this->db->get($this->table.' (H)', [
+                "[>]$userTable (U)" => ["quien" => "usuario_id"]
+            ], [
+                "usuario" => Medoo::raw("CONCAT_WS(
+                    ' ',
+                    U.`usuario_apellido1`,
+                    U.`usuario_apellido2`,
+                    U.`usuario_nombre1`,
+                    U.`usuario_nombre2`
+                )"),
+                "H.id",
+                "H.model",
+                "H.fecha",
+                "H.hora",
+                "H.carro_id",
+                "H.before",
+                "H.after",
+            ],[
+                "H.id" => $id
             ]);
 
             if ($h) {

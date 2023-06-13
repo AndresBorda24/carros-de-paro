@@ -5,7 +5,7 @@
         Realizado por:
         <span
         class="fw-bold"
-        x-text="changes.quien"></span>
+        x-text="changes.usuario"></span>
       </p>
       <p class="m-0">
         El <span
