@@ -26,7 +26,8 @@ $app = Bridge::create($bindings);
  */
 $app->addRoutingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware(true, false, false);
-
+$app->add(\App\Middleware\AuthMiddleware::class);
+$app->add(\App\Middleware\StartSessionMiddleware::class);
 $app->setBasePath($_ENV["APP_PATH"]);
 
 /**
