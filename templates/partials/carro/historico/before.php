@@ -1,5 +1,5 @@
 <h6 class="text-center">Antes</h6>
-<ul class="list-group text-sm">
+<ul class="list-group">
   <template x-for="before in changes.before">
     <li class="list-group-item list-group-item-secondary d-flex gap-2 align-items-center">
       <span

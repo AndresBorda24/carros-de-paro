@@ -12,7 +12,7 @@ class="small w-100 p-2 border rounded bg-body">
 
     <button
     x-data="printTable"
-    @click="print"
+    @click="print('Dispositivos')"
     class="btn btn-dark btn-sm text-sm">
       <?= $this->fetch("./icons/print.php") ?>
       Imprimir Tabla
@@ -48,7 +48,7 @@ class="small w-100 p-2 border rounded bg-body">
   <table
   id="grilla-dispositivos"
   style="width:100%"
-  class="display compact responsive small nowrap">
+  class="display compact responsive small">
     <thead>
       <tr>
         <th data-priority="1">Descripci&oacute;n</th>

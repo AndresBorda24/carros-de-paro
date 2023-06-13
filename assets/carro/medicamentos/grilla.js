@@ -80,8 +80,8 @@ export default () => ({
                 { data: 'forma_farma', targets: 1 },
                 { data: 'medida', targets: 2 },
                 { data: 'presentacion', targets:  3 },
-                { data: 'invima', targets: 4 },
-                { data: 'lote', targets: 5 },
+                { data: 'invima', targets: 4, orderable: false },
+                { data: 'lote', targets: 5, orderable: false },
                 { data: 'cantidad', targets: 7 },
                 {
                     data: 'vencimiento',

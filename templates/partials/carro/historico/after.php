@@ -1,7 +1,12 @@
 <h6 class="text-center">Despu&eacute;s</h6>
-<ul class="list-group text-sm">
+<ul class="list-group">
   <template x-for="after in changes.after">
-    <li class="list-group-item list-group-item-primary">
+    <li
+    :class="(after.motivo_edicion) || ! parseInt(after.id) ?
+      'list-group-item-success' :
+      'list-group-item-primary'
+    "
+    class="list-group-item">
       <div class="w-100 d-flex gap-2 align-items-center">
         <span
         class="flex-grow-1"
