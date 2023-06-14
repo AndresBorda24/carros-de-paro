@@ -1,4 +1,4 @@
-<template x-if="isEdit">
+<template x-if="isCreated">
   <div>
     <label
     for="motivo-edicion"

@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use DI\Container;
 use \DI\Bridge\Slim\Bridge;
 
 require __DIR__ . "/../vendor/autoload.php";
@@ -16,8 +15,6 @@ $dotenv->load();
 * Creacion del contenedor
 */
 $bindings  = require __DIR__ . "/../config/ContainerBindings.php";
-// $container = new Container($bindings);
-
 $app = Bridge::create($bindings);
 
 /**

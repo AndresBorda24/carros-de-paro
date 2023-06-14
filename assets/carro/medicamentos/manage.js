@@ -91,7 +91,14 @@ export default () => ({
      * una modificacion
     */
     isEdit() {
-        return Boolean( parseInt(this.state.id) )
-        || typeof this.__rowIndex !== 'undefined';
+        return typeof this.__rowIndex !== 'undefined';
+    },
+
+    /**
+     * Determina si el registro ya ha sido creado y guardado en la base de
+     * datos.
+    */
+    isCreated() {
+        return Boolean( parseInt(this.state.id) );
     }
 });

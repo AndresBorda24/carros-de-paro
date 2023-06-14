@@ -71,15 +71,16 @@ export default () => ({
     /** Crea la tabla */
     getTable() {
         this.table = new DataTable(this.selector, {
+            searching: false,
             responsive: true,
             paging: false,
             rowId: 'id',
             columnDefs: [
                 { data: 'desc', targets: 0 },
                 { data: 'marca', targets: 1 },
-                { data: 'presentacion', targets: 2 },
-                { data: 'invima', targets: 3 },
-                { data: 'lote', targets: 4 },
+                { data: 'presentacion', targets: 2, orderable: false },
+                { data: 'invima', targets: 3, orderable: false },
+                { data: 'lote', targets: 4, orderable: false },
                 {
                     data: 'vencimiento',
                     targets: 5,

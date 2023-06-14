@@ -1,7 +1,12 @@
 <h6 class="text-center">Antes</h6>
-<ul class="list-group text-sm">
+<ul class="list-group">
   <template x-for="before in changes.before">
-    <li class="list-group-item list-group-item-secondary d-flex gap-2 align-items-center">
+    <li
+    class="list-group-item d-flex gap-2 align-items-center"
+    :class="isDeleted(before.id)
+      ? 'list-group-item-danger'
+      : 'list-group-item-secondary'
+    ">
       <span
       class="flex-grow-1"
       x-text="getItemNombre( before )"></span>
@@ -14,7 +19,7 @@
           <?= $this->fetch("./icons/question.php") ?>
         </summary>
         <div
-        style="width: 150px;"
+        style="width: 200px;"
         class="bg-body p-1 border rounded shadow position-absolute end-100 top-0 z-1">
           Lote: <span x-text="before.lote"></span><br>
           Invima: <span x-text="before.invima"></span><br>
