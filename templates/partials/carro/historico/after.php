@@ -2,7 +2,7 @@
 <ul class="list-group">
   <template x-for="after in changes.after">
     <li
-    :class="(after.motivo_edicion) || ! parseInt(after.id) ?
+    :class="! parseInt(after.id) ?
       'list-group-item-success' :
       'list-group-item-primary'
     "

@@ -1,7 +1,12 @@
 <h6 class="text-center">Antes</h6>
 <ul class="list-group">
   <template x-for="before in changes.before">
-    <li class="list-group-item list-group-item-secondary d-flex gap-2 align-items-center">
+    <li
+    class="list-group-item d-flex gap-2 align-items-center"
+    :class="isDeleted(before.id)
+      ? 'list-group-item-danger'
+      : 'list-group-item-secondary'
+    ">
       <span
       class="flex-grow-1"
       x-text="getItemNombre( before )"></span>

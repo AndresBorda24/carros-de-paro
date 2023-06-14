@@ -6,6 +6,7 @@ export default () => ({
     api: process.env.API,
     model: undefined,
     changes: undefined,
+    afterIds: [],
     changesList: {
         "medicamentos": [],
         "dispositivos": []
@@ -51,6 +52,9 @@ export default () => ({
             ).finally(hideLoader);
 
             this.changes = data;
+
+            // Id de after
+            this.afterIds = this.changes.after.map(el => el.id);
         } catch(e) {
             console.log("Lista de Cambios: ", e);
             errorAlert("Error al obtener el historico.");
@@ -105,6 +109,14 @@ export default () => ({
     */
     isDisp() {
         return this.model === 'Dispositivo';
+    },
+
+    /**
+     * Determina si un elemento se elimino. Esto se usa para pintar de rojo
+     * el elemento eliminado en `before`
+    */
+    isDeleted( id ) {
+        return ! this.afterIds.includes( id );
     },
 
     /**
