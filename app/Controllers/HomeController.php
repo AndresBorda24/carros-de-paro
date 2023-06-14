@@ -18,6 +18,10 @@ class HomeController
     public function index(Response $response): Response
     {
         return $this->views->render($response, "carro.php");
+    }
 
+    public function buscarHistorico(Response $response): Response
+    {
+        return $this->views->render($response, "buscar-historico.php");
     }
 }

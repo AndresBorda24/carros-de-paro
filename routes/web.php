@@ -6,5 +6,6 @@ use App\Controllers\HomeController;
 
 function loadWebRoutes(App $app) {
     $app->get("/", [HomeController::class, "index"]);
+    $app->get("/buscar-historico", [HomeController::class, "buscarHistorico"]);
 }
 

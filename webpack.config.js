@@ -17,6 +17,7 @@ Encore
     .setPublicPath('/build')
     // .setManifestKeyPrefix('build/')
     .addEntry('carro/app', './assets/carro/index.js')
+    .addEntry('buscar/app', './assets/buscar/index.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     /*
