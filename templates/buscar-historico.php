@@ -13,13 +13,11 @@
 </head>
 <body class="bg-body-tertiary">
   <?= $this->fetch("./partials/header.php") ?>
-  <main class="d-lg-flex container g-0">
-    <div class="col-lg-3">
-        sidebar
-    </div>
-
-    <div class="col-lg-9">
-        main content
+  <main class="container g-0">
+    <div class="w-100 p-2 p-md-3 mb-5">
+      <h4>B&uacute;squeda</h4>
+      <?= $this->fetch("./partials/buscar/formulario.php") ?>
+      <?= $this->fetch("./partials/buscar/show-results.php") ?>
     </div>
   </main>
 </body>
