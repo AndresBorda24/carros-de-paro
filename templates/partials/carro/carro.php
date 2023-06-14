@@ -1,4 +1,4 @@
-<div x-data="carro" x-bind="events" class="p-2 p-md-3 mb-4">
+<div x-data="carro" x-bind="events" class="p-2 p-md-3 mb-5">
 
   <!-- Titulo y Boton de Eliminar -->
   <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3">

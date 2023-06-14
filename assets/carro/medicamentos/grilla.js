@@ -77,9 +77,9 @@ export default () => ({
             rowId: 'id',
             columnDefs: [
                 { data: 'p_activo_concentracion', targets: 0 },
-                { data: 'forma_farma', targets: 1 },
-                { data: 'medida', targets: 2 },
-                { data: 'presentacion', targets:  3 },
+                { data: 'forma_farma', targets: 1, orderable: false },
+                { data: 'medida', targets: 2, orderable: false },
+                { data: 'presentacion', targets:  3, orderable: false },
                 { data: 'invima', targets: 4, orderable: false },
                 { data: 'lote', targets: 5, orderable: false },
                 { data: 'cantidad', targets: 7 },

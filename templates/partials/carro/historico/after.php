@@ -20,7 +20,7 @@
             <?= $this->fetch("./icons/question.php") ?>
           </summary>
           <div
-          style="width: 150px;"
+          style="width: 200px;"
           class="bg-body p-1 border rounded shadow position-absolute end-100 top-0 z-1">
             Lote: <span x-text="after.lote"></span><br>
             Invima: <span x-text="after.invima"></span><br>
