@@ -22,9 +22,11 @@ export default () => ({
             ).finally(hideLoader);
 
             this.changes = data;
+            if (data) {
+                // Id de after
+                this.afterIds = this.changes.after.map(el => el.id);
+            }
 
-            // Id de after
-            this.afterIds = this.changes.after.map(el => el.id);
         } catch(e) {
             console.log("Lista de Cambios: ", e);
             errorAlert("Error al obtener el historico.");

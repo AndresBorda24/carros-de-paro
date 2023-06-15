@@ -16,6 +16,8 @@ export default () => ({
     */
     setData({ detail }) {
         this.data = detail.data;
+
+        this.changed(0);
     },
 
     /**
