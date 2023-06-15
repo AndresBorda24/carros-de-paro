@@ -5,6 +5,9 @@ import 'datatables.net-responsive-dt';
 import { errorAlert } from "../../partials/alerts";
 import { showLoader, hideLoader } from "../../partials/loader";
 
+// Spanish
+import ES from "../../partials/ES"
+
 export default () => ({
     table: undefined,
     api: process.env.API,
@@ -75,6 +78,7 @@ export default () => ({
         this.table = new DataTable(this.selector, {
             searching: false,
             responsive: true,
+            language: ES,
             paging: false,
             rowId: 'id',
             columnDefs: [

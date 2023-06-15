@@ -5,6 +5,9 @@ import 'datatables.net-responsive-dt';
 import { errorAlert } from "../../partials/alerts";
 import { showLoader, hideLoader } from "../../partials/loader";
 
+// Spanish para la grilla
+import ES from "../../partials/ES"
+
 export default () => ({
     table: undefined,
     ctrlId: undefined, // Id del carro seleccionado actual
@@ -74,6 +77,7 @@ export default () => ({
 
         this.table = new DataTable(this.selector, {
             searching: false,
+            language: ES,
             responsive: true,
             paging: false,
             rowId: 'id',
