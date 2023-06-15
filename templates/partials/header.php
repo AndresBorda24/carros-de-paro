@@ -6,6 +6,18 @@
     alt="logo-asotrauma">
   </div>
   <div class="text-center p-1 bg-blue-main">
-    <span class="fs-5 text-light">Carros de Paro</span>
+    <a
+    href="<?= $this->link("carros.index") ?>"
+    class="btn btn-outline-light btn-sm border-0
+    <?= $this->isRoute('carros.index') ? 'active' : '' ?>">
+      Carros de Paro
+    </a>
+
+    <a
+    href="<?= $this->link("carros.buscar-historico") ?>"
+    class="btn btn-outline-light btn-sm border-0
+    <?= $this->isRoute('carros.buscar-historico') ? 'active' : '' ?>">
+      Buscar en Hist&oacute;rico
+    </a>
   </div>
 </header>

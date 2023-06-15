@@ -5,7 +5,10 @@ use Slim\App;
 use App\Controllers\HomeController;
 
 function loadWebRoutes(App $app) {
-    $app->get("/", [HomeController::class, "index"]);
-    $app->get("/buscar-historico", [HomeController::class, "buscarHistorico"]);
+    $app->get("/", [HomeController::class, "index"])->setName("carros.index");
+    $app->get("/buscar-historico", [
+        HomeController::class,
+        "buscarHistorico"
+    ])->setName("carros.buscar-historico");
 }
 
