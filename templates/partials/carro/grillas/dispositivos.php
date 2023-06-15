@@ -48,7 +48,7 @@ class="small w-100 p-2 border rounded bg-body">
   <table
   id="grilla-dispositivos"
   style="width:100%"
-  class="display compact responsive small">
+  class="display compact responsive small nowrap">
     <thead>
       <tr>
         <th data-priority="1">Descripci&oacute;n</th>

@@ -17,9 +17,13 @@
     <div class="w-100 p-2 p-md-3 mb-5">
       <h4>B&uacute;squeda</h4>
       <?= $this->fetch("./partials/buscar/formulario.php") ?>
-      <?= $this->fetch("./partials/buscar/show-results.php") ?>
-      <?= $this->fetch("./partials/carro/historico/comparacion.php") ?>
+      <div class="rounded border bg-white mt-3">
+        <?= $this->fetch("./partials/buscar/show-results.php") ?>
+        <?= $this->fetch("./partials/carro/historico/comparacion.php") ?>
+      </div>
     </div>
   </main>
+
+  <?= $this->fetch("./partials/loader.php") ?>
 </body>
 </html>

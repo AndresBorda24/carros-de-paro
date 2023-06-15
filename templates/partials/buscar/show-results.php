@@ -1,9 +1,9 @@
 <div
 x-data="showResults"
 x-bind="events"
-class="p-2">
-  <div x-show="Boolean(data)">
-    <p>
+class="p-2"
+x-show="Boolean(data)">
+    <p class="m-2">
       Coincidencias encontradas:
       <span class="text-muted fw-bold" x-text="resultCount"></span>
     </p>
@@ -19,5 +19,4 @@ class="p-2">
         x-text="`${d.fecha} | ${d.hora}`"></option>
       </template>
     </select>
-  </div>
 </div>
