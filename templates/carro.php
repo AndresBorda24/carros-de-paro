@@ -14,11 +14,11 @@
 <body class="bg-body-tertiary">
   <?= $this->fetch("./partials/header.php") ?>
   <main class="d-lg-flex container g-0">
-    <div class="col-lg-3">
+    <div class="col-lg-3" style="max-width: 250px;">
       <?= $this->fetch("./partials/sidebar.php") ?>
     </div>
 
-    <div class="col-lg-9">
+    <div class="col-lg-9 flex-grow-1">
       <?= $this->fetch("./partials/carro/carro.php") ?>
     </div>
   </main>

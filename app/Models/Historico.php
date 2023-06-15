@@ -17,7 +17,6 @@ class Historico
         "carro_id",
     ];
 
-
     public function __construct(Medoo $db)
     {
         $this->db = $db;
@@ -119,6 +118,51 @@ class Historico
             }
 
             return $h;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Obtiene los Id de los registros que coincidan con $query. Busca las
+     * coincidencias en los campos JSON `before` & `after`.
+     *
+     * @param string $model Dipositivo o Medicamento
+     * @param string $field El campo de la tabla a buscar. Corresponden a los
+     * campos de las tablas de cada modelo
+     * @param string $query El valor a buscar.
+    */
+    public function search(string $model, string $field, string $query): array
+    {
+        try {
+            $sts = $this->db->pdo->prepare("
+            SELECT id, fecha, hora
+            FROM $this->table
+            WHERE
+                `model` = :model
+                AND (
+                    JSON_CONTAINS(
+                        JSON_EXTRACT(
+                            $this->table.`before`,
+                            '$[*].$field'
+                    ), :query, '$')
+                    OR
+                    JSON_CONTAINS(
+                        JSON_EXTRACT(
+                            $this->table.`after`,
+                            '$[*].$field'
+                    ), :query, '$')
+                )
+            ");
+
+            if(! $sts->execute([
+                ":model" => $model,
+                ":query" => json_encode($query)
+            ])) {
+                return [];
+            }
+
+            return $sts->fetchAll(\PDO::FETCH_ASSOC);
         } catch(\Exception $e) {
             throw $e;
         }

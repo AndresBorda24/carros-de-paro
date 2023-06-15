@@ -48,7 +48,7 @@ class="small w-100 p-2 border rounded bg-body">
   <table
   id="grilla-medicamentos"
   style="width:100%"
-  class="display compact responsive small">
+  class="display compact responsive small nowrap">
     <thead>
       <tr>
         <th
@@ -57,7 +57,9 @@ class="small w-100 p-2 border rounded bg-body">
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="3">Forma Farmaceutica</th>
-        <th data-priority="3">Unidad Medida</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="3">Unidad Medida</th>
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="3">Presentaci&oacute;n Comercial</th>

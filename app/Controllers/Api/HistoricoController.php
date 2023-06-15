@@ -46,4 +46,21 @@ class HistoricoController
             ], 422);
         }
     }
+
+    public function searchHistorico(Request $request, Response $response): Response
+    {
+        try {
+            $_ = $request->getQueryParams();
+
+            return responseJson(
+                $response,
+                $this->historico->search($_["model"], $_["field"], $_["query"])
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "error"  => $e->getMessage()
+            ], 422);
+        }
+    }
 }
