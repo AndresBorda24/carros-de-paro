@@ -18,6 +18,7 @@
       <h4>B&uacute;squeda</h4>
       <?= $this->fetch("./partials/buscar/formulario.php") ?>
       <?= $this->fetch("./partials/buscar/show-results.php") ?>
+      <?= $this->fetch("./partials/buscar/changes.php") ?>
     </div>
   </main>
 </body>

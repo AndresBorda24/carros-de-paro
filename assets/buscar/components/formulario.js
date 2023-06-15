@@ -14,7 +14,7 @@ export default () => ({
             showLoader();
 
             const { data } = await axios
-                .get(process.env.API + "historico/buscar", {
+                .get(process.env.API + "/historico/search", {
                     params: this.state
                 }).finally(hideLoader);
 

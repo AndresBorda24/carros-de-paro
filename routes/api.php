@@ -87,5 +87,9 @@ function loadApiRoutes(App $app) {
             HistoricoController::class,
             "getHistorico"
         ]);
+        $api->get("/historico/search", [
+            HistoricoController::class,
+            "searchHistorico"
+        ]);
     })->add(JsonBodyParserMiddleware::class);
 }
