@@ -3,12 +3,14 @@ x-data="grillaMedicamentos"
 x-bind="events"
 class="small w-100 p-2 border rounded bg-body">
   <div class="d-flex flex-wrap gap-2 justify-content-between mb-2">
-    <button
-    @click="$dispatch('create-medicamento', getCarroId())"
-    class="btn btn-success btn-sm text-sm">
-      <?= $this->fetch("./icons/plus.php") ?>
-      Adjuntar Medicamento
-    </button>
+    <?php if ($this->can("medicamentos.create")): ?>
+      <button
+      @click="$dispatch('create-medicamento', getCarroId())"
+      class="btn btn-success btn-sm text-sm">
+        <?= $this->fetch("./icons/plus.php") ?>
+        Adjuntar Medicamento
+      </button>
+    <?php endif ?>
 
     <button
     x-data="printTable"
@@ -37,17 +39,20 @@ class="small w-100 p-2 border rounded bg-body">
         Guardar Cambios
       </button>
 
-      <button
-      @click="showData"
-      class="btn btn-warning btn-sm text-sm">
-        Mostrar datos
-      </button>
+      <?php if($this->can("grillas.ver-datos")): ?>
+        <button
+        @click="showData"
+        class="btn btn-warning btn-sm text-sm">
+          Mostrar datos
+        </button>
+      <?php endif ?>
     </div>
   </div>
 
   <table
   id="grilla-medicamentos"
   style="width:100%"
+  data-can-edit="<?= (int) $this->can("medicamentos.edit") ?>"
   class="display compact responsive small nowrap">
     <thead>
       <tr>

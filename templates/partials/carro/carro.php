@@ -8,27 +8,31 @@
       x-text="getCarroNombre() || 'Selecciona un Carro'"></h5>
 
       <!-- Boton de Editar Carro -->
-      <span
-      role="button"
-      @click="$dispatch('update-carro', getCarroFull())"
-      x-show="hasCarro"
-      x-cloak
-      class="text-sm text-success">
-        <?= $this->fetch("./icons/edit.php") ?>
-      </span>
+      <?php if($this->can('carro.edit')): ?>
+        <span
+        role="button"
+        @click="$dispatch('update-carro', getCarroFull())"
+        x-show="hasCarro"
+        x-cloak
+        class="text-sm text-success">
+          <?= $this->fetch("./icons/edit.php") ?>
+        </span>
+      <?php endif ?>
     </div>
 
-    <!-- Eliminar Carro -->
-    <button
-    type="button"
-    @click="delCarro"
-    x-show="hasCarro"
-    x-data="deleteCarro"
-    x-cloak
-    class="btn btn-danger btn-sm text-sm">
-      <?= $this->fetch("./icons/trash.php") ?>
-      <span class="d-none d-md-inline">Eliminar</span>
-    </button>
+    <?php if($this->can('carro.delete')): ?>
+      <!-- Eliminar Carro -->
+      <button
+      type="button"
+      @click="delCarro"
+      x-show="hasCarro"
+      x-data="deleteCarro"
+      x-cloak
+      class="btn btn-danger btn-sm text-sm">
+        <?= $this->fetch("./icons/trash.php") ?>
+        <span class="d-none d-md-inline">Eliminar</span>
+      </button>
+    <?php endif ?>
   </div>
 
 

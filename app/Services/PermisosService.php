@@ -32,34 +32,34 @@ class PermisosService
         ],
 
         // Medicamentos
-        "medicamento.create" => [
+        "medicamentos.create" => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []
         ],
-        "medicamento.edit"   => [
+        "medicamentos.edit"   => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []
         ],
-        "medicamento.delete" => [
+        "medicamentos.delete" => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []
         ],
 
         // Dispositivos
-        "dispositivo.create" => [
+        "dispositivos.create" => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []
         ],
-        "dispositivo.edit"   => [
+        "dispositivos.edit"   => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []
         ],
-        "dispositivo.delete" => [
+        "dispositivos.delete" => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []

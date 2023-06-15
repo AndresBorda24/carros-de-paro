@@ -35,13 +35,15 @@ class="position-sticky top-0">
       </template>
     </nav>
 
-    <button
-    @click="$dispatch('create-carro')"
-    style="font-size: .7rem;"
-    class="btn btn-outline-success btn-sm text-end ms-auto d-block">
-      <?= $this->fetch("./icons/plus.php") ?>
-      Nuevo Carro
-    </button>
+    <?php if ($this->can("carro.create")) : ?>
+      <button
+      @click="$dispatch('create-carro')"
+      style="font-size: .7rem;"
+      class="btn btn-outline-success btn-sm text-end ms-auto d-block">
+        <?= $this->fetch("./icons/plus.php") ?>
+        Nuevo Carro
+      </button>
+    <?php endif ?>
   </div>
 
   <!-- Movemos el nav para main y asi evitamos overlapping -->
