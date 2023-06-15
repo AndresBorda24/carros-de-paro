@@ -1,14 +1,18 @@
-import axios from "axios"
+import axios from "axios";
+import {hideLoader, showLoader} from "../../partials/loader";
 import { errorAlert } from "../../partials/alerts";
-import { showLoader, hideLoader } from "../../partials/loader";
 
 export default () => ({
     changes: undefined,
     afterIds: [],
     events: {
-        '@fetch-changes.document': 'getChanges($event.detail)'
+        ['@fetch-changes.document']: "getChanges($event.detail)"
     },
 
+    /**
+     * Una vez seleccionados el historico a cargar se realiza la peticion al
+     * backend
+    */
     async getChanges( id ) {
         try {
             showLoader();
@@ -18,24 +22,21 @@ export default () => ({
             ).finally(hideLoader);
 
             this.changes = data;
+
+            // Id de after
             this.afterIds = this.changes.after.map(el => el.id);
         } catch(e) {
-            errorAlert();
-            console.error("Fetch changes: ", e);
+            console.log("Lista de Cambios: ", e);
+            errorAlert("Error al obtener el historico.");
         }
     },
-
 
     /**
      * Devuelve el nombre del medicamento o del dispositivo dependiendo
      * del `model`
     */
     getItemNombre( item ) {
-        const key = (this.model == 'Medicamento')
-            ? "p_activo_concentracion"
-            : "desc";
-
-        return item[ key ];
+        return item[ "p_activo_concentracion" ] || item["desc"] || '';
     },
 
     /**
