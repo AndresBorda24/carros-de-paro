@@ -24,9 +24,18 @@
   </main>
 
   <!-- Modals -->
-  <?= $this->fetch("./partials/carro/create-carro.php") ?>
-  <?= $this->fetch("./partials/carro/create-medicamento.php") ?>
-  <?= $this->fetch("./partials/carro/create-dispositivo.php") ?>
+  <?php if ($this->can("carro.create") || $this->can('carro.edit')) {
+    echo $this->fetch("./partials/carro/create-carro.php");
+  }?>
+
+  <?php if ($this->can("medicamentos.create") || $this->can('medicamentos.edit')) {
+    echo $this->fetch("./partials/carro/create-medicamento.php");
+  }?>
+
+  <?php if ($this->can("dispositivos.create") || $this->can('dispositivos.edit')) {
+    echo $this->fetch("./partials/carro/create-dispositivo.php") ;
+  }?>
+
   <?= $this->fetch("./partials/loader.php") ?>
 </body>
 </html>

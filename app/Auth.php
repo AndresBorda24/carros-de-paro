@@ -28,13 +28,14 @@ class Auth
             return $this->user;
         }
 
-        $id = $this->session->get("usu_id", 617);
+        $id = $this->session->get("usu_id", 133); // 133 // 617
         if(! $id) return null;
 
         $data = $this->db->get(User::TABLE, [
             "usuario_id (id)",
             "usuario_grupo (grupo)",
-            "area_servicio_id (areaId)"
+            "area_servicio_id (areaId)",
+            "cargo_id"
         ], [
             "usuario_id" => $id
         ]);

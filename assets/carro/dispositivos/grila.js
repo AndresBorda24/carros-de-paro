@@ -70,6 +70,8 @@ export default () => ({
 
     /** Crea la tabla */
     getTable() {
+        const CAN_EDIT = jQuery(this.selector).data("canEdit");
+
         this.table = new DataTable(this.selector, {
             searching: false,
             responsive: true,
@@ -109,7 +111,8 @@ export default () => ({
                         </button>
                     `,
                     searchable: false,
-                    orderable: false
+                    orderable: false,
+                    visible: CAN_EDIT
                 }
             ]
         });

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Services\PermisosService;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Interfaces\RouteInterface;
 use Slim\Routing\RouteContext;
@@ -13,12 +14,14 @@ use Slim\Views\PhpRenderer;
 class Views extends PhpRenderer
 {
     private Config $config;
+    private PermisosService $permisos;
 
     private ?RouteInterface $route    = null;
     private ?RouteParser $routeParser = null;
 
-    public function __construct(Config $config) {
+    public function __construct(Config $config, PermisosService $permisos) {
         $this->config = $config;
+        $this->permisos = $permisos;
         parent::__construct( $this->config->get('assets.templates') );
     }
 
@@ -116,5 +119,13 @@ class Views extends PhpRenderer
     public function asset(string $asset): string
     {
         return $this->config->get("app.url") . $asset;
+    }
+
+    /**
+     * Revisa si un usuario tiene permiso para cierta accion
+    */
+    public function can(string $action): bool
+    {
+        return $this->permisos->check($action);
     }
 }

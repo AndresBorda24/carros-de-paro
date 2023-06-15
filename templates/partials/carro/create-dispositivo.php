@@ -134,14 +134,16 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       type="button"
       class="btn btn-sm text-sm btn-outline-danger">Cancelar</button>
 
-      <button
-      x-data="deleteDispositivo"
-      @click="delDisp"
-      x-show="isEdit"
-      class="btn btn-sm text-sm btn-danger">
-        <?= $this->fetch("./icons/trash.php") ?>
-        Eliminar
-      </button>
+      <?php if($this->can("dispositivos.delete")): ?>
+        <button
+        x-data="deleteDispositivo"
+        @click="delDisp"
+        x-show="isEdit"
+        class="btn btn-sm text-sm btn-danger">
+          <?= $this->fetch("./icons/trash.php") ?>
+          Eliminar
+        </button>
+      <?php endif ?>
 
       <button
       form="create-dispositivo"
