@@ -4,6 +4,8 @@ export default () => ({
             .querySelector(this.selector)
             .cloneNode(true);
 
+        const CAN_EDIT = parseInt(prtContent.dataset.canEdit || '0');
+
         prtContent.className = "";
         prtContent.classList.add("table");
         prtContent.classList.add("table-stripped");
@@ -19,15 +21,19 @@ export default () => ({
             'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0'
         );
 
+        if (CAN_EDIT) {
+            WinPrint.document.write(`
+                <style>
+                    tr > th:last-child,
+                    tr > td:last-child {
+                        display: none;
+                    }
+                </style>
+            `);
+        }
         // Agregamos los css para que se vea bien
-        WinPrint.document.write(`
-            <style>
-                tr > th:last-child,
-                tr > td:last-child {
-                    display: none;
-                }
-            </style>
-        ` + document.querySelector("head > link:last-of-type").outerHTML + `
+        WinPrint.document.write(
+            document.querySelector("head > link:last-of-type").outerHTML + `
             <link
             rel="stylesheet"
             type="text/css"

@@ -58,12 +58,12 @@ class="small w-100 p-2 border rounded bg-body">
     <thead>
       <tr>
         <th data-priority="1">Descripci&oacute;n</th>
-        <th data-priority="3">Marca</th>
+        <th data-priority="5">Marca</th>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="3">Presentaci&oacute;n Comercial</th>
-        <th data-priority="4">Invima</th>
-        <th data-priority="4">Lote</th>
+        data-priority="4">Presentaci&oacute;n Comercial</th>
+        <th data-priority="3">Invima</th>
+        <th data-priority="3">Lote</th>
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Fecha Vencimiento</th>

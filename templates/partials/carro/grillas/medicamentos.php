@@ -61,15 +61,15 @@ class="small w-100 p-2 border rounded bg-body">
         data-priority="1">Principio Activo / Concentraci&oacute;n</th>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="3">Forma Farmaceutica</th>
+        data-priority="4">Forma Farmaceutica</th>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="3">Unidad Medida</th>
+        data-priority="5">Unidad Medida</th>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="3">Presentaci&oacute;n Comercial</th>
-        <th data-priority="4">Invima</th>
-        <th data-priority="4">Lote</th>
+        data-priority="4">Presentaci&oacute;n Comercial</th>
+        <th data-priority="3">Invima</th>
+        <th data-priority="3">Lote</th>
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Fecha Vencimiento</th>
