@@ -11,16 +11,19 @@ class User implements UserInterface
 
     private int $id;
     private int $areaId;
+    private int $cargoId;
     private string $grupo;
+
 
     public function __construct(array $data)
     {
         try {
             $this->checkData($data);
 
-            $this->id     = (int) $data["id"];
-            $this->grupo  = $data["grupo"];
-            $this->areaId = (int) $data["areaId"];
+            $this->id      = (int) $data["id"];
+            $this->grupo   = $data["grupo"];
+            $this->areaId  = (int) $data["areaId"];
+            $this->cargoId = (int) $data["cargo_id"];
         } catch(\Exception $e) {
             throw $e;
         }
@@ -41,10 +44,15 @@ class User implements UserInterface
         return $this->areaId;
     }
 
+    public function getCargoId(): int
+    {
+        return $this->cargoId;
+    }
+
     // Revisa los campos requeridos
     private function checkData(array $data): bool
     {
-        foreach(["id", "areaId", "grupo"]as $key) {
+        foreach(["id", "areaId", "grupo", "cargo_id"]as $key) {
             if(! array_key_exists($key, $data)) {
                 throw new \RuntimeException("Faltan datos usuario");
             }

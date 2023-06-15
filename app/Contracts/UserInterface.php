@@ -13,4 +13,6 @@ interface UserInterface
     public function getId(): int;
 
     public function getAreaId(): int;
+
+    public function getCargoId(): int;
 }
