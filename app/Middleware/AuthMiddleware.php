@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Middleware;
 
 use App\Auth;
+use App\Config;
 use Slim\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,11 +14,14 @@ use Psr\Http\Server\RequestHandlerInterface;
 class AuthMiddleware implements MiddlewareInterface
 {
     private Auth $auth;
+    private Config $config;
 
     public function __construct(
-        Auth $auth
+        Auth $auth,
+        Config $config
     ) {
         $this->auth = $auth;
+        $this->config = $config;
     }
 
     public function process(
@@ -29,6 +33,10 @@ class AuthMiddleware implements MiddlewareInterface
         }
 
         $response = new Response(302);
-        return $response->withHeader('Location', 'https://medoo.in/api/select');
+        return $response->withHeader(
+            'Location',
+            'https://intranet.asotrauma.com.co/iniciosesion.php?ruta=' .
+            $this->config->get("app.base")
+        );
     }
 }
