@@ -16,6 +16,7 @@ import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
 
 import "../css/carro.css";
+import modifyCarro from "./components/modify-carro";
 
 window.Alpine = Alpine;
 
@@ -27,7 +28,6 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("createMedicamento", Medicamentos.manage);
     Alpine.data("deleteMedicamento", Medicamentos.remove);
     Alpine.data("grillaMedicamentos", Medicamentos.grilla);
-    Alpine.data("guardarCarroMedicamentos", Medicamentos.guardarCarro);
 
     Alpine.data("createDispositivo", Dispositivos.manage);
     Alpine.data("deleteDispositivo", Dispositivos.remove);
@@ -41,6 +41,7 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
 
     Alpine.data("printTable", printTable);
+    Alpine.data("modifyCarro", modifyCarro);
 });
 
 document.addEventListener("DOMContentLoaded", function() {
