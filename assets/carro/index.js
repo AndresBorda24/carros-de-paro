@@ -14,9 +14,8 @@ import historicoChanges from "./historico/comparacion"
 import printTable from "./partials/print-table";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
-
-import "../css/carro.css";
 import modifyCarro from "./components/modify-carro";
+import "../css/carro.css";
 
 window.Alpine = Alpine;
 
