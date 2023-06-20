@@ -20,7 +20,7 @@ class="small w-100 p-2 border rounded bg-body">
       Imprimir Tabla
     </button>
 
-    <div class="d-flex gap-1">
+    <div class="d-flex gap-1 flex-grow-1 justify-content-end">
       <button
       @click="revertChanges"
       x-show="hasChanged"
@@ -30,14 +30,11 @@ class="small w-100 p-2 border rounded bg-body">
         Revertir Cambios
       </button>
 
-      <button
-      x-data="guardarCarroMedicamentos"
-      @click="save"
-      x-show="hasChanged"
-      class="btn btn-success btn-sm text-sm">
-        <?= $this->fetch("./icons/check.php") ?>
-        Guardar Cambios
-      </button>
+      <?php if($this->can("medicamentos.modify")): ?>
+        <?= $this->fetch("./partials/carro/modify-carro.php", [
+          "model" => \App\Services\HistoricoService::MEDICAMENTO
+        ]) ?>
+      <?php endif ?>
 
       <?php if($this->can("grillas.ver-datos")): ?>
         <button

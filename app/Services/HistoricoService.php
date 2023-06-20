@@ -40,6 +40,9 @@ class HistoricoService
     */
     private ?array $updateData = null;
 
+    /** Motivo del cambio en el carro */
+    private ?string $motivo = null;
+
     /**
      * Representa los datos del carro antes de las modificaciones.
     */
@@ -143,7 +146,8 @@ class HistoricoService
                 "model"  => $t[0],
                 "quien"  => $this->user->getId(),
                 "before" => $this->before,
-                "after"  => $this->updateData
+                "after"  => $this->updateData,
+                "motivo" => $this->motivo
             ]);
         } catch(\Exception $e) {
             throw $e;
@@ -167,8 +171,9 @@ class HistoricoService
         }
 
         $this->model = $model;
+        $this->motivo = $data["motivo"];
         $this->carro_id = $carroId;
-        $this->updateData = $data;
+        $this->updateData = $data["data"];
     }
 
     /**

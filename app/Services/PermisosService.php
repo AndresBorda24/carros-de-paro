@@ -47,6 +47,12 @@ class PermisosService
             "cargos" => [],
             "id"     => []
         ],
+        "medicamentos.modify" => [
+            "grupos" => ['00'],
+            "cargos" => [],
+            "id"     => []
+        ],
+
 
         // Dispositivos
         "dispositivos.create" => [
@@ -64,12 +70,17 @@ class PermisosService
             "cargos" => [],
             "id"     => []
         ],
+        "dispositivos.modify" => [
+            "grupos" => ['00'],
+            "cargos" => [],
+            "id"     => []
+        ],
 
         "grillas.ver-datos" => [
             "grupos" => ['00'],
             "cargos" => [],
             "id"     => []
-        ]
+        ],
     ];
 
     public function __construct(Auth $auth)

@@ -1,4 +1,4 @@
-<div x-data="historicoSelect">
+<div x-data="historicoSelect" x-bind="events">
   <h5 class="text-center">
     Registro de Cambios
     <span

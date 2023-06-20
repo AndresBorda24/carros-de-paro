@@ -15,6 +15,7 @@ class Historico
         "quien",
         "before",
         "carro_id",
+        "motivo"
     ];
 
     public function __construct(Medoo $db)
@@ -37,6 +38,7 @@ class Historico
                 "carro_id"  => $data["carro_id"],
                 "before[JSON]" => $data["before"],
                 "after[JSON]"  => $data["after"],
+                "motivo" => $data["motivo"]
             ]);
 
             return true;
