@@ -30,6 +30,7 @@ export default ( model ) => ({
 
             // notificamos que se ha creado un carro de manera exitosa.
             this.dispatchEvent();
+            this.el.open = false; // Cerramos el details
             successAlert("Dispositivos actualizados correctamente");
         } catch(e) {
             console.error("Guardar Carro Disp: ", e);
