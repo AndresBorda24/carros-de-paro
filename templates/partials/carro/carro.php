@@ -37,7 +37,7 @@
 
 
   <!-- 'Nav' (medicamentos-dispositivos) y detalles de colores -->
-  <div class="d-flex flex-wrap mb-3 justify-content-between">
+  <div class="d-flex flex-wrap mb-3 gap-2 justify-content-between">
     <!-- Nav -->
     <template x-if="hasCarro">
       <div class="btn-group" role="group">
@@ -65,7 +65,7 @@
     <details
     x-cloak
     x-show="hasCarro"
-    class="position-relative">
+    class="position-relative ms-auto ms-md-0">
       <summary class="text-sm btn">
           &iquest;Ayuda con los colores?
           <?= $this->fetch("./icons/question.php") ?>

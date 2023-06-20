@@ -1,7 +1,10 @@
 <details
 x-data="modifyCarro('<?= $model ?>')"
 class="position-relative">
-  <summary class="btn btn-primary btn-sm text-sm">
+  <summary
+  class="btn btn-sm text-sm"
+  :class="hasChanged ? 'btn-primary' : 'btn-outline-primary'"
+  :style="!hasChanged && { borderStyle: 'dashed'}">
     <?= $this->fetch("./icons/check.php") ?>
     Registrar Revision
   </summary>

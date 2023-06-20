@@ -20,7 +20,7 @@ class="small w-100 p-2 border rounded bg-body">
       Imprimir Tabla
     </button>
 
-    <div class="d-flex gap-1">
+    <div class="d-flex gap-1 flex-grow-1 justify-content-end">
       <button
       @click="revertChanges"
       x-show="hasChanged"
