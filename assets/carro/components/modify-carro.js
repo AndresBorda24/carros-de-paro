@@ -7,25 +7,29 @@ export default ( model ) => ({
     api: process.env.API,
     model: model,
     motivo: "",
+    el: undefined,
 
     init() {
+        this.el = this.$el;
         this.setWatchers();
     },
 
     /** Realiza la consulta */
     async save() {
         try {
+            if (! confirm("Realmente desea registrar esta revision?")) {
+                return;
+            }
+
             showLoader();
-            await axios.put(
-                this.api + `/dispositivos/${this.getCarroId()}/update-carro`,
-                {
+            await axios.put(this.getUrl(), {
                     data: this.getTableData(),
                     motivo: this.motivo
                 }
             ).finally(hideLoader);
 
             // notificamos que se ha creado un carro de manera exitosa.
-            this.$dispatch("carro-dispositivos-updated");
+            this.dispatchEvent();
             successAlert("Dispositivos actualizados correctamente");
         } catch(e) {
             console.error("Guardar Carro Disp: ", e);
@@ -38,6 +42,29 @@ export default ( model ) => ({
     */
     cannotSave() {
         return this.motivo === "";
+    },
+
+    getUrl() {
+        const urls = {
+            "Medicamento": `/medicamentos/${this.getCarroId()}/update-carro`,
+            "Dispositivo": `/dispositivos/${this.getCarroId()}/update-carro`
+        }
+
+        return this.api + (urls[ this.model ] || '');
+    },
+
+    /**
+     * Notifica cuando una actualizacion se realizo correctamente
+    */
+    dispatchEvent() {
+        const events = {
+            ["Medicamento"]: "carro-medicamentos-updated",
+            ["Dispositivo"]: "carro-dispositivos-updated"
+        }
+
+        if (events[ this.model ]) {
+            this.$dispatch( events[ this.model ] );
+        }
     },
 
     /**
@@ -57,6 +84,4 @@ export default ( model ) => ({
             ? ["Cambio Realizado 1", "Cambio Realizado 2", "Cambio Realizado 3"]
             : ["Sin modificar"];
     }
-
-
 });

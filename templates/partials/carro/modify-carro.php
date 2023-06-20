@@ -19,6 +19,7 @@ class="position-relative">
     </select>
     <div class="mt-3 border-top pt-2">
       <button
+      @click="save"
       class="btn btn-success btn-sm text-sm m-auto d-block"
       :disabled="cannotSave">
         Guardar!
