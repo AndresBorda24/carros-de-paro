@@ -31,14 +31,12 @@ class="small w-100 p-2 border rounded bg-body">
         Revertir Cambios
       </button>
 
-      <button
-      x-data="guardarCarroDispositivos"
-      @click="save"
-      x-show="hasChanged"
-      class="btn btn-success btn-sm text-sm">
-        <?= $this->fetch("./icons/check.php") ?>
-        Guardar Cambios
-      </button>
+      <?php if($this->can("dispositivos.modify")): ?>
+        <?= $this->fetch("./partials/carro/modify-carro.php", [
+          "model" => \App\Services\HistoricoService::DISPOSITIVO
+        ]) ?>
+      <?php endif ?>
+
 
       <?php if($this->can("grillas.ver-datos")): ?>
         <button

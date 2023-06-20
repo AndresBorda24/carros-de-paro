@@ -30,9 +30,11 @@ class="small w-100 p-2 border rounded bg-body">
         Revertir Cambios
       </button>
 
-      <?= $this->fetch("./partials/carro/modify-carro.php", [
-        "model" => \App\Services\HistoricoService::MEDICAMENTO
-      ]) ?>
+      <?php if($this->can("medicamentos.modify")): ?>
+        <?= $this->fetch("./partials/carro/modify-carro.php", [
+          "model" => \App\Services\HistoricoService::MEDICAMENTO
+        ]) ?>
+      <?php endif ?>
 
       <?php if($this->can("grillas.ver-datos")): ?>
         <button
