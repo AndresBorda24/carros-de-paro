@@ -23,15 +23,14 @@ export default ( model ) => ({
 
             showLoader();
             await axios.put(this.getUrl(), {
-                    data: this.getTableData(),
-                    motivo: this.motivo
-                }
-            ).finally(hideLoader);
+                data: this.getTableData(),
+                motivo: this.motivo
+            }).finally(hideLoader);
 
             // notificamos que se ha creado un carro de manera exitosa.
             this.dispatchEvent();
             this.el.open = false; // Cerramos el details
-            successAlert("Dispositivos actualizados correctamente");
+            successAlert("Datos actualizados correctamente");
         } catch(e) {
             console.error("Guardar Carro Disp: ", e);
             errorAlert();

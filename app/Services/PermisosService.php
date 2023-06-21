@@ -4,88 +4,18 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Auth;
+use App\Config;
 use App\Contracts\UserInterface;
 
 class PermisosService
 {
     private UserInterface $auth;
+    private array $permisos;
 
-    /**
-     * Listado de permisos. La llave sera el permiso y el valor los
-     * grupos a los que se les tiene permitido esa accion
-    */
-    private array $permisos = [
-        "carro.create" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "carro.edit"   => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "carro.delete" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-
-        // Medicamentos
-        "medicamentos.create" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "medicamentos.edit"   => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "medicamentos.delete" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "medicamentos.modify" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-
-
-        // Dispositivos
-        "dispositivos.create" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "dispositivos.edit"   => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "dispositivos.delete" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-        "dispositivos.modify" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-
-        "grillas.ver-datos" => [
-            "grupos" => ['00'],
-            "cargos" => [],
-            "id"     => []
-        ],
-    ];
-
-    public function __construct(Auth $auth)
+    public function __construct(Auth $auth, Config $config)
     {
         $this->auth = $auth->user();
+        $this->permisos = $config->get("permisos");
     }
 
     /**
@@ -108,6 +38,13 @@ class PermisosService
         if (in_array(
                 $this->auth->getCargoId(),
                 $this->permisos[ $permiso ]["cargos"]
+        )) {
+            return true;
+        }
+
+        if (in_array(
+                $this->auth->getAreaId(),
+                $this->permisos[ $permiso ]["area"]
         )) {
             return true;
         }

@@ -17,5 +17,6 @@ return [
         "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
         "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
     ],
-    "temp" => __DIR__ . "/../temp"
+    "temp" => __DIR__ . "/../temp",
+    "permisos" => require __DIR__ . "/permisos.php"
 ];
