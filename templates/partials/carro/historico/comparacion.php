@@ -8,12 +8,17 @@
           class="fw-bold"
           x-text="changes.usuario"></span>
         </p>
-        <p class="m-0">
+        <p class="">
           El <span
           class="badge text-bg-dark"
           x-text="changes.fecha"></span> a las <span
           class="badge text-bg-dark"
           x-text="changes.hora"></span>
+        </p>
+        <p class="m-0">
+          Motivo: <span
+          class="badge text-bg-dark"
+          x-text="changes.motivo">
         </p>
       </div>
 

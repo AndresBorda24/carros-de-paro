@@ -108,6 +108,7 @@ class Historico
                 "H.carro_id",
                 "H.before",
                 "H.after",
+                "H.motivo"
             ],[
                 "H.id" => $id
             ]);
