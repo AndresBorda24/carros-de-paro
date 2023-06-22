@@ -12,14 +12,14 @@ export default () => ({
     table: undefined,
     ctrlId: undefined, // Id del carro seleccionado actual
     api: process.env.API,
-    hasChanged: false,
     selector: "#grilla-medicamentos",
     data: [],
     events: {
         ['@new-medicamento-created.document']: "newMedicamento",
         ['@medicamento-deleted.document']: "removeMedicamento",
         ['@medicamento-updated.document']: "updateMedicamento",
-        ["@carro-medicamentos-updated.document"]: "getData"
+        ["@carro-medicamentos-updated.document"]: "getData",
+        ["@carro-apertura-cancelada.document"] : "revertChanges"
     },
 
     init() {
@@ -31,17 +31,26 @@ export default () => ({
     * Cuando un medicamento se crea, se anexa a la grilla
     */
     newMedicamento({ detail: medicamento }) {
-        this.hasChanged = true;
         this.table.row.add(
             medicamento
         ).draw();
+
+        this.table
+            .row( "#" + medicamento.id )
+            .node()
+            .classList.add("bg-success-subtle");
+
+        this.$nextTick(() => {
+            this.table
+                .columns.adjust()
+                .responsive.recalc();
+        });
     },
 
     /**
      * Elimina un medicamento y actualiza la tabla
     */
     removeMedicamento({ detail: rowIndex }) {
-        this.hasChanged = true;
         this.table
             .row( rowIndex )
             .remove()
@@ -52,11 +61,15 @@ export default () => ({
      * Actualiza la tabla
     */
     updateMedicamento({ detail: data }) {
-        this.hasChanged = true;
         this.table
             .row( data.rowIndex )
             .data( data.medicamento )
             .draw();
+
+        this.table
+            .row( data.rowIndex )
+            .node()
+            .classList.add("bg-warning-subtle");
     },
 
     /**
@@ -64,7 +77,6 @@ export default () => ({
     */
     revertChanges() {
         this.updateTableRows( this.data );
-        this.hasChanged = false;
     },
 
     /** Crea la tabla */
@@ -148,7 +160,6 @@ export default () => ({
     async getData() {
         try {
             showLoader();
-            this.hasChanged = false;
 
             const { data } = await axios.get(
                 `${this.api}/carros/${this.getCarroId()}/get-medicamentos`

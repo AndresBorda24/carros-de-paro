@@ -6,6 +6,8 @@ class="small w-100 p-2 border rounded bg-body">
 
     <?php if ($this->can("dispositivos.create")): ?>
       <button
+      x-cloak
+      x-show="carroStatus"
       @click="$dispatch('create-dispositivo', getCarroId())"
       class="btn btn-success btn-sm text-sm">
         <?= $this->fetch("./icons/plus.php") ?>
