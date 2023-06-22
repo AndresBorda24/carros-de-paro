@@ -5,6 +5,8 @@ class="small w-100 p-2 border rounded bg-body">
   <div class="d-flex flex-wrap gap-2 justify-content-between mb-2">
     <?php if ($this->can("medicamentos.create")): ?>
       <button
+      x-cloak
+      x-show="carroStatus"
       @click="$dispatch('create-medicamento', getCarroId())"
       class="btn btn-success btn-sm text-sm">
         <?= $this->fetch("./icons/plus.php") ?>
@@ -21,21 +23,6 @@ class="small w-100 p-2 border rounded bg-body">
     </button>
 
     <div class="d-flex gap-1 flex-grow-1 justify-content-end">
-      <button
-      @click="revertChanges"
-      x-show="hasChanged"
-      style="border-style: dotted;"
-      class="btn btn-outline-info btn-sm text-sm fw-bold">
-        <?= $this->fetch("./icons/return.php") ?>
-        Revertir Cambios
-      </button>
-
-      <?php if($this->can("medicamentos.modify")): ?>
-        <?= $this->fetch("./carro/carro/modify-carro.php", [
-          "model" => \App\Services\HistoricoService::MEDICAMENTO
-        ]) ?>
-      <?php endif ?>
-
       <?php if($this->can("grillas.ver-datos")): ?>
         <button
         @click="showData"

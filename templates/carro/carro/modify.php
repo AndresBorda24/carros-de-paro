@@ -1,4 +1,4 @@
-<div x-data="carroModify">
+<div x-data="carroModify" class="d-flex align-items-center gap-1">
   <details class="position-relative">
     <summary class="btn btn-sm">
       <span class="text-sm text-danger" x-cloak x-show="! carroStatus">
@@ -46,4 +46,13 @@
       </template>
     </div>
   </details>
+
+  <button
+  x-cloak
+  x-show="carroStatus"
+  @click="save"
+  class="btn btn-sm btn-outline-success text-sm">
+    Guardar
+    <?= $this->fetch("./icons/check.php") ?>
+  </button>
 </div>

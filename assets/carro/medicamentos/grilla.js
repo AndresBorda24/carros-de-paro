@@ -63,10 +63,6 @@ export default () => ({
      * Deshace todos los cambios `NO` guardados.
     */
     revertChanges() {
-        if (! confirm("Se perderan TODOS los cambios sin guardar. Continuar?")) {
-            return;
-        }
-
         this.updateTableRows( this.data );
         this.hasChanged = false;
     },
@@ -108,6 +104,8 @@ export default () => ({
                     data: 'id',
                     render: (data) => `
                         <button
+                        x-cloak
+                        x-show="carroStatus"
                         @click="dispatchEdit('#${data}')"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
