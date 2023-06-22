@@ -32,7 +32,7 @@ class="small w-100 p-2 border rounded bg-body">
       </button>
 
       <?php if($this->can("dispositivos.modify")): ?>
-        <?= $this->fetch("./partials/carro/modify-carro.php", [
+        <?= $this->fetch("./carro/carro/modify-carro.php", [
           "model" => \App\Services\HistoricoService::DISPOSITIVO
         ]) ?>
       <?php endif ?>

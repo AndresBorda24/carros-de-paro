@@ -1,6 +1,6 @@
 import axios from "axios";
-import { showLoader, hideLoader } from "../../partials/loader";
-import { errorAlert, successAlert } from "../../partials/alerts";
+import { showLoader, hideLoader } from "../../../partials/loader";
+import { errorAlert, successAlert } from "../../../partials/alerts";
 
 export default () => ({
     api: process.env.API,

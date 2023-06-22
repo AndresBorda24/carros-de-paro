@@ -26,7 +26,7 @@
       <div class="d-md-grid" style="grid-template-columns: 1fr auto 1fr;">
         <!-- Listado de cambios (antes) -->
         <div class="p-3 small">
-          <?= $this->fetch('./partials/carro/historico/before.php') ?>
+          <?= $this->fetch('./carro/historico/before.php') ?>
         </div>
 
         <!-- Este es el divisor  -->
@@ -34,7 +34,7 @@
 
         <!-- Listado de cambios (despues) -->
         <div class="p-3 small">
-          <?= $this->fetch('./partials/carro/historico/after.php') ?>
+          <?= $this->fetch('./carro/historico/after.php') ?>
         </div>
       </div>
     </div>

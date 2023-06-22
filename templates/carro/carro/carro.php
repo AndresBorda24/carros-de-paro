@@ -18,6 +18,11 @@
           <?= $this->fetch("./icons/edit.php") ?>
         </span>
       <?php endif ?>
+
+      <!-- Boton de Editar Carro -->
+      <?php if($this->can('carro.modify')): ?>
+        <?= $this->fetch("./carro/carro/modify.php") ?>
+      <?php endif ?>
     </div>
 
     <?php if($this->can('carro.delete')): ?>
@@ -90,15 +95,15 @@
 
   <!-- Grillas -->
   <div x-show="grillaShow === 1">
-    <?= $this->fetch("./partials/carro/grillas/medicamentos.php") ?>
+    <?= $this->fetch("./carro/grillas/medicamentos.php") ?>
   </div>
 
   <div x-show="grillaShow === 2">
-    <?= $this->fetch("./partials/carro/grillas/dispositivos.php") ?>
+    <?= $this->fetch("./carro/grillas/dispositivos.php") ?>
   </div>
 
   <!-- Historico -->
   <div x-show="grillaShow === 3">
-    <?= $this->fetch("./partials/carro/historico.php") ?>
+    <?= $this->fetch("./carro/historico/historico.php") ?>
   </div>
 </div>
