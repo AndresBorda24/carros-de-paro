@@ -114,7 +114,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         class="form-control form-control-sm">
       </div>
 
-      <?= $this->fetch("./partials/carro/historico/select-motivos.php") ?>
+      <?= $this->fetch("./carro/historico/select-motivos.php") ?>
     </form>
 
     <div class="d-flex justify-content-between mt-3 border-top p-2">

@@ -12,14 +12,14 @@ export default () => ({
     table: undefined,
     api: process.env.API,
     ctrlId: undefined,
-    hasChanged: false,
     selector: "#grilla-dispositivos",
     data: [],
     events: {
         ['@new-dispositivo-created.document']: "newDispositivo",
         ['@dispositivo-deleted.document']: "removeDispositivo",
         ['@dispositivo-updated.document']: "updateDispositivo",
-        ['@carro-dispositivos-updated.document']: "getData"
+        ['@carro-dispositivos-updated.document']: "getData",
+        ["@carro-apertura-cancelada.document"] : "revertChanges"
     },
 
     init() {
@@ -31,17 +31,26 @@ export default () => ({
     * Cuando un dispositivo se crea, se anexa a la grilla y al array de datos
     */
     newDispositivo({ detail: dispositivo }) {
-        this.hasChanged = true;
         this.table.row.add(
             dispositivo
         ).draw();
+
+        this.table
+            .row( "#" + dispositivo.id )
+            .node()
+            .classList.add("bg-success-subtle");
+
+        this.$nextTick(() => {
+            this.table
+                .columns.adjust()
+                .responsive.recalc();
+        });
     },
 
     /**
      * Elimina un dispositivo de la grilla
     */
     removeDispositivo({ detail: rowIndex }) {
-        this.hasChanged = true;
         this.table
             .row( rowIndex )
             .remove()
@@ -52,23 +61,22 @@ export default () => ({
      * Actualiza un dispositivo de la grilla
     */
     updateDispositivo({ detail: data }) {
-        this.hasChanged = true;
         this.table
             .row( data.rowIndex )
             .data( data.dispositivo )
             .draw();
+
+        this.table
+            .row( data.rowIndex )
+            .node()
+            .classList.add("bg-warning-subtle");
     },
 
     /**
      * Deshace todos los cambios `NO` guardados.
     */
     revertChanges() {
-        if (! confirm("Se perderan TODOS los cambios sin guardar. Continuar?")) {
-            return;
-        }
-
         this.updateTableRows( this.data );
-        this.hasChanged = false;
     },
 
     /** Crea la tabla */
@@ -109,6 +117,8 @@ export default () => ({
                     data: 'id',
                     render: (data) => `
                         <button
+                        x-cloak
+                        x-show="carroStatus"
                         @click="dispatchEdit('#${data}')"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
@@ -151,7 +161,6 @@ export default () => ({
     async getData() {
         try {
             showLoader();
-            this.hasChanged = false;
 
             const { data } = await axios.get(
                 `${this.api}/carros/${this.getCarroId()}/get-dispositivos`

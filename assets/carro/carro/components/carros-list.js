@@ -1,6 +1,6 @@
 import axios from "axios";
-import { errorAlert } from "../../partials/alerts";
-import { showLoader, hideLoader } from "../../partials/loader";
+import { errorAlert } from "../../../partials/alerts";
+import { showLoader, hideLoader } from "../../../partials/loader";
 
 export default () => ({
     carros: [],

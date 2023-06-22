@@ -1,10 +1,14 @@
 export default () => ({
     CARRO: undefined,
+    /**
+     * Determina el estado del carro. False (cerrado) y true (aperto)
+    */
+    carroStatus: false,
     grillaShow: undefined,
     events: {
         ["@carro-selected.document"]: "setCarro",
-        ["@carro-updated.document"]: "setCarro",
-        ["@carro-deleted.document"]: "deleteCarro"
+        ["@carro-updated.document"]:  "setCarro",
+        ["@carro-deleted.document"]:  "deleteCarro"
     },
 
     /**

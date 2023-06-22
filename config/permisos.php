@@ -22,6 +22,12 @@ return [
         "area"   => [],
         "id"     => []
     ],
+    "carro.modify" => [
+        "grupos" => ['00'],
+        "cargos" => [],
+        "area"   => [],
+        "id"     => [603, 133]
+    ],
 
     // Medicamentos
     "medicamentos.create" => [
