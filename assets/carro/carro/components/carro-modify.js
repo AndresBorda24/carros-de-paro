@@ -84,7 +84,7 @@ export default () => ({
             showLoader();
             await this.getGrillasData();
             const endpoint = process.env.API
-                + "/carro/"
+                + "/carros/"
                 + this.getCarroId()
                 + "/save-apertura";
 
