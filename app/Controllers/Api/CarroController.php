@@ -105,6 +105,40 @@ class CarroController
         }
     }
 
+    /**
+     * Regresa la informacion relacionada con alguna apertura de carro.
+    */
+    public function findApertura(Response $response, int $aperturaId): Response
+    {
+        try {
+            $apertura = new Apertura($this->db);
+
+            return responseJson($response, $apertura->find($aperturaId));
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
+    /**
+     * Obtiene informacion basica sobre las aperturas realizadas a un carro en
+     * especifico.
+    */
+    public function getAperturas(Response $response, int $id): Response
+    {
+        try {
+            $apertura = new Apertura($this->db);
+
+            return responseJson($response, $apertura->getFromCarro($id));
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
 
     /**
      * Se encarga de registrar una apertura. Guarda los medicamentos y
