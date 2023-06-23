@@ -19,6 +19,9 @@ $container->addDefinitions([
             'username' => $c->get('db.user'),
             'password' => $c->get('db.pass'),
             'port' => $c->get('db.port', 3306),
+
+            // 'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_general_ci',
         ]);
     }
 ]);

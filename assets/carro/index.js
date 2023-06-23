@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
 
-import * as Carro from "./carro/index"
+import * as Carro from "./carro/index";
+import * as Historico from "./histo/index";
 import * as Medicamentos from "./medicamentos/index";
 import * as Dispositivos from "./dispositivos/index";
 
@@ -32,6 +33,10 @@ document.addEventListener("alpine:init", function() {
 
     Alpine.data("historicoSelect", historicoSelect);
     Alpine.data("historicoChanges", historicoChanges);
+
+    Alpine.data("histoShow", Historico.show);
+    Alpine.data("histoSelect", Historico.select);
+    Alpine.data("histoComparacion", Historico.comparacion);
 
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
     Alpine.data("printTable", printTable);

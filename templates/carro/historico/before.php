@@ -1,17 +1,17 @@
 <h6 class="text-center">Antes</h6>
 <ul class="list-group">
-  <template x-for="before in changes.before">
+  <template x-for="b in before" :key="b.id">
     <li
-    class="list-group-item d-flex gap-2 align-items-center"
-    :class="isDeleted(before.id)
+    class="list-group-item d-flex gap-2 align-items-center p-1"
+    :class="isDeleted(b.id)
       ? 'list-group-item-danger'
       : 'list-group-item-secondary'
     ">
       <span
       class="flex-grow-1"
-      x-text="getItemNombre( before )"></span>
+      x-text="getItemNombre( b )"></span>
       <span
-      x-text="before.cantidad"></span>
+      x-text="b.cantidad"></span>
 
       <!-- Esto muestra unos detalles del item -->
       <details class="position-relative">
@@ -21,9 +21,9 @@
         <div
         style="width: 200px;"
         class="bg-body p-1 border rounded shadow position-absolute end-100 top-0 z-1">
-          Lote: <span x-text="before.lote"></span><br>
-          Invima: <span x-text="before.invima"></span><br>
-          Venc: <span x-text="before.vencimiento"></span>
+          Lote: <span x-text="b.lote"></span><br>
+          Invima: <span x-text="b.invima"></span><br>
+          Venc: <span x-text="b.vencimiento"></span>
         </div>
       </details>
     </li>

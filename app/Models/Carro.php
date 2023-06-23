@@ -20,7 +20,9 @@ class Carro
         $this->table = "carros";
     }
 
-    /** Crea un Nuevo Carro de Paro */
+    /**
+     * Crea un Nuevo Carro de Paro
+    */
     public function create(array $data): bool
     {
         try {
@@ -37,7 +39,9 @@ class Carro
         }
     }
 
-    /** Actualiza un Nuevo Carro de Paro */
+    /**
+     * Actualiza un Nuevo Carro de Paro
+    */
     public function update(int $id, array $data): int
     {
         try {
