@@ -1,9 +1,19 @@
+import axios from "axios";
 import { showLoader, hideLoader } from "../../../partials/loader";
+import { errorAlert, successAlert } from "../../../partials/alerts";
 
 
 export default () => ({
     motivo: "",
     el: undefined,
+    grillasData: {
+        med: undefined,
+        disp: undefined
+    },
+    events: {
+        ["@save-dispositivos-data.document"]: "saveData(false, $event.detail)",
+        ["@save-medicamentos-data.document"]: "saveData(true, $event.detail)"
+    },
 
     init() {
         this.el = this.$el;
@@ -47,6 +57,18 @@ export default () => ({
     },
 
     /**
+     * Esta funcion resive la informacion de las grillas y la guarda en
+     * `grillasData`
+    */
+    saveData(isMed, data) {
+        if (isMed) {
+            this.grillasData.med = data;
+            return;
+        }
+        this.grillasData.disp = data;
+    },
+
+    /**
      * Determina si se puede abrir el carro o no
     */
     canOpenCarro() {
@@ -58,6 +80,38 @@ export default () => ({
      * realzado, se guardan los cambios.
     */
     async save() {
-        // por implementar
+        try {
+            showLoader();
+            await this.getGrillasData();
+            const endpoint = process.env.API
+                + "/carros/"
+                + this.getCarroId()
+                + "/save-apertura";
+
+            const {data} = await axios.post(endpoint, {
+                medicamentos: this.grillasData.med,
+                dispositivos: this.grillasData.disp,
+                motivo: this.motivo
+            }).finally(hideLoader);
+
+            this.motivo = "";
+            this.carroStatus = false;
+            this.$dispatch("carro-apertura-update");
+            successAlert("Carro actualizado con exito!");
+        } catch(e) {
+            console.error(e);
+            errorAlert();
+        }
+    },
+
+    /**
+     * Obtiene la informacion de las grillas.
+    */
+    async getGrillasData() {
+        this.$dispatch("carro-apertura-save");
+
+        return new Promise(res => {
+            setTimeout(res, 100);
+        });
     }
 });

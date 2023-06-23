@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Auth;
+use Medoo\Medoo;
+use App\Models\Historico;
 use App\Contracts\ModelInterface;
 use App\Contracts\UserInterface;
-use App\Models\Historico;
-use Medoo\Medoo;
 
 /**
  * Esta clase se encarga de almacenar todos los historicos y, por ende, guarda
@@ -19,11 +19,6 @@ class HistoricoService
     public CONST DISPOSITIVO = "Dispositivo";
 
     /**
-     * Usuario actualmente loggeado
-    */
-    private UserInterface $user;
-
-    /**
      * Representa el tipo del modelo, lo recomendable es que sea una de las
      * constantes de la clase
     */
@@ -32,16 +27,13 @@ class HistoricoService
     /**
      * Id del carro a actalizar
     */
-    private ?int $carro_id = null;
+    private ?int $aperturaId = null;
 
     /**
      * Array de la informacion a actualizar. Es la informacion que DEBE quedar
      * registrada en el carro.
     */
     private ?array $updateData = null;
-
-    /** Motivo del cambio en el carro */
-    private ?string $motivo = null;
 
     /**
      * Representa los datos del carro antes de las modificaciones.
@@ -75,58 +67,45 @@ class HistoricoService
 
     public function __construct(
         Historico $h,
-        Medoo $db,
-        Auth $auth
+        Medoo $db
     ) {
         $this->h  = $h;
         $this->db = $db;
-        $this->user = $auth->user();
     }
 
     /**
      * Guarda el modelo y genera un nuevo historico.
      *
-     * @param array $data Array con 2 llaves. `[carro_id]` que es, bueno, eso
+     * @param array $data Array con 2 llaves. `[aperturaId]` que es, bueno, eso
      * y `[data]` que es la info en si.
      * @param ModelInterface $model Tipo de Modelo, Medicamento o Dispositivo. Es
      * recomendable que sea una de las constantes de esta clase.
     */
-    public function store(array $data, ModelInterface $model, int $carroId): bool
-    {
+    public function store(
+        array $data,
+        ModelInterface $model,
+        int $aperturaId,
+        int $carroId
+    ): bool {
         try {
-            $error = null;
+            // preparar la info que llega
+            $this->extractData($data, $model, $aperturaId);
 
-            $this->db->action(function() use($data, $model, $carroId, &$error) {
-                try {
-                    // preparar la info que llega
-                    $this->extractData($data, $model, $carroId);
+            // Consultar los datos anteriores a la actualizacion
+            $this->setCurrentData($carroId);
 
-                    // Consultar los datos anteriores a la actualizacion
-                    $this->setCurrentData();
+            // generar inserts, updates, o deletes
+            $this->setInserts();
+            $this->setUpdates();
+            $this->setDeletes();
 
-                    // generar inserts, updates, o deletes
-                    $this->setInserts();
-                    $this->setUpdates();
-                    $this->setDeletes();
+            // Relizar las consultas
+            $this->doInserts();
+            $this->doUpdates();
+            $this->doDeletes();
 
-                    // Relizar las consultas
-                    $this->doInserts();
-                    $this->doUpdates();
-                    $this->doDeletes();
-
-                    // Guardar el historico
-                    $this->saveHistorico();
-                    return true;
-                } catch(\Exception $e) {
-                    $error = $e;
-                    return false;
-                }
-            });
-
-            if ($error) {
-                throw $error;
-            }
-
+            // Guardar el historico
+            $this->saveHistorico();
             return true;
         } catch(\Exception $e) {
             throw $e;
@@ -142,12 +121,10 @@ class HistoricoService
             preg_match('/(\w+)$/', get_class($this->model), $t);
 
             $this->h->create([
-                "carro_id" => $this->carro_id,
+                "apertura_id" => $this->aperturaId,
                 "model"  => $t[0],
-                "quien"  => $this->user->getId(),
                 "before" => $this->before,
-                "after"  => $this->updateData,
-                "motivo" => $this->motivo
+                "after"  => $this->updateData
             ]);
         } catch(\Exception $e) {
             throw $e;
@@ -155,14 +132,14 @@ class HistoricoService
     }
 
     /**
-     * Setea `carro_id` y los datos a actualizar. Ademas, revisa que el tipo
+     * Setea `aperturaId` y los datos a actualizar. Ademas, revisa que el tipo
      * del modelo corresponda con los soportados.
     */
-    private function extractData(array $data, ModelInterface $model, int $carroId)
+    private function extractData(array $data, ModelInterface $model, int $aperturaId)
     {
-        // Verificamos Carro_id
-        if ($carroId <= 0) {
-            throw new \Exception("Error: carro_id");
+        // Verificamos aperturaId
+        if ($aperturaId <= 0) {
+            throw new \Exception("Error: aperturaId");
         }
 
         // Verificamos data
@@ -171,18 +148,17 @@ class HistoricoService
         }
 
         $this->model = $model;
-        $this->motivo = $data["motivo"];
-        $this->carro_id = $carroId;
-        $this->updateData = $data["data"];
+        $this->aperturaId = $aperturaId;
+        $this->updateData = $data;
     }
 
     /**
      * Busca los datos del carro actual (dependiendo si es para medicamentos
      * o dispositivos) y lo almacena en `$before`
     */
-    public function setCurrentData()
+    public function setCurrentData(int $carroId)
     {
-        $this->before = $this->model->getFromCarro( $this->carro_id );
+        $this->before = $this->model->getFromCarro( $carroId );
     }
 
     /**

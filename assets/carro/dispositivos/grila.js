@@ -18,8 +18,9 @@ export default () => ({
         ['@new-dispositivo-created.document']: "newDispositivo",
         ['@dispositivo-deleted.document']: "removeDispositivo",
         ['@dispositivo-updated.document']: "updateDispositivo",
-        ['@carro-dispositivos-updated.document']: "getData",
-        ["@carro-apertura-cancelada.document"] : "revertChanges"
+        ["@carro-apertura-cancelada.document"] : "revertChanges",
+        ['@carro-apertura-update.document']: "getData",
+        ["@carro-apertura-save.document"]: "sendSaveData",
     },
 
     init() {
@@ -141,7 +142,15 @@ export default () => ({
         this.table.draw();
     },
 
-    /** I
+    /**
+     * Envia la informacion de la grilla para que se realice la peticion y
+     * se guarden los datos en la base de datos.
+    */
+    sendSaveData() {
+        this.$dispatch("save-dispositivos-data", this.getTableData());
+    },
+
+    /**
      * Indica que se debe modificar un dispositivo
     */
     dispatchEdit( rowIndex ) {
