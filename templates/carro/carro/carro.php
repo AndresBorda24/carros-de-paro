@@ -1,7 +1,8 @@
 <div x-data="carro" x-bind="events" class="p-2 p-md-3 mb-5">
 
   <!-- Titulo y Boton de Eliminar -->
-  <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3">
+  <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3
+  bg-body-tertiary sticky-top">
     <div class="flex-grow-1 gap-1 text-center d-flex justify-content-center align-items-center">
       <h5
       class="m-0"
@@ -104,6 +105,6 @@
 
   <!-- Historico -->
   <div x-show="grillaShow === 3">
-    <?= $this->fetch("./carro/historico/historico.php") ?>
+    <?= $this->fetch("./carro/histo/historico.php") ?>
   </div>
 </div>
