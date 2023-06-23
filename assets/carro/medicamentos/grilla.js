@@ -18,8 +18,9 @@ export default () => ({
         ['@new-medicamento-created.document']: "newMedicamento",
         ['@medicamento-deleted.document']: "removeMedicamento",
         ['@medicamento-updated.document']: "updateMedicamento",
-        ["@carro-medicamentos-updated.document"]: "getData",
-        ["@carro-apertura-cancelada.document"] : "revertChanges"
+        ["@carro-apertura-cancelada.document"] : "revertChanges",
+        ["@carro-apertura-update.document"]: "getData",
+        ["@carro-apertura-save.document"]: "sendSaveData",
     },
 
     init() {
@@ -152,6 +153,14 @@ export default () => ({
                 rowIndex: rowIndex
             });
         }
+    },
+
+    /**
+     * Envia la informacion de la grilla para que se realice la peticion y
+     * se guarden los datos en la base de datos.
+    */
+    sendSaveData() {
+        this.$dispatch("save-medicamentos-data", this.getTableData());
     },
 
     /**

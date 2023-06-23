@@ -1,4 +1,4 @@
-<div x-data="carroModify" class="d-flex align-items-center gap-1">
+<div x-data="carroModify" class="d-flex align-items-center gap-1" x-bind="events">
   <details class="position-relative">
     <summary class="btn btn-sm">
       <span class="text-sm text-danger" x-cloak x-show="! carroStatus">
