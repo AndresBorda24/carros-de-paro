@@ -50,5 +50,17 @@ export default () => ({
     */
     get hasData() {
         return typeof this.data !== "undefined";
+    },
+
+    /**
+     * Importante!!
+     *
+     * Este metodo DEBE devolver la url de la pagina que se desea imprima
+    */
+    __getPrintWeb() {
+        return process.env.API.substring(0, process.env.API.length - 3)
+            + "print/"
+            + this.aperturaId
+            + "/apertura";
     }
 });

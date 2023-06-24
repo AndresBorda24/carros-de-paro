@@ -5,9 +5,7 @@ import * as Historico from "./histo/index";
 import * as Medicamentos from "./medicamentos/index";
 import * as Dispositivos from "./dispositivos/index";
 
-import historicoSelect from "./historico/selects"
-import historicoChanges from "./historico/comparacion"
-
+import print from "../partials/print";
 import printTable from "./partials/print-table";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
@@ -31,15 +29,13 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("deleteDispositivo", Dispositivos.remove);
     Alpine.data("grillaDispositivos", Dispositivos.grilla);
 
-    Alpine.data("historicoSelect", historicoSelect);
-    Alpine.data("historicoChanges", historicoChanges);
-
     Alpine.data("histoShow", Historico.show);
     Alpine.data("histoSelect", Historico.select);
     Alpine.data("histoComparacion", Historico.comparacion);
 
-    Alpine.data("resaltarVencimiento", resaltarVencimiento);
+    Alpine.data("print", print);
     Alpine.data("printTable", printTable);
+    Alpine.data("resaltarVencimiento", resaltarVencimiento);
 });
 
 document.addEventListener("DOMContentLoaded", function() {

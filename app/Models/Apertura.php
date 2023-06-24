@@ -86,8 +86,10 @@ class Apertura
 
             $this->db->select(static::TABLE." (A)", [
                 "[>]".Historico::TABLE." (H)" => ["id" => "apertura_id"],
-                "[>]".User::TABLE." (U)" => ["quien" => "usuario_id"]
+                "[>]".User::TABLE." (U)" => ["quien" => "usuario_id"],
+                "[>]".Carro::TABLE." (C)" => ["carro_id" => "id"]
             ], [
+                "C.nombre (carro_nombre)",
                 "H.after", "H.before", "H.model",
                 "A.id", "A.fecha", "A.hora", "A.motivo",
                 "usuario" => Medoo::raw("CONCAT_WS(
@@ -105,6 +107,7 @@ class Apertura
                 $_["fecha"]   = $reg["fecha"];
                 $_["motivo"]  = $reg["motivo"];
                 $_["usuario"] = $reg["usuario"];
+                $_["carro_nombre"] = $reg["carro_nombre"];
 
                 $_[$reg["model"]] = [
                     "before" => json_decode(
