@@ -1,9 +1,8 @@
 <div
 x-data="grillaDispositivos"
 x-bind="events"
-class="small w-100 p-2 border rounded bg-body">
+class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
   <div class="d-flex gap-2 mb-2 flex-wrap justify-content-between">
-
     <?php if ($this->can("dispositivos.create")): ?>
       <button
       x-cloak
@@ -41,7 +40,7 @@ class="small w-100 p-2 border rounded bg-body">
   class="display compact responsive small nowrap">
     <thead>
       <tr>
-        <th data-priority="1">Descripci&oacute;n</th>
+        <th data-priority="0">Descripci&oacute;n</th>
         <th data-priority="5">Marca</th>
         <th
         style="word-break: normal; white-space: pre-line"
@@ -56,7 +55,7 @@ class="small w-100 p-2 border rounded bg-body">
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Vida &uacute;til</th>
         <th data-priority="3">Riesgo</th>
-        <th data-priority="1"></th>
+        <th data-priority="0"></th>
       </tr>
     </thead>
   </table>

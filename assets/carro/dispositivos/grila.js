@@ -210,14 +210,13 @@ export default () => ({
         /**
          * Para que funcione el `Responsive` de la tabla.
         */
-        this.$watch("grillaShow", (val) => {
-            if (val == 2) {
-                this.$nextTick(() => {
-                    this.table
-                        .columns.adjust()
-                        .responsive.recalc();
-                });
-            }
+        this.$watch("grillaShow", async () => {
+            await this.$nextTick();
+            setTimeout(() => this.table
+                .columns.adjust()
+                .responsive.recalc(),
+                50
+            );
         });
     },
 
