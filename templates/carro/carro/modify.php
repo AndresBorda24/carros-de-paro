@@ -1,5 +1,5 @@
 <div x-data="carroModify" class="d-flex align-items-center gap-1" x-bind="events">
-  <details class="position-relative">
+  <details class="position-relative" @click.outside="$el.removeAttribute('open')">
     <summary class="btn btn-sm">
       <span class="text-sm text-danger" x-cloak x-show="! carroStatus">
         <?= $this->fetch("./icons/lock.php") ?>
@@ -47,12 +47,23 @@
     </div>
   </details>
 
-  <button
+  <details
   x-cloak
   x-show="carroStatus"
-  @click="save"
-  class="btn btn-sm btn-outline-success text-sm">
-    Guardar
-    <?= $this->fetch("./icons/check.php") ?>
-  </button>
+  class="position-relative"
+  @click.outside="$el.removeAttribute('open')">
+    <summary class="btn btn-sm btn-outline-success">
+      Guardar Revisi&oacute;n
+    </summary>
+    <div class="position-absolute border bg-success-subtle z-1 top-100 end-0 p-2 small border-success rounded shadow mt-1" style="width: 180px;">
+      Recuerda registrar <span class="fw-bold">TODOS</span> los cambios en
+      <span class="fst-italic">Medicamentos</span> y <span class="fst-italic">Dispositivos</span>. Si ya lo hiciste, pulsa en:
+      <button
+      @click="save"
+      class="btn btn-sm btn-success text-sm mt-2">
+        Guardar
+        <?= $this->fetch("./icons/check.php") ?>
+      </button>
+    </div>
+  </details>
 </div>
