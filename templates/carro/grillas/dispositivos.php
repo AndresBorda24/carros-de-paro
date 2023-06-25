@@ -14,14 +14,6 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
       </button>
     <?php endif ?>
 
-    <button
-    x-data="printTable"
-    @click="print('Dispositivos')"
-    class="btn btn-dark btn-sm text-sm">
-      <?= $this->fetch("./icons/print.php") ?>
-      Imprimir Tabla
-    </button>
-
     <div class="d-flex gap-1 flex-grow-1 justify-content-end">
       <?php if($this->can("grillas.ver-datos")): ?>
         <button

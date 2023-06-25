@@ -6,7 +6,7 @@ import * as Medicamentos from "./medicamentos/index";
 import * as Dispositivos from "./dispositivos/index";
 
 import print from "../partials/print";
-import printTable from "./partials/print-table";
+// import printTable from "./partials/print-table";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
 import "../css/carro.css";
@@ -34,7 +34,6 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("histoComparacion", Historico.comparacion);
 
     Alpine.data("print", print);
-    Alpine.data("printTable", printTable);
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
 });
 
