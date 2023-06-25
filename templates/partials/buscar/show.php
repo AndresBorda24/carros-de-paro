@@ -20,7 +20,20 @@ x-show="historicoId">
         <td x-text="item.invima"></td>
         <td x-text="item.lote"></td>
         <td>
-          <?= $this->fetch("./icons/question.php") ?>
+          <details class="position-relative" @click.outside="$el.removeAttribute('open')">
+            <summary class="list-unstyled" role="button">
+              <?= $this->fetch("./icons/question.php") ?>
+            </summary>
+            <div class="list-group list-group-flush position-absolute top-0
+            bg-body end-100 border rounded shadow" style="width: 150px;">
+              <span class="list-group-item p-1">
+                Cantidad: <span x-text="item.cantidad"></span>
+              </span>
+              <span class="list-group-item p-1">
+                Fecha Vencimiento: <span x-text="item.vencimiento"></span>
+              </span>
+            </div>
+          </details>
         </td>
       </tr>
       </template>
