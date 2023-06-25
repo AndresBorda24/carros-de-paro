@@ -12,7 +12,9 @@ export default () => ({
     data: undefined,
 
     init() {
-        this.$watch("historicoId", () => this.getData());
+        this.$watch("historicoId", (val) => {
+            if(val) this.getData();
+        });
     },
 
     /**
