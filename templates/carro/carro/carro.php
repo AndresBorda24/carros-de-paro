@@ -69,12 +69,12 @@
       <details
       x-cloak
       x-show="(grillaShow == 1 || grillaShow == 2)"
+      @click.outside="$el.removeAttribute('open')"
       class="position-relative ms-auto">
         <summary class="text-sm btn btn-sm">
             &iquest;Ayuda con los colores?
             <?= $this->fetch("./icons/question.php") ?>
         </summary>
-
         <ul
         style="width: 150px; z-index: 1;"
         class="list-group list-group-flush position-absolute text-sm end-0
