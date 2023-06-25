@@ -83,26 +83,11 @@ class Historico
     public function find(int $id): ?array
     {
         try {
-            $userTable = User::TABLE;
-
-            $h = $this->db->get(static::TABLE.' (H)', [
-                "[>]$userTable (U)" => ["quien" => "usuario_id"]
-            ], [
-                "usuario" => Medoo::raw("CONCAT_WS(
-                    ' ',
-                    U.`usuario_apellido1`,
-                    U.`usuario_apellido2`,
-                    U.`usuario_nombre1`,
-                    U.`usuario_nombre2`
-                )"),
+            $h = $this->db->get(static::TABLE.' (H)',[
                 "H.id",
                 "H.model",
-                "H.fecha",
-                "H.hora",
-                "H.carro_id",
                 "H.before",
                 "H.after",
-                "H.motivo"
             ],[
                 "H.id" => $id
             ]);
@@ -133,10 +118,16 @@ class Historico
     {
         try {
             $table = static::TABLE;
+            $carroTable = Carro::TABLE;
+            $aperturaTable = Apertura::TABLE;
 
             $sts = $this->db->pdo->prepare("
-            SELECT id, fecha, hora
+            SELECT $table.id, nombre, apertura_id, fecha, hora
             FROM $table
+            LEFT JOIN $aperturaTable
+            ON $aperturaTable.`id` = $table.`apertura_id`
+            LEFT JOIN $carroTable
+            ON $carroTable.`id` = $aperturaTable.`carro_id`
             WHERE
                 `model` = :model
                 AND (
@@ -152,13 +143,14 @@ class Historico
                             '$[*].$field'
                     ), :query, '$')
                 )
+            ORDER BY nombre ASC, fecha ASC, hora ASC
             ");
 
             if(! $sts->execute([
                 ":model" => $model,
                 ":query" => json_encode($query)
             ])) {
-                return [];
+                throw new \Exception(json_encode($sts->errorInfo()));
             }
 
             return $sts->fetchAll(\PDO::FETCH_ASSOC);
