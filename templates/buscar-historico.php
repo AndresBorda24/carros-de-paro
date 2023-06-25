@@ -18,8 +18,7 @@
       <h4>B&uacute;squeda</h4>
       <?= $this->fetch("./partials/buscar/formulario.php") ?>
       <div class="rounded border bg-white mt-3">
-        <?= $this->fetch("./partials/buscar/show-results.php") ?>
-        <?= $this->fetch("./partials/carro/historico/comparacion.php") ?>
+        <?= $this->fetch("./partials/buscar/select-results.php") ?>
       </div>
     </div>
   </main>
