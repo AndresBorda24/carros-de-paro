@@ -43,9 +43,9 @@
 
 
   <!-- 'Nav' (medicamentos-dispositivos) y detalles de colores -->
-  <div class="d-flex flex-wrap mb-3 gap-2 justify-content-between">
     <!-- Nav -->
-    <template x-if="hasCarro">
+  <template x-if="hasCarro">
+    <div class="d-flex flex-wrap mb-3 gap-2 align-items-center">
       <div class="btn-group" role="group">
         <button
         type="button"
@@ -58,41 +58,40 @@
         :class="{'active': grillaShow === 2}"
         class="btn btn-outline-primary btn-sm text-sm">Dispositivos</button>
       </div>
-    </template>
 
-    <button
-    x-cloak
-    x-show="hasCarro"
-    type="button"
-    @click="grillaShow = 3"
-    :class="{'active': grillaShow === 3}"
-    class="btn btn-warning btn-sm text-sm active">Hist&oacute;rico</button>
+      <button
+      x-cloak
+      x-show="hasCarro"
+      type="button"
+      @click="grillaShow = 3"
+      class="btn btn-warning btn-sm text-sm">Hist&oacute;rico</button>
 
-    <details
-    x-cloak
-    x-show="hasCarro"
-    class="position-relative ms-auto ms-md-0">
-      <summary class="text-sm btn">
-          &iquest;Ayuda con los colores?
-          <?= $this->fetch("./icons/question.php") ?>
-      </summary>
+      <details
+      x-cloak
+      x-show="(grillaShow == 1 || grillaShow == 2)"
+      class="position-relative ms-auto">
+        <summary class="text-sm btn btn-sm">
+            &iquest;Ayuda con los colores?
+            <?= $this->fetch("./icons/question.php") ?>
+        </summary>
 
-      <ul
-      style="width: 210px; z-index: 1;"
-      class="list-group list-group-flush position-absolute text-sm end-0
-      top-100 shadow border border-secondary rounded-1 mt-1">
-        <li class="list-group-item list-group-item-success">
-          M&aacute;s a 12 Meses
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          Entre 7 y 12 Meses
-        </li>
-        <li class="list-group-item list-group-item-danger">
-          Menos de 7 meses
-        </li>
-      </ul>
-    </details>
-  </div>
+        <ul
+        style="width: 150px; z-index: 1;"
+        class="list-group list-group-flush position-absolute text-sm end-0
+        top-100 shadow border border-secondary rounded-1 mt-1">
+          <li class="list-group-item list-group-item-success p-1">
+            M&aacute;s a 12 Meses
+          </li>
+          <li class="list-group-item list-group-item-warning p-1">
+            Entre 7 y 12 Meses
+          </li>
+          <li class="list-group-item list-group-item-danger p-1">
+            Menos de 7 meses
+          </li>
+        </ul>
+      </details>
+    </div>
+  </template>
 
   <!-- Grillas -->
   <div x-show="grillaShow === 1">

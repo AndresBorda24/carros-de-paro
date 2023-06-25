@@ -1,7 +1,7 @@
 <div
 x-data="grillaMedicamentos"
 x-bind="events"
-class="small w-100 p-2 border rounded bg-body">
+class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
   <div class="d-flex flex-wrap gap-2 justify-content-between mb-2">
     <?php if ($this->can("medicamentos.create")): ?>
       <button
@@ -13,14 +13,6 @@ class="small w-100 p-2 border rounded bg-body">
         Adjuntar Medicamento
       </button>
     <?php endif ?>
-
-    <button
-    x-data="printTable"
-    @click="print('Medicamentos')"
-    class="btn btn-dark btn-sm text-sm">
-      <?= $this->fetch("./icons/print.php") ?>
-      Imprimir Tabla
-    </button>
 
     <div class="d-flex gap-1 flex-grow-1 justify-content-end">
       <?php if($this->can("grillas.ver-datos")): ?>
@@ -42,7 +34,7 @@ class="small w-100 p-2 border rounded bg-body">
       <tr>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="1">Principio Activo / Concentraci&oacute;n</th>
+        data-priority="0">Principio Activo / Concentraci&oacute;n</th>
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="4">Forma Farmaceutica</th>

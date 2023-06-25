@@ -41,11 +41,7 @@ export default () => ({
             .node()
             .classList.add("bg-success-subtle");
 
-        this.$nextTick(() => {
-            this.table
-                .columns.adjust()
-                .responsive.recalc();
-        });
+        this.fixResponsive();
     },
 
     /**
@@ -204,21 +200,31 @@ export default () => ({
 
                 console.log("Cambio el ID dispositivo: ", this.getCarroId());
             }
+            await this.fixResponsive();
         });
 
 
         /**
          * Para que funcione el `Responsive` de la tabla.
         */
-        this.$watch("grillaShow", (val) => {
-            if (val == 2) {
-                this.$nextTick(() => {
-                    this.table
-                        .columns.adjust()
-                        .responsive.recalc();
-                });
-            }
+        this.$watch("grillaShow", async () => {
+            await this.fixResponsive();
         });
+        this.$watch("carroStatus", async () => {
+            await this.fixResponsive();
+        });
+    },
+
+    /**
+     * Ajusta el ancho de las columnas. Si. Es necesario.
+    */
+    async fixResponsive() {
+        await this.$nextTick();
+        setTimeout(() => {
+            this.table
+                .columns.adjust()
+                .responsive.recalc()
+        }, 50);
     },
 
     /**
