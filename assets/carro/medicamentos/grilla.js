@@ -84,6 +84,8 @@ export default () => ({
             searching: false,
             language: ES,
             responsive: true,
+            scrollY: '50vh',
+            scrollCollapse: true,
             paging: false,
             rowId: 'id',
             columnDefs: [

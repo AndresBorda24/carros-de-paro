@@ -2,7 +2,7 @@
 <ul class="list-group">
   <template x-for="b in before" :key="b.id">
     <li
-    class="list-group-item d-flex gap-2 align-items-center p-1"
+    class="list-group-item d-flex gap-2 align-items-center px-1 py-0"
     :class="isDeleted(b.id)
       ? 'list-group-item-danger'
       : 'list-group-item-secondary'

@@ -2,11 +2,11 @@
 <ul class="list-group">
   <template x-for="a in after" :key="a.id">
     <li
-    :class="! parseInt(a.id) ?
+    :class="isNaN(a.id) ?
       'list-group-item-success' :
       'list-group-item-primary'
     "
-    class="list-group-item p-1">
+    class="list-group-item px-1 py-0">
       <div class="w-100 d-flex gap-2 align-items-center">
         <span
         class="flex-grow-1"
