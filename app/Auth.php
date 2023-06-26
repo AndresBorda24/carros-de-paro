@@ -28,14 +28,21 @@ class Auth
             return $this->user;
         }
 
-        $id = $this->session->get("usu_id", 133); // 133 // 617
+        $id = $this->session->get("usu_id", 617); // 133 // 617
         if(! $id) return null;
 
         $data = $this->db->get(User::TABLE, [
             "usuario_id (id)",
             "usuario_grupo (grupo)",
             "area_servicio_id (areaId)",
-            "cargo_id"
+            "cargo_id",
+            "nombre" => Medoo::raw("CONCAT_WS(
+                    ' ',
+                    `usuario_apellido1`,
+                    `usuario_apellido2`,
+                    `usuario_nombre1`,
+                    `usuario_nombre2`
+            )")
         ], [
             "usuario_id" => $id
         ]);

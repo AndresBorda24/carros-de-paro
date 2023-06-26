@@ -7,21 +7,19 @@ use Medoo\Medoo;
 
 class Historico
 {
+    public CONST TABLE = "carro_historico";
+
     private Medoo $db;
-    private string $table;
     private array $required = [
         "after",
         "model",
-        "quien",
         "before",
-        "carro_id",
-        "motivo"
+        "apertura_id",
     ];
 
     public function __construct(Medoo $db)
     {
         $this->db = $db;
-        $this->table = "carro_historico";
     }
 
     /** Crea un historico */
@@ -30,15 +28,11 @@ class Historico
         try {
             $this->checkRequired($data);
 
-            $this->db->insert($this->table, [
+            $this->db->insert(static::TABLE, [
                 "model" => $data["model"],
-                "quien" => $data["quien"],
-                "fecha" => Medoo::raw("CURDATE()"),
-                "hora"  => Medoo::raw("CURTIME()"),
-                "carro_id"  => $data["carro_id"],
+                "apertura_id"  => $data["apertura_id"],
                 "before[JSON]" => $data["before"],
-                "after[JSON]"  => $data["after"],
-                "motivo" => $data["motivo"]
+                "after[JSON]"  => $data["after"]
             ]);
 
             return true;
@@ -59,7 +53,7 @@ class Historico
                 "dispositivos" => []
             ];
 
-            $this->db->select($this->table, ["id", "fecha", "hora", "model"], [
+            $this->db->select(static::TABLE, ["id", "fecha", "hora", "model"], [
                 "carro_id" => $carroId,
                 "ORDER" => [
                     "fecha" => "DESC",
@@ -89,26 +83,11 @@ class Historico
     public function find(int $id): ?array
     {
         try {
-            $userTable = User::TABLE;
-
-            $h = $this->db->get($this->table.' (H)', [
-                "[>]$userTable (U)" => ["quien" => "usuario_id"]
-            ], [
-                "usuario" => Medoo::raw("CONCAT_WS(
-                    ' ',
-                    U.`usuario_apellido1`,
-                    U.`usuario_apellido2`,
-                    U.`usuario_nombre1`,
-                    U.`usuario_nombre2`
-                )"),
+            $h = $this->db->get(static::TABLE.' (H)',[
                 "H.id",
                 "H.model",
-                "H.fecha",
-                "H.hora",
-                "H.carro_id",
                 "H.before",
                 "H.after",
-                "H.motivo"
             ],[
                 "H.id" => $id
             ]);
@@ -138,31 +117,33 @@ class Historico
     public function search(string $model, string $field, string $query): array
     {
         try {
+            $table = static::TABLE;
+            $carroTable = Carro::TABLE;
+            $aperturaTable = Apertura::TABLE;
+
             $sts = $this->db->pdo->prepare("
-            SELECT id, fecha, hora
-            FROM $this->table
+            SELECT $table.id, nombre, apertura_id, fecha, hora
+            FROM $table
+            LEFT JOIN $aperturaTable
+            ON $aperturaTable.`id` = $table.`apertura_id`
+            LEFT JOIN $carroTable
+            ON $carroTable.`id` = $aperturaTable.`carro_id`
             WHERE
                 `model` = :model
-                AND (
-                    JSON_CONTAINS(
-                        JSON_EXTRACT(
-                            $this->table.`before`,
-                            '$[*].$field'
-                    ), :query, '$')
-                    OR
-                    JSON_CONTAINS(
-                        JSON_EXTRACT(
-                            $this->table.`after`,
-                            '$[*].$field'
-                    ), :query, '$')
-                )
+                AND
+                JSON_CONTAINS(
+                    JSON_EXTRACT(
+                        $table.`after`,
+                        '$[*].$field'
+                ), :query, '$')
+            ORDER BY nombre ASC, fecha ASC, hora ASC
             ");
 
             if(! $sts->execute([
                 ":model" => $model,
                 ":query" => json_encode($query)
             ])) {
-                return [];
+                throw new \Exception(json_encode($sts->errorInfo()));
             }
 
             return $sts->fetchAll(\PDO::FETCH_ASSOC);
@@ -177,7 +158,7 @@ class Historico
     public function getAll(): ?array
     {
         try {
-            return $this->db->select($this->table, "*");
+            return $this->db->select(static::TABLE, "*");
         } catch (\Exception $e) {
             throw $e;
         }

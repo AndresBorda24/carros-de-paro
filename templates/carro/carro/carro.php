@@ -1,7 +1,8 @@
 <div x-data="carro" x-bind="events" class="p-2 p-md-3 mb-5">
 
   <!-- Titulo y Boton de Eliminar -->
-  <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3">
+  <div class="d-flex align-items-center flex-wrap border-bottom p-1 mb-3
+  bg-body-tertiary sticky-top">
     <div class="flex-grow-1 gap-1 text-center d-flex justify-content-center align-items-center">
       <h5
       class="m-0"
@@ -17,6 +18,11 @@
         class="text-sm text-success">
           <?= $this->fetch("./icons/edit.php") ?>
         </span>
+      <?php endif ?>
+
+      <!-- Boton de Editar Carro -->
+      <?php if($this->can('carro.modify')): ?>
+        <?= $this->fetch("./carro/carro/modify.php") ?>
       <?php endif ?>
     </div>
 
@@ -37,9 +43,9 @@
 
 
   <!-- 'Nav' (medicamentos-dispositivos) y detalles de colores -->
-  <div class="d-flex flex-wrap mb-3 gap-2 justify-content-between">
     <!-- Nav -->
-    <template x-if="hasCarro">
+  <template x-if="hasCarro">
+    <div class="d-flex flex-wrap mb-3 gap-2 align-items-center">
       <div class="btn-group" role="group">
         <button
         type="button"
@@ -52,53 +58,52 @@
         :class="{'active': grillaShow === 2}"
         class="btn btn-outline-primary btn-sm text-sm">Dispositivos</button>
       </div>
-    </template>
 
-    <button
-    x-cloak
-    x-show="hasCarro"
-    type="button"
-    @click="grillaShow = 3"
-    :class="{'active': grillaShow === 3}"
-    class="btn btn-warning btn-sm text-sm active">Hist&oacute;rico</button>
+      <button
+      x-cloak
+      x-show="hasCarro"
+      type="button"
+      @click="grillaShow = 3"
+      class="btn btn-warning btn-sm text-sm">Hist&oacute;rico</button>
 
-    <details
-    x-cloak
-    x-show="hasCarro"
-    class="position-relative ms-auto ms-md-0">
-      <summary class="text-sm btn">
-          &iquest;Ayuda con los colores?
-          <?= $this->fetch("./icons/question.php") ?>
-      </summary>
-
-      <ul
-      style="width: 210px; z-index: 1;"
-      class="list-group list-group-flush position-absolute text-sm end-0
-      top-100 shadow border border-secondary rounded-1 mt-1">
-        <li class="list-group-item list-group-item-success">
-          M&aacute;s a 12 Meses
-        </li>
-        <li class="list-group-item list-group-item-warning">
-          Entre 7 y 12 Meses
-        </li>
-        <li class="list-group-item list-group-item-danger">
-          Menos de 7 meses
-        </li>
-      </ul>
-    </details>
-  </div>
+      <details
+      x-cloak
+      x-show="(grillaShow == 1 || grillaShow == 2)"
+      @click.outside="$el.removeAttribute('open')"
+      class="position-relative ms-auto">
+        <summary class="text-sm btn btn-sm">
+            &iquest;Ayuda con los colores?
+            <?= $this->fetch("./icons/question.php") ?>
+        </summary>
+        <ul
+        style="width: 150px; z-index: 1;"
+        class="list-group list-group-flush position-absolute text-sm end-0
+        top-100 shadow border border-secondary rounded-1 mt-1">
+          <li class="list-group-item list-group-item-success p-1">
+            M&aacute;s a 12 Meses
+          </li>
+          <li class="list-group-item list-group-item-warning p-1">
+            Entre 7 y 12 Meses
+          </li>
+          <li class="list-group-item list-group-item-danger p-1">
+            Menos de 7 meses
+          </li>
+        </ul>
+      </details>
+    </div>
+  </template>
 
   <!-- Grillas -->
   <div x-show="grillaShow === 1">
-    <?= $this->fetch("./partials/carro/grillas/medicamentos.php") ?>
+    <?= $this->fetch("./carro/grillas/medicamentos.php") ?>
   </div>
 
   <div x-show="grillaShow === 2">
-    <?= $this->fetch("./partials/carro/grillas/dispositivos.php") ?>
+    <?= $this->fetch("./carro/grillas/dispositivos.php") ?>
   </div>
 
   <!-- Historico -->
   <div x-show="grillaShow === 3">
-    <?= $this->fetch("./partials/carro/historico.php") ?>
+    <?= $this->fetch("./carro/histo/historico.php") ?>
   </div>
 </div>

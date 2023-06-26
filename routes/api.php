@@ -27,6 +27,18 @@ function loadApiRoutes(App $app) {
             CarroController::class,
             "getAll"
         ]);
+        $api->get("/carros/{id:[0-9]+}/get-aperturas", [
+            CarroController::class,
+            "getAperturas"
+        ]);
+        $api->get("/carros/aperturas/{aperturaId:[0-9]+}/get", [
+            CarroController::class,
+            "findApertura"
+        ]);
+        $api->post("/carros/{id:[0-9]+}/save-apertura", [
+            CarroController::class,
+            "saveApertura"
+        ]);
         $api->get("/carros/{carroId:[0-9]+}/get-medicamentos", [
             MedicamentoController::class,
             "getFromCarro"
@@ -35,6 +47,7 @@ function loadApiRoutes(App $app) {
             DispositivoController::class,
             "getFromCarro"
         ]);
+
 
         /* ---------------------------------------------------------------------
         *  Medicamentos

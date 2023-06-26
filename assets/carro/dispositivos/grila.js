@@ -1,7 +1,7 @@
 import axios from "axios";
 import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
-import 'datatables.net-responsive-dt';
+import 'datatables.net-fixedcolumns-dt';
 import { errorAlert } from "../../partials/alerts";
 import { showLoader, hideLoader } from "../../partials/loader";
 
@@ -12,14 +12,15 @@ export default () => ({
     table: undefined,
     api: process.env.API,
     ctrlId: undefined,
-    hasChanged: false,
     selector: "#grilla-dispositivos",
     data: [],
     events: {
         ['@new-dispositivo-created.document']: "newDispositivo",
         ['@dispositivo-deleted.document']: "removeDispositivo",
         ['@dispositivo-updated.document']: "updateDispositivo",
-        ['@carro-dispositivos-updated.document']: "getData"
+        ["@carro-apertura-cancelada.document"] : "revertChanges",
+        ['@carro-apertura-update.document']: "getData",
+        ["@carro-apertura-save.document"]: "sendSaveData",
     },
 
     init() {
@@ -31,17 +32,20 @@ export default () => ({
     * Cuando un dispositivo se crea, se anexa a la grilla y al array de datos
     */
     newDispositivo({ detail: dispositivo }) {
-        this.hasChanged = true;
         this.table.row.add(
             dispositivo
         ).draw();
+
+        this.table
+            .row( "#" + dispositivo.id )
+            .node()
+            .classList.add("bg-success-subtle");
     },
 
     /**
      * Elimina un dispositivo de la grilla
     */
     removeDispositivo({ detail: rowIndex }) {
-        this.hasChanged = true;
         this.table
             .row( rowIndex )
             .remove()
@@ -52,23 +56,22 @@ export default () => ({
      * Actualiza un dispositivo de la grilla
     */
     updateDispositivo({ detail: data }) {
-        this.hasChanged = true;
         this.table
             .row( data.rowIndex )
             .data( data.dispositivo )
             .draw();
+
+        this.table
+            .row( data.rowIndex )
+            .node()
+            .classList.add("bg-warning-subtle");
     },
 
     /**
      * Deshace todos los cambios `NO` guardados.
     */
     revertChanges() {
-        if (! confirm("Se perderan TODOS los cambios sin guardar. Continuar?")) {
-            return;
-        }
-
         this.updateTableRows( this.data );
-        this.hasChanged = false;
     },
 
     /** Crea la tabla */
@@ -77,19 +80,22 @@ export default () => ({
 
         this.table = new DataTable(this.selector, {
             searching: false,
-            responsive: true,
+            // responsive: true,
             language: ES,
+            fixedColumns: {
+                left: 0,
+                right: 2
+            },
+            scrollY: '50vh',
+            scrollX: true,
+            scrollCollapse: true,
             paging: false,
             rowId: 'id',
             columnDefs: [
                 { data: 'desc', targets: 0 },
-                { data: 'marca', targets: 1 },
-                { data: 'presentacion', targets: 2, orderable: false },
-                { data: 'invima', targets: 3, orderable: false },
-                { data: 'lote', targets: 4, orderable: false },
                 {
                     data: 'vencimiento',
-                    targets: 5,
+                    targets: 1,
                     createdCell: (td, data) => {
                         const _ = jQuery(td);
                         _.attr(
@@ -101,14 +107,20 @@ export default () => ({
                         );
                     }
                 },
-                { data: 'cantidad', targets: 6 },
-                { data: 'vida_util', targets:  7 },
-                { data: 'riesgo', targets:  8 },
+                { data: 'marca', targets: 2 },
+                { data: 'presentacion', targets: 3, orderable: false },
+                { data: 'invima', targets: 4, orderable: false },
+                { data: 'lote', targets: 5, orderable: false },
+                { data: 'vida_util', targets:  6 },
+                { data: 'riesgo', targets: 7 },
+                { data: 'cantidad', targets:  8 },
                 {
                     targets: -1,
                     data: 'id',
                     render: (data) => `
                         <button
+                        x-cloak
+                        x-show="carroStatus"
                         @click="dispatchEdit('#${data}')"
                         class="btn btn-primary btn-sm px-1 py-0">
                             <span>&#9881;</span>
@@ -131,7 +143,15 @@ export default () => ({
         this.table.draw();
     },
 
-    /** I
+    /**
+     * Envia la informacion de la grilla para que se realice la peticion y
+     * se guarden los datos en la base de datos.
+    */
+    sendSaveData() {
+        this.$dispatch("save-dispositivos-data", this.getTableData());
+    },
+
+    /**
      * Indica que se debe modificar un dispositivo
     */
     dispatchEdit( rowIndex ) {
@@ -151,7 +171,6 @@ export default () => ({
     async getData() {
         try {
             showLoader();
-            this.hasChanged = false;
 
             const { data } = await axios.get(
                 `${this.api}/carros/${this.getCarroId()}/get-dispositivos`
@@ -186,22 +205,35 @@ export default () => ({
 
                 console.log("Cambio el ID dispositivo: ", this.getCarroId());
             }
+            // await this.fixResponsive();
         });
 
 
         /**
          * Para que funcione el `Responsive` de la tabla.
         */
-        this.$watch("grillaShow", (val) => {
-            if (val == 2) {
-                this.$nextTick(() => {
-                    this.table
-                        .columns.adjust()
-                        .responsive.recalc();
-                });
+        this.$watch("grillaShow", async () => {
+            await this.$nextTick();
+            if (this.grillaShow === 2) {
+                this.table.columns.adjust().draw();
             }
         });
+        // this.$watch("carroStatus", async () => {
+        //     await this.fixResponsive();
+        // });
     },
+
+    /**
+     * Ajusta el ancho de las columnas. Si. Es necesario.
+    */
+    // async fixResponsive() {
+    //     await this.$nextTick();
+    //     setTimeout(() => {
+    //         this.table
+    //             .columns.adjust()
+    //             .responsive.recalc()
+    //     }, 50);
+    // },
 
     /**
      * Obtiene los datos actuales de la tabla

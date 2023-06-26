@@ -13,6 +13,7 @@ class User implements UserInterface
     private int $areaId;
     private int $cargoId;
     private string $grupo;
+    private string $nombre;
 
 
     public function __construct(array $data)
@@ -24,6 +25,7 @@ class User implements UserInterface
             $this->grupo   = $data["grupo"];
             $this->areaId  = (int) $data["areaId"];
             $this->cargoId = (int) $data["cargo_id"];
+            $this->nombre  = $data["nombre"];
         } catch(\Exception $e) {
             throw $e;
         }
@@ -47,6 +49,11 @@ class User implements UserInterface
     public function getCargoId(): int
     {
         return $this->cargoId;
+    }
+
+    public function getNombre(): string
+    {
+        return $this->nombre;
     }
 
     // Revisa los campos requeridos

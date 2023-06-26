@@ -7,8 +7,9 @@ use Medoo\Medoo;
 
 class Carro
 {
+    public CONST TABLE = "carros";
+
     private Medoo $db;
-    private string $table;
     private array $required = [
         "nombre",
         "ubicacion"
@@ -17,16 +18,17 @@ class Carro
     public function __construct(Medoo $db)
     {
         $this->db = $db;
-        $this->table = "carros";
     }
 
-    /** Crea un Nuevo Carro de Paro */
+    /**
+     * Crea un Nuevo Carro de Paro
+    */
     public function create(array $data): bool
     {
         try {
             $this->checkRequired($data);
 
-            $this->db->insert($this->table, [
+            $this->db->insert(static::TABLE, [
                 "nombre"    => trim($data["nombre"]),
                 "ubicacion" => trim($data["ubicacion"])
             ]);
@@ -37,13 +39,15 @@ class Carro
         }
     }
 
-    /** Actualiza un Nuevo Carro de Paro */
+    /**
+     * Actualiza un Nuevo Carro de Paro
+    */
     public function update(int $id, array $data): int
     {
         try {
             $this->checkRequired($data);
 
-            $_ = $this->db->update($this->table, [
+            $_ = $this->db->update(static::TABLE, [
                 "nombre"    => trim($data["nombre"]),
                 "ubicacion" => trim($data["ubicacion"])
             ], [
@@ -64,7 +68,7 @@ class Carro
     public function delete(int $id): int
     {
         try {
-            $_ = $this->db->delete($this->table, [
+            $_ = $this->db->delete(static::TABLE, [
                 "id" => $id
             ]);
 
@@ -80,7 +84,7 @@ class Carro
     public function getAll(): ?array
     {
         try {
-            return $this->db->select($this->table, "*");
+            return $this->db->select(static::TABLE, "*");
         } catch (\Exception $e) {
             throw $e;
         }

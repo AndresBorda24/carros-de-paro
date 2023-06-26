@@ -8,6 +8,10 @@
   rel="stylesheet"
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous">
+
+  <link
+  href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css"
+  rel="stylesheet">
   <?= $this->loadAssets("carro/app") ?>
   <title>Carros de Paro</title>
 </head>
@@ -19,21 +23,21 @@
     </div>
 
     <div class="col-lg-9 flex-grow-1">
-      <?= $this->fetch("./partials/carro/carro.php") ?>
+      <?= $this->fetch("./carro/carro/carro.php") // xD ?>
     </div>
   </main>
 
   <!-- Modals -->
   <?php if ($this->can("carro.create") || $this->can('carro.edit')) {
-    echo $this->fetch("./partials/carro/create-carro.php");
+    echo $this->fetch("./carro/carro/create-carro.php");
   }?>
 
   <?php if ($this->can("medicamentos.create") || $this->can('medicamentos.edit')) {
-    echo $this->fetch("./partials/carro/create-medicamento.php");
+    echo $this->fetch("./carro/carro/create-medicamento.php");
   }?>
 
   <?php if ($this->can("dispositivos.create") || $this->can('dispositivos.edit')) {
-    echo $this->fetch("./partials/carro/create-dispositivo.php") ;
+    echo $this->fetch("./carro/carro/create-dispositivo.php") ;
   }?>
 
   <?= $this->fetch("./partials/loader.php") ?>

@@ -1,18 +1,18 @@
 <h6 class="text-center">Despu&eacute;s</h6>
 <ul class="list-group">
-  <template x-for="after in changes.after">
+  <template x-for="a in after" :key="a.id">
     <li
-    :class="! parseInt(after.id) ?
+    :class="isNaN(a.id) ?
       'list-group-item-success' :
       'list-group-item-primary'
     "
-    class="list-group-item">
+    class="list-group-item px-1 py-0">
       <div class="w-100 d-flex gap-2 align-items-center">
         <span
         class="flex-grow-1"
-        x-text="getItemNombre( after )"></span>
+        x-text="getItemNombre( a )"></span>
         <span
-        x-text="after.cantidad"></span>
+        x-text="a.cantidad"></span>
 
         <!-- Esto muestra unos detalles del item -->
         <details class="position-relative">
@@ -22,17 +22,17 @@
           <div
           style="width: 200px;"
           class="bg-body p-1 border rounded shadow position-absolute end-100 top-0 z-1">
-            Lote: <span x-text="after.lote"></span><br>
-            Invima: <span x-text="after.invima"></span><br>
-            Venc: <span x-text="after.vencimiento"></span>
+            Lote: <span x-text="a.lote"></span><br>
+            Invima: <span x-text="a.invima"></span><br>
+            Venc: <span x-text="a.vencimiento"></span>
           </div>
         </details>
       </div>
 
       <!-- Si se ha modificado, mostrara el motivo -->
-      <template x-if="after.motivo_edicion">
+      <template x-if="a.motivo_edicion">
         <span
-        x-html="after.motivo_edicion"
+        x-html="a.motivo_edicion"
         class="badge text-bg-light">
         </span>
       </template>

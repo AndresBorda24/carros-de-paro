@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use Slim\App;
 use App\Controllers\HomeController;
+use App\Controllers\PrintController;
 
 function loadWebRoutes(App $app) {
     $app->get("/", [HomeController::class, "index"])->setName("carros.index");
@@ -10,5 +11,10 @@ function loadWebRoutes(App $app) {
         HomeController::class,
         "buscarHistorico"
     ])->setName("carros.buscar-historico");
+
+    $app->get("/print/{aperturaId:[0-9]+}/apertura", [
+        PrintController::class,
+        "printApertura"
+    ])->setName("print.apertura");
 }
 

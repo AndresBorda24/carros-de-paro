@@ -1,5 +1,7 @@
 export default () => ({
     data: undefined,
+    historicoId: undefined,
+    _meta: {},
     events: {
         '@new-results-found.document': "setData"
     },
@@ -16,8 +18,8 @@ export default () => ({
     */
     setData({ detail }) {
         this.data = detail.data;
-
-        this.changed(0);
+        this._meta = detail._meta;
+        this.historicoId = undefined;
     },
 
     /**
@@ -31,6 +33,6 @@ export default () => ({
      * Se ejecuta cuando se selecciona algun elemento del select de cambios
     */
     changed( id ) {
-        this.$dispatch("fetch-changes", id);
+        this.$dispatch("historico-selected", id);
     }
 });
