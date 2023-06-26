@@ -14,10 +14,12 @@
 <body class="bg-body-tertiary">
   <?= $this->fetch("./partials/header.php") ?>
   <main class="container g-0">
-    <div class="w-100 p-2 p-md-3 mb-5">
+    <div class="p-2 mt-3 sticky-top bg-body-tertiary border-bottom">
       <h4>B&uacute;squeda</h4>
       <?= $this->fetch("./partials/buscar/formulario.php") ?>
-      <div class="rounded border bg-white mt-3">
+    </div>
+    <div class="w-100 mb-4">
+      <div class="rounded bg-white mt-3">
         <?= $this->fetch("./partials/buscar/select-results.php") ?>
       </div>
     </div>

@@ -25,7 +25,7 @@ x-show="historicoId">
               <?= $this->fetch("./icons/question.php") ?>
             </summary>
             <div class="list-group list-group-flush position-absolute top-0
-            bg-body end-100 border rounded shadow" style="width: 150px;">
+            bg-body end-100 border rounded shadow text-wrap" style="width: 150px;">
               <span class="list-group-item p-1">
                 Cantidad: <span x-text="item.cantidad"></span>
               </span>

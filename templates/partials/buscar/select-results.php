@@ -1,7 +1,9 @@
 <div
 x-data="selectResults"
 x-bind="events"
-class="p-2"
+x-show="show"
+x-cloak
+class="p-3 border"
 x-show="Boolean(data)">
   <p class="m-2">
     Coincidencias encontradas:
