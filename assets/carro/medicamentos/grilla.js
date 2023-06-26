@@ -1,7 +1,8 @@
 import axios from "axios";
 import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
-import 'datatables.net-responsive-dt';
+// import 'datatables.net-responsive-dt';
+import 'datatables.net-fixedcolumns-dt';
 import { errorAlert } from "../../partials/alerts";
 import { showLoader, hideLoader } from "../../partials/loader";
 
@@ -41,7 +42,7 @@ export default () => ({
             .node()
             .classList.add("bg-success-subtle");
 
-        this.fixResponsive();
+        // this.fixResponsive();
     },
 
     /**
@@ -83,8 +84,13 @@ export default () => ({
         this.table = new DataTable(this.selector, {
             searching: false,
             language: ES,
-            responsive: true,
+            // responsive: true,
+            fixedColumns: {
+                left: 0,
+                right: 2
+            },
             scrollY: '50vh',
+            scrollX: true,
             scrollCollapse: true,
             paging: false,
             rowId: 'id',
@@ -201,7 +207,7 @@ export default () => ({
 
                 console.log("Cambio el ID dispositivo: ", this.getCarroId());
             }
-            await this.fixResponsive();
+            // await this.fixResponsive();
         });
 
 
@@ -209,24 +215,27 @@ export default () => ({
          * Para que funcione el `Responsive` de la tabla.
         */
         this.$watch("grillaShow", async () => {
-            await this.fixResponsive();
+            await this.$nextTick();
+            if (this.grillaShow === 1) {
+                this.table.columns.adjust().draw();
+            }
         });
-        this.$watch("carroStatus", async () => {
-            await this.fixResponsive();
-        });
+        // this.$watch("carroStatus", async () => {
+        //     await this.fixResponsive();
+        // });
     },
 
     /**
      * Ajusta el ancho de las columnas. Si. Es necesario.
     */
-    async fixResponsive() {
-        await this.$nextTick();
-        setTimeout(() =>
-            this.table
-                .columns.adjust()
-                .responsive.recalc()
-        , 50);
-    },
+    // async fixResponsive() {
+    //     await this.$nextTick();
+    //     setTimeout(() =>
+    //         this.table
+    //             .columns.adjust()
+    //             .responsive.recalc()
+    //     , 50);
+    // },
 
     /**
      * Obtiene los datos actuales de la tabla
@@ -245,7 +254,6 @@ export default () => ({
         const x = Object.values(_).slice(0, _.length);
 
         console.log("Datos en `data`: ", JSON.parse( JSON.stringify(this.data)))
-
         console.log("Datos en datatable: ", JSON.parse( JSON.stringify(x) ));
     },
 });

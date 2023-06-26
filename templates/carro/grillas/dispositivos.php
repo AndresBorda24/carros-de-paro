@@ -29,7 +29,7 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
   id="grilla-dispositivos"
   style="width:100%"
   data-can-edit="<?= (int) $this->can("dispositivos.edit") ?>"
-  class="display compact responsive small nowrap">
+  class="display compact small nowrap w-100">
     <thead>
       <tr>
         <th data-priority="0">Descripci&oacute;n</th>
@@ -41,12 +41,12 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
         <th data-priority="3">Lote</th>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="2">Fecha Vencimiento</th>
-        <th data-priority="1">Cant.</th>
-        <th
-        style="word-break: normal; white-space: pre-line"
         data-priority="2">Vida &uacute;til</th>
         <th data-priority="3">Riesgo</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Fecha Vencimiento</th>
+        <th data-priority="1">Cant.</th>
         <th data-priority="0"></th>
       </tr>
     </thead>
