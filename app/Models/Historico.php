@@ -130,19 +130,12 @@ class Historico
             ON $carroTable.`id` = $aperturaTable.`carro_id`
             WHERE
                 `model` = :model
-                AND (
-                    JSON_CONTAINS(
-                        JSON_EXTRACT(
-                            $table.`before`,
-                            '$[*].$field'
-                    ), :query, '$')
-                    OR
-                    JSON_CONTAINS(
-                        JSON_EXTRACT(
-                            $table.`after`,
-                            '$[*].$field'
-                    ), :query, '$')
-                )
+                AND
+                JSON_CONTAINS(
+                    JSON_EXTRACT(
+                        $table.`after`,
+                        '$[*].$field'
+                ), :query, '$')
             ORDER BY nombre ASC, fecha ASC, hora ASC
             ");
 

@@ -1,5 +1,5 @@
 <div
-class="small"
+class="small table-responsive"
 x-data="show"
 x-cloak
 x-show="historicoId">
@@ -13,7 +13,7 @@ x-show="historicoId">
         <th>*</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody style="white-space: nowrap;">
       <template x-for="item in data.after" :key="item.id">
       <tr :class="isTheOne(item) ? 'table-dark' : ''">
         <td x-text="getItemName(item)"></td>
