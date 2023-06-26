@@ -8,6 +8,10 @@
   rel="stylesheet"
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous">
+
+  <link
+  href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css"
+  rel="stylesheet">
   <?= $this->loadAssets("carro/app") ?>
   <title>Carros de Paro</title>
 </head>

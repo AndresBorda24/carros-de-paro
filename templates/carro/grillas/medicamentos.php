@@ -29,7 +29,7 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
   id="grilla-medicamentos"
   style="width:100%"
   data-can-edit="<?= (int) $this->can("medicamentos.edit") ?>"
-  class="display compact responsive small nowrap">
+  class="display compact small nowrap">
     <thead>
       <tr>
         <th
