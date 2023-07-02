@@ -16,6 +16,7 @@ export default () => ({
         // que no sean hijos
         this.$watch("carroStatus", (val) => {
             this.$dispatch("carro-status", val);
+            Alpine.store("CARRO_STATUS", val);
         });
     },
 
