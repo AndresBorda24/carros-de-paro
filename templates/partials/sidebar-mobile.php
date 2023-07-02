@@ -1,5 +1,5 @@
 <div class="fixed-bottom bg-blue-main d-flex d-lg-none p-1 justify-content-between">
-  <details class="position-relative">
+  <details class="position-relative" @click.outside="$el.removeAttribute('open')">
     <summary class="btn btn-sm btn-outline-light text-sm">
       Carros
     </summary>

@@ -70,7 +70,7 @@
       x-cloak
       x-show="(grillaShow == 1 || grillaShow == 2)"
       @click.outside="$el.removeAttribute('open')"
-      class="position-relative ms-auto">
+      class="position-relative ms-auto z-2">
         <summary class="text-sm btn btn-sm">
             &iquest;Ayuda con los colores?
             <?= $this->fetch("./icons/question.php") ?>
@@ -94,16 +94,16 @@
   </template>
 
   <!-- Grillas -->
-  <div x-show="grillaShow === 1">
+  <div class="position-relative z-1" x-show="grillaShow === 1">
     <?= $this->fetch("./carro/grillas/medicamentos.php") ?>
   </div>
 
-  <div x-show="grillaShow === 2">
+  <div class="position-relative z-1" x-show="grillaShow === 2">
     <?= $this->fetch("./carro/grillas/dispositivos.php") ?>
   </div>
 
   <!-- Historico -->
-  <div x-show="grillaShow === 3">
+  <div class="position-relative z-1" x-show="grillaShow === 3">
     <?= $this->fetch("./carro/histo/historico.php") ?>
   </div>
 </div>
