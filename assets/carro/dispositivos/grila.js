@@ -80,7 +80,6 @@ export default () => ({
 
         this.table = new DataTable(this.selector, {
             searching: false,
-            // responsive: true,
             language: ES,
             fixedColumns: {
                 left: 0,
