@@ -22,7 +22,9 @@
 
       <!-- Boton de Editar Carro -->
       <?php if($this->can('carro.modify')): ?>
-        <?= $this->fetch("./carro/carro/modify.php") ?>
+        <template x-if="hasCarro">
+          <?= $this->fetch("./carro/carro/modify.php") ?>
+        </template>
       <?php endif ?>
     </div>
 
