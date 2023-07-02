@@ -11,6 +11,15 @@ export default () => ({
         ["@carro-deleted.document"]:  "deleteCarro"
     },
 
+    init() {
+        // Informamos el cambio en el estadon de carro a los componentes
+        // que no sean hijos
+        this.$watch("carroStatus", (val) => {
+            this.$dispatch("carro-status", val);
+            Alpine.store("CARRO_STATUS", val);
+        });
+    },
+
     /**
      * Obtine y guarda la informacion del carro clicado
     */

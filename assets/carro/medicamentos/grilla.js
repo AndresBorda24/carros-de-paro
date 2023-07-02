@@ -1,7 +1,6 @@
 import axios from "axios";
 import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
-// import 'datatables.net-responsive-dt';
 import 'datatables.net-fixedcolumns-dt';
 import { errorAlert } from "../../partials/alerts";
 import { showLoader, hideLoader } from "../../partials/loader";
@@ -82,7 +81,6 @@ export default () => ({
         this.table = new DataTable(this.selector, {
             searching: false,
             language: ES,
-            // responsive: true,
             fixedColumns: {
                 left: 0,
                 right: 2

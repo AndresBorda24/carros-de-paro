@@ -34,6 +34,7 @@
             <option value="Auditor&Iacute;a Externa">Auditor&Iacute;a Externa</option>
             <option value="C&oacute;digo Azul">C&oacute;digo Azul</option>
             <option value="Mantenimiento">Mantenimiento</option>
+            <option value="Revisi&oacute;n Mensual">Revisi&oacute;n Mensual</option>
           </select>
 
           <button

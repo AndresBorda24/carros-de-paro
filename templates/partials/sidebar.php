@@ -19,7 +19,10 @@ class="position-sticky top-0">
         <button
         type="button"
         role="menuitem"
-        :class="{'active': selected === carro.id}"
+        :class="{
+          'active disabled': selected === carro.id,
+          'disabled': carroStatus
+        }"
         @click="carroClicked( carro.id )"
         class="rounded-1 align-items-center btn btn-sm carro-nav-item d-flex gap-2">
           <?= $this->fetch("./icons/bookmark.php") ?>
@@ -32,6 +35,13 @@ class="position-sticky top-0">
             x-text="carro.ubicacion"></span>
           </span>
         </button>
+      </template>
+
+      <template x-if="carroStatus">
+        <span class="mt-3 text-sm text-muted text-center">
+          Para seleccionar otro carro pimero debes guardar las modificaciones en
+          el carro actual. (O cancelar la apertura)
+        </span>
       </template>
     </nav>
 

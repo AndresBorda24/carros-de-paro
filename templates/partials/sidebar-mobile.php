@@ -1,5 +1,5 @@
 <div class="fixed-bottom bg-blue-main d-flex d-lg-none p-1 justify-content-between">
-  <details class="position-relative">
+  <details class="position-relative" @click.outside="$el.removeAttribute('open')">
     <summary class="btn btn-sm btn-outline-light text-sm">
       Carros
     </summary>
@@ -12,7 +12,10 @@
         <button
         type="button"
         role="menuitem"
-        :class="{'active': selected === carro.id}"
+        :class="{
+          'active disabled': selected === carro.id,
+          'disabled': carroStatus
+        }"
         @click="carroClicked( carro.id )"
         class="rounded-1 align-items-center btn btn-sm carro-nav-item d-flex gap-2">
           <?= $this->fetch("./icons/bookmark.php") ?>
@@ -25,6 +28,13 @@
             x-text="carro.ubicacion"></span>
           </span>
         </button>
+      </template>
+
+
+      <template x-if="carroStatus">
+        <span class="mt-3 text-sm text-muted text-center">
+          Guarda la revisi&oacute;n para poder seleccionar otro carro.
+        </span>
       </template>
     </nav>
   </details>
