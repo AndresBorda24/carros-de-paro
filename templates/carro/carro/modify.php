@@ -56,12 +56,14 @@
     <summary class="btn btn-sm btn-outline-success">
       Guardar Revisi&oacute;n
     </summary>
-    <div class="position-absolute border bg-success-subtle z-1 top-100 end-0 p-2 small border-success rounded shadow mt-1" style="width: 180px;">
+    <div class="position-absolute border bg-success-subtle z-1 top-100 end-0 p-2 small border-success rounded shadow mt-1 text-center" style="width: 180px;">
       Recuerda registrar <span class="fw-bold">TODOS</span> los cambios en
-      <span class="fst-italic">Medicamentos</span> y <span class="fst-italic">Dispositivos</span>. Si ya lo hiciste, pulsa en:
+      <span class="fst-italic fw-bold">Medicamentos</span> y
+      <span class="fst-italic fw-bold">Dispositivos</span>.
+      Si ya lo hiciste, pulsa en:
       <button
       @click="save"
-      class="btn btn-sm btn-success text-sm mt-2">
+      class="btn btn-sm btn-success text-sm mt-2 d-block mx-auto">
         Guardar
         <?= $this->fetch("./icons/check.php") ?>
       </button>
