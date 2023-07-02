@@ -5,12 +5,14 @@ import { showLoader, hideLoader } from "../../../partials/loader";
 export default () => ({
     carros: [],
     selected: undefined,
+    carroStatus: false, // true open & false closed
     loader: "#carro-list-loader",
     api: process.env.API + "/carros/get-all",
     events: {
         ['@new-carro-created.document']: "getList",
         ["@carro-updated.document"]: "updateCarro",
-        ["@carro-deleted.document"]: "deleteCarro"
+        ["@carro-deleted.document"]: "deleteCarro",
+        ["@carro-status.document"]: "setCarroStatus"
     },
 
     async init() {
@@ -59,6 +61,13 @@ export default () => ({
         if (index !== -1) {
             this.$dispatch("carro-selected", this.carros[ index ]);
         }
+    },
+
+    /**
+     * Establede el estado actual del carro (abierto o cerrado)
+    */
+    setCarroStatus({ detail: status }) {
+        this.carroStatus = status;
     },
 
     /**
