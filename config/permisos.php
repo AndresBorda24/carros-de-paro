@@ -25,7 +25,7 @@ return [
     "carro.modify" => [
         "grupos" => ['00'],
         "cargos" => [],
-        "area"   => [],
+        "area"   => [5],
         "id"     => [603, 133]
     ],
 
