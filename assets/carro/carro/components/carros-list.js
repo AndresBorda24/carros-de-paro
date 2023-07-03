@@ -47,7 +47,7 @@ export default () => ({
         const index = this.carros.findIndex(c => c.id == carro.id);
 
         if (index !== -1) {
-            this.preventCloseWithoutSavingcarros[ index ] = carro;
+            this.carros[ index ] = carro;
         }
     },
 
