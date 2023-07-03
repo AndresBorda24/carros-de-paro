@@ -37,27 +37,18 @@ class="position-sticky top-0">
         </button>
       </template>
 
-      <template x-if="carroStatus">
-        <span class="mt-3 text-sm text-muted text-center">
-          Para seleccionar otro carro pimero debes guardar las modificaciones en
-          el carro actual. (O cancelar la apertura)
-        </span>
-      </template>
+      <?= $this->fetch("./partials/sidebar/unsaved-car-message.php") ?>
     </nav>
 
+    <?= $this->fetch("./partials/sidebar/no-carros.php") ?>
+
     <?php if ($this->can("carro.create")) : ?>
-      <button
-      @click="$dispatch('create-carro')"
-      style="font-size: .7rem;"
-      class="btn btn-outline-success btn-sm text-end ms-auto d-block">
-        <?= $this->fetch("./icons/plus.php") ?>
-        Nuevo Carro
-      </button>
+      <?= $this->fetch("./partials/sidebar/create-carro.php") ?>
     <?php endif ?>
   </div>
 
   <!-- Movemos el nav para main y asi evitamos overlapping -->
   <template x-teleport="main">
-    <?= $this->fetch("./partials/sidebar-mobile.php") ?>
+    <?= $this->fetch("./partials/sidebar/mobile.php") ?>
   </template>
 </div>

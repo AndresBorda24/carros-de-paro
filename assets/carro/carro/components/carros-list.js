@@ -89,5 +89,12 @@ export default () => ({
         if (index !== -1) {
             this.carros.splice(index, 1);
         }
+    },
+
+    /**
+     * Determina si hay carros xD
+    */
+    get areThereCars() {
+        return this.carros.length > 0;
     }
 });

@@ -30,22 +30,12 @@
         </button>
       </template>
 
-
-      <template x-if="carroStatus">
-        <span class="mt-3 text-sm text-muted text-center">
-          Guarda la revisi&oacute;n para poder seleccionar otro carro.
-        </span>
-      </template>
+      <?= $this->fetch("./partials/sidebar/unsaved-car-message.php") ?>
+      <?= $this->fetch("./partials/sidebar/no-carros.php") ?>
     </nav>
   </details>
 
   <?php if ($this->can("carro.create")) : ?>
-    <button
-    @click="$dispatch('create-carro')"
-    style="font-size: .7rem;"
-    class="btn btn-success btn-sm text-end ms-auto d-block">
-      <?= $this->fetch("./icons/plus.php") ?>
-      Nuevo Carro
-    </button>
+    <?= $this->fetch("./partials/sidebar/create-carro.php") ?>
   <?php endif ?>
 </div>
