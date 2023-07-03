@@ -42,9 +42,14 @@ export default (watch) => ({
      * Establece los datos para after y before
     */
     setData( val ) {
+        if (! Boolean(val)) {
+            this.after    = [];
+            this.before   = [];
+            this.afterIds = [];
+        }
+
         this.after = val.after;
         this.before = val.before;
-
         this.afterIds = this.after.map(el => el.id);
     }
 });
