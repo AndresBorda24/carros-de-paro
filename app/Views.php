@@ -65,7 +65,10 @@ class Views extends PhpRenderer
             if (! array_key_exists($type, $types)) continue;
 
             foreach ($assets as $asset) {
-                $tags .= sprintf($types[ $type ], $asset);
+                $tags .= sprintf(
+                    $types[ $type ],
+                    $asset . "?__v=" . $this->config->get("app.ver")
+                );
             }
         }
 
