@@ -6,6 +6,11 @@ use App\Controllers\HomeController;
 use App\Controllers\PrintController;
 
 function loadWebRoutes(App $app) {
+    /**
+     * Esto esta para evitar e error 404 por culpa del /
+    */
+    $app->get("", [HomeController::class, "index"]);
+
     $app->get("/", [HomeController::class, "index"])->setName("carros.index");
     $app->get("/buscar-historico", [
         HomeController::class,

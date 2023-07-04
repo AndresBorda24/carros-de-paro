@@ -13,9 +13,9 @@ Encore
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    // .setPublicPath(process.env.APP_URL + '/build')
-    .setPublicPath('/build')
-    // .setManifestKeyPrefix('build/')
+    .setPublicPath(process.env.APP_URL + '/build')
+    // .setPublicPath('/build')
+    .setManifestKeyPrefix('build/')
     .addEntry('carro/app', './assets/carro/index.js')
     .addEntry('print/app', './assets/print/index.js')
     .addEntry('buscar/app', './assets/buscar/index.js')
