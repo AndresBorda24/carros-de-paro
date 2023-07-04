@@ -1,9 +1,13 @@
 <header class="bg-blue-dark">
   <div class="container p-2">
-    <img
-    height="40"
-    src="<?= $this->asset("img/logo-blanco.png") ?>"
-    alt="logo-asotrauma">
+    <a 
+    class="d-block" 
+    href="https://intranet.asotrauma.com.co/indexloginadmin.php">
+      <img
+      height="40"
+      src="<?= $this->asset("img/logo-blanco.png") ?>"
+      alt="logo-asotrauma">
+    </a>
   </div>
   <div class="text-center p-1 bg-blue-main">
     <a
