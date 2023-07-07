@@ -104,5 +104,14 @@ function loadApiRoutes(App $app) {
             HistoricoController::class,
             "searchHistorico"
         ]);
+
+
+        /* ---------------------------------------------------------------------
+        *  Tratando de evitar el error de las sesiones
+        */
+        $api->get(
+            "/session-pulse",
+            \App\Controllers\Api\SessionPulseController::class
+        );
     })->add(JsonBodyParserMiddleware::class);
 }

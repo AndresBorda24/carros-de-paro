@@ -6,8 +6,8 @@ import * as Medicamentos from "./medicamentos/index";
 import * as Dispositivos from "./dispositivos/index";
 
 import print from "../partials/print";
-// import printTable from "./partials/print-table";
 import resaltarVencimiento from "./partials/resaltar-vencimiento";
+import sessionPulse from "./partials/session-pulse";
 
 import "../css/carro.css";
 
@@ -40,9 +40,5 @@ document.addEventListener("alpine:init", function() {
 document.addEventListener("DOMContentLoaded", function() {
     Alpine.start();
 
-    window.closeDetail = () => {
-        document
-            .querySelector("details[open]")
-            .removeAttribute('open');
-    }
+    window.setInterval(sessionPulse, 1000 * 60 * 15);
 });
