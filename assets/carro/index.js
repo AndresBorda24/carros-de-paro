@@ -40,5 +40,11 @@ document.addEventListener("alpine:init", function() {
 document.addEventListener("DOMContentLoaded", function() {
     Alpine.start();
 
+    window.closeDetail = () => {
+        document
+            .querySelector("details[open]")
+            .removeAttribute('open');
+    }
+
     window.setInterval(sessionPulse, 1000 * 60 * 15);
 });
