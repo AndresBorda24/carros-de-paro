@@ -33,15 +33,15 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
     <thead>
       <tr>
         <th data-priority="0">Descripci&oacute;n</th>
-        <th
-        style="word-break: normal; white-space: pre-line"
-        data-priority="2">Fecha Vencimiento</th>
         <th data-priority="5">Marca</th>
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="4">Presentaci&oacute;n Comercial</th>
         <th data-priority="3">Invima</th>
         <th data-priority="3">Lote</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Fecha Vencimiento</th>
         <th
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Vida &uacute;til</th>

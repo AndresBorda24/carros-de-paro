@@ -92,9 +92,13 @@ export default () => ({
             rowId: 'id',
             columnDefs: [
                 { data: 'desc', targets: 0 },
+                { data: 'marca', targets: 1 },
+                { data: 'presentacion', targets: 2, orderable: false },
+                { data: 'invima', targets: 3, orderable: false },
+                { data: 'lote', targets: 4, orderable: false },
                 {
                     data: 'vencimiento',
-                    targets: 1,
+                    targets: 5,
                     createdCell: (td, data) => {
                         const _ = jQuery(td);
                         _.attr(
@@ -106,10 +110,6 @@ export default () => ({
                         );
                     }
                 },
-                { data: 'marca', targets: 2 },
-                { data: 'presentacion', targets: 3, orderable: false },
-                { data: 'invima', targets: 4, orderable: false },
-                { data: 'lote', targets: 5, orderable: false },
                 { data: 'vida_util', targets:  6 },
                 { data: 'riesgo', targets: 7 },
                 { data: 'cantidad', targets:  8 },

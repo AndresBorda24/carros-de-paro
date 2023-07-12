@@ -37,9 +37,6 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
         data-priority="0">Principio Activo / Concentraci&oacute;n</th>
         <th
         style="word-break: normal; white-space: pre-line"
-        data-priority="2">Fecha Vencimiento</th>
-        <th
-        style="word-break: normal; white-space: pre-line"
         data-priority="4">Forma Farmaceutica</th>
         <th
         style="word-break: normal; white-space: pre-line"
@@ -49,6 +46,9 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
         data-priority="4">Presentaci&oacute;n Comercial</th>
         <th data-priority="3">Invima</th>
         <th data-priority="3">Lote</th>
+        <th
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Fecha Vencimiento</th>
         <th data-priority="1">Cant.</th>
         <th data-priority="0"></th>
       </tr>
