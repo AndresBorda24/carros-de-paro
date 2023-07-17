@@ -5,9 +5,9 @@
   <?php endforeach ?>
 
 <?php else: ?>
-%2B -------------------------------------- %2B
-|     No hay medicamentos por vencer       |
-%2B -------------------------------------- %2B
+%%2B -------------------------------------- %%2B
+|     No hay medicamentos por vencerse   |
+%%2B -------------------------------------- %%2B
 <?php endif ?>
 
 *Dispositivos:*
@@ -17,7 +17,7 @@
   <?php endforeach ?>
 
 <?php else: ?>
-%2B -------------------------------------- %2B
-|     No hay dispositivos por vencer       |
-%2B -------------------------------------- %2B
+%%2B -------------------------------------- %%2B
+|     No hay dispositivos por vencerse   |
+%%2B -------------------------------------- %%2B
 <?php endif ?>
