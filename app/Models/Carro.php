@@ -90,6 +90,49 @@ class Carro
         }
     }
 
+    /**
+     * Retorna un array con los medicamentos o dispositivos que esten proximos a vencer
+    */
+    public function getProximosAVencer(): array
+    {
+        try {
+            $data = [
+                "medicamentos" => [],
+                "dispositivos" => []
+            ];
+
+            // Cantidad de plazo en meses para la busqueda
+            $meses = 2;
+
+            $consulta = $this->db->pdo->query("
+                SELECT
+                    D.desc AS nombre, D.vencimiento,
+                    C.nombre as carro, C.ubicacion, 'dispositivos' AS tipo
+                    FROM carro_reg_dispositivos AS D
+                    JOIN carros as C ON C.id = D.carro_id
+                    WHERE vencimiento BETWEEN NOW() AND DATE_ADD( NOW(), INTERVAL $meses MONTH)
+                UNION
+                SELECT
+                    M.p_activo_concentracion AS nombre, M.vencimiento,
+                    C.nombre as carro, C.ubicacion, 'medicamentos' AS tipo
+                    FROM carro_reg_medicamentos as M
+                    JOIN carros as C ON C.id = M.carro_id
+                    WHERE vencimiento BETWEEN NOW() AND DATE_ADD( NOW(), INTERVAL $meses MONTH)
+                ORDER BY vencimiento;
+            ");
+
+            if (!$consulta || $consulta->rowCount() === 0) return [];
+
+            while ($d =  $consulta->fetch(\PDO::FETCH_ASSOC)) {
+                array_push( $data[$d["tipo"]], $d );
+            }
+
+            return $data;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function getInsertId(): int
     {
         return (int) $this->db->id();
@@ -104,4 +147,5 @@ class Carro
             }
         }
     }
+
 }
