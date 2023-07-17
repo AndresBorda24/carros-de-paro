@@ -101,16 +101,23 @@ class Carro
                 "dispositivos" => []
             ];
 
+            // Cantidad de plazo en meses para la busqueda
+            $meses = 2;
+
             $consulta = $this->db->pdo->query("
-                SELECT D.desc AS nombre, D.vencimiento, C.nombre as carro, C.ubicacion, 'dispositivos' AS tipo
+                SELECT
+                    D.desc AS nombre, D.vencimiento,
+                    C.nombre as carro, C.ubicacion, 'dispositivos' AS tipo
                     FROM carro_reg_dispositivos AS D
                     JOIN carros as C ON C.id = D.carro_id
-                    WHERE vencimiento BETWEEN NOW() AND DATE_ADD( NOW(), INTERVAL 14 MONTH)
+                    WHERE vencimiento BETWEEN NOW() AND DATE_ADD( NOW(), INTERVAL $meses MONTH)
                 UNION
-                SELECT M.p_activo_concentracion AS nombre, M.vencimiento, C.nombre as carro, C.ubicacion, 'medicamentos' AS tipo
+                SELECT
+                    M.p_activo_concentracion AS nombre, M.vencimiento,
+                    C.nombre as carro, C.ubicacion, 'medicamentos' AS tipo
                     FROM carro_reg_medicamentos as M
                     JOIN carros as C ON C.id = M.carro_id
-                    WHERE vencimiento BETWEEN NOW() AND DATE_ADD( NOW(), INTERVAL 14 MONTH)
+                    WHERE vencimiento BETWEEN NOW() AND DATE_ADD( NOW(), INTERVAL $meses MONTH)
                 ORDER BY vencimiento;
             ");
 
