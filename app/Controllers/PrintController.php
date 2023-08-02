@@ -31,8 +31,11 @@ class PrintController
 
         $this->view->addAttribute("user", $this->auth->user());
         $this->view->addAttribute("_data", $data);
-        $this->view->addAttribute("dateColor", function(string $date) {
-            $diff = ceil((strtotime($date) - time()) / (3600 * 24));
+        $this->view->addAttribute("printDate", fn(string $date) =>
+            implode("-", array_reverse(explode("-", $date)))
+        );
+        $this->view->addAttribute("dateColor", function(string $date) use($data) {
+            $diff = ceil((strtotime($date) - strtotime($data["fecha"])) / (3600 * 24));
             // Rojo < 6 meses (180)
             if ($diff < 180) return "text-bg-danger text-black bg-opacity-75";
             // Amarillo > 6 y < 12 (entre 181 y 360)

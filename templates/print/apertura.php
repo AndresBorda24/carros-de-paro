@@ -38,7 +38,7 @@
             <td><?= $row->invima ?></td>
             <td><?= $row->lote ?></td>
             <td class="<?= $dateColor($row->vencimiento) ?>">
-              <?= $row->vencimiento ?>
+              <?= $printDate($row->vencimiento) ?>
             </td>
             <td><?= $row->cantidad ?></td>
           </tr>
@@ -70,7 +70,7 @@
             <td><?= $row->invima ?></td>
             <td><?= $row->lote ?></td>
             <td class="<?= $dateColor($row->vencimiento) ?>">
-              <?= $row->vencimiento ?>
+              <?= $printDate($row->vencimiento) ?>
             </td>
             <td><?= $row->cantidad ?></td>
             <td><?= $row->vida_util ?></td>
@@ -94,7 +94,7 @@
     </span>
     <span class="mx-2 text-light">|</span>
     <span class="small text-light">
-        Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
+      Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
     </span>
   </div>
 </body>
