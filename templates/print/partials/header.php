@@ -4,8 +4,8 @@
     height="35"
     src="<?= $this->asset("img/logo-blanco.png") ?>"
     alt="logo-asotrauma">
-    <span class="badge text-bg-light fs-6">
-      <?= $_data["carro_nombre"] ?? '' ?>
+    <span class="badge text-bg-light rounded-1 fw-medium">
+      <span >Carro de paro - </span> <?= $_data["carro_ubicacion"] ?? '' ?>
     </span>
   </div>
 </header>

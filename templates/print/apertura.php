@@ -9,7 +9,7 @@
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous">
   <?= $this->loadAssets("print/app") ?>
-  <title>Imprimir Carro de Paro</title>
+  <title>Revisi&oacute;n <?= $_data["usuario"] ?> | <?= $_data["fecha"] ?></title>
 </head>
 <body class="bg-white">
   <?= $this->fetch("./print/partials/header.php") ?>
@@ -47,7 +47,7 @@
     </table>
 
     <h4>Dispositivos</h4>
-    <table class="table table-sm mb-5 table-striped-columns border small">
+    <table class="table table-sm mb-5 border small">
       <thead>
         <tr>
           <th>Descripci&oacute;n</th>

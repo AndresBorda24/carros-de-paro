@@ -28,6 +28,7 @@ class PrintController
     public function printApertura(Response $response, int $aperturaId): Response
     {
         $data = $this->apertura->find($aperturaId);
+
         $this->view->addAttribute("user", $this->auth->user());
         $this->view->addAttribute("_data", $data);
         $this->view->addAttribute("dateColor", function(string $date) {
