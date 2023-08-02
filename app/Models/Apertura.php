@@ -90,6 +90,7 @@ class Apertura
                 "[>]".Carro::TABLE." (C)" => ["carro_id" => "id"]
             ], [
                 "C.nombre (carro_nombre)",
+                "C.ubicacion (carro_ubicacion)",
                 "H.after", "H.before", "H.model",
                 "A.id", "A.fecha", "A.hora", "A.motivo",
                 "usuario" => Medoo::raw("CONCAT_WS(
@@ -108,6 +109,7 @@ class Apertura
                 $_["motivo"]  = $reg["motivo"];
                 $_["usuario"] = $reg["usuario"];
                 $_["carro_nombre"] = $reg["carro_nombre"];
+                $_["carro_ubicacion"] = $reg["carro_ubicacion"];
 
                 $_[$reg["model"]] = [
                     "before" => json_decode(

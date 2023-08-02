@@ -9,13 +9,13 @@
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous">
   <?= $this->loadAssets("print/app") ?>
-  <title>Imprimir Carro de Paro</title>
+  <title>Revisi&oacute;n <?= $_data["usuario"] ?> | <?= $_data["fecha"] ?></title>
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-white">
   <?= $this->fetch("./print/partials/header.php") ?>
   <div class="p-3 small">
     <h4>Medicamentos</h4>
-    <table class="table table-sm mb-5 table-striped-columns border small">
+    <table class="table table-sm mb-5 border small">
       <thead>
         <tr>
           <th>Principio Activo / Concentraci&oacute;n</th>
@@ -38,7 +38,7 @@
             <td><?= $row->invima ?></td>
             <td><?= $row->lote ?></td>
             <td class="<?= $dateColor($row->vencimiento) ?>">
-              <?= $row->vencimiento ?>
+              <?= $printDate($row->vencimiento) ?>
             </td>
             <td><?= $row->cantidad ?></td>
           </tr>
@@ -47,7 +47,7 @@
     </table>
 
     <h4>Dispositivos</h4>
-    <table class="table table-sm mb-5 table-striped-columns border small">
+    <table class="table table-sm mb-5 border small">
       <thead>
         <tr>
           <th>Descripci&oacute;n</th>
@@ -70,7 +70,7 @@
             <td><?= $row->invima ?></td>
             <td><?= $row->lote ?></td>
             <td class="<?= $dateColor($row->vencimiento) ?>">
-              <?= $row->vencimiento ?>
+              <?= $printDate($row->vencimiento) ?>
             </td>
             <td><?= $row->cantidad ?></td>
             <td><?= $row->vida_util ?></td>
@@ -94,7 +94,7 @@
     </span>
     <span class="mx-2 text-light">|</span>
     <span class="small text-light">
-        Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
+      Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
     </span>
   </div>
 </body>

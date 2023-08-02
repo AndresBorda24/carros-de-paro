@@ -8,6 +8,9 @@ import { showLoader, hideLoader } from "../../partials/loader";
 // Spanish
 import ES from "../../partials/ES"
 
+/**
+ * Si, lo se, el nombre del archivo esta mal.
+*/
 export default () => ({
     table: undefined,
     api: process.env.API,
@@ -99,6 +102,7 @@ export default () => ({
                 {
                     data: 'vencimiento',
                     targets: 5,
+                    render: data => data.split('-').reverse().join("-"),
                     createdCell: (td, data) => {
                         const _ = jQuery(td);
                         _.attr(

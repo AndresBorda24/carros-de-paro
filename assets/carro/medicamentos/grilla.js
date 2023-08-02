@@ -100,6 +100,7 @@ export default () => ({
                 {
                     data: 'vencimiento',
                     targets: 6,
+                    render: data => data.split('-').reverse().join("-"),
                     createdCell: (td, data) => {
                         const _ = jQuery(td);
                         _.attr(
