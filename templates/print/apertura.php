@@ -11,11 +11,11 @@
   <?= $this->loadAssets("print/app") ?>
   <title>Imprimir Carro de Paro</title>
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-white">
   <?= $this->fetch("./print/partials/header.php") ?>
   <div class="p-3 small">
     <h4>Medicamentos</h4>
-    <table class="table table-sm mb-5 table-striped-columns border small">
+    <table class="table table-sm mb-5 border small">
       <thead>
         <tr>
           <th>Principio Activo / Concentraci&oacute;n</th>
