@@ -31,6 +31,15 @@ class Medicamento implements ModelInterface
         ];
     }
 
+    /**
+     * Devuelve el valor de la constante model. Util para los campos `model` en
+     * la base de datos.
+    */
+    public function getModel(): string
+    {
+        return static::MODEL;
+    }
+
     /** Crea un Nuevo Carro de Paro */
     public function create(array $data): bool
     {
@@ -41,7 +50,7 @@ class Medicamento implements ModelInterface
                 "lote"  => trim($data["lote"]),
                 "invima"    => trim($data["invima"]),
                 "medida"    => trim($data["medida"]),
-                "carro_id"  => trim($data["carro_id"]),
+                "carro_id"  => trim((string) $data["carro_id"]),
                 "cantidad"  => $data["cantidad"],
                 "forma_farma"   => trim($data["forma_farma"]),
                 "presentacion"  => trim($data["presentacion"]),

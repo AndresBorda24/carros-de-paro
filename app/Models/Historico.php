@@ -164,6 +164,50 @@ class Historico
         }
     }
 
+    /**
+     * Actualiza el `after` de un historico
+    */
+    public function setAfter(int $id, array $data): bool
+    {
+        try {
+            $_ = $this->db->update(static::TABLE, [
+                "after[JSON]" => $data
+            ], ["id" => $id]);
+
+            $_ = $_->rowCount();
+            if ($_ === 0) throw new \Exception("No se actualizo ningun after.");
+            return true;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Obtiene la propiedad `after` de un historico. Esto con el fin de
+     * actualizarlo y luego en conjunto con `setAfter` actualizar el
+     * historico.
+    */
+    public function fetchAfter(string $model, int $aperturaId): array
+    {
+        try {
+            $_ = $this->db->get(static::TABLE, [
+                "id", "after"
+            ], [
+                "model" => $model,
+                "apertura_id" => $aperturaId
+            ]);
+
+            if (!$_) throw new \Exception("No se pudo obtener la info after.");
+
+            return [
+                "id" => $_["id"],
+                "after" => json_decode($_["after"], true)
+            ];
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function getInsertId(): int
     {
         return (int) $this->db->id();

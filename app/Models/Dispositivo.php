@@ -32,6 +32,15 @@ class Dispositivo implements ModelInterface
         ];
     }
 
+    /**
+     * Devuelve el valor de la constante model. Util para los campos `model` en
+     * la base de datos.
+    */
+    public function getModel(): string
+    {
+        return static::MODEL;
+    }
+
     /** Crea un Nuevo Carro de Paro */
     public function create(array $data): bool
     {
