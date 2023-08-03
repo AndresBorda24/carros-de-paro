@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Models\Dispositivo;
+use App\Services\AlterHistorico;
 use App\Services\HistoricoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,24 +15,29 @@ class DispositivoController
 {
     private Dispositivo $dispositivo;
     private HistoricoService $historico;
+    private AlterHistorico $alterHistorico;
 
     public function __construct(
         Dispositivo $dispositivo,
-        HistoricoService $historico
+        HistoricoService $historico,
+        AlterHistorico $alterHistorico,
     ) {
         $this->historico = $historico;
         $this->dispositivo = $dispositivo;
+        $this->alterHistorico = $alterHistorico;
     }
 
-    public function create(Request $request, Response $response): Response
+    public function create(Request $request, Response $response, int $apId): Response
     {
         try {
             $data = $request->getParsedBody();
             $this->dispositivo->create($data);
+            $data["id"] = $this->dispositivo->getInsertId();
 
-            return responseJson($response, [
-                "id" => $this->dispositivo->getInsertId()
-            ]);
+            $this->alterHistorico->setData($this->dispositivo, $apId);
+            $this->alterHistorico->insert($data);
+
+            return responseJson($response, ["id" => $data["id"]]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -43,15 +49,17 @@ class DispositivoController
     public function update(
         Request $request,
         Response $response,
-        int $id
+        int $id,
+        int $apId
     ): Response {
         try {
             $data = $request->getParsedBody();
+            $updated = $this->dispositivo->update($id, $data);
 
-            return responseJson(
-                $response,
-                $this->dispositivo->update($id, $data)
-            );
+            $this->alterHistorico->setData($this->dispositivo, $apId);
+            $this->alterHistorico->update($data);
+
+            return responseJson($response, $updated);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -102,13 +110,15 @@ class DispositivoController
         }
     }
 
-    public function delete(Response $response, int $id): Response
+    public function delete(Response $response, int $id, int $apId): Response
     {
         try {
-            return responseJson(
-                $response,
-                $this->dispositivo->delete($id)
-            );
+            $_ = $this->dispositivo->delete($id);
+
+            $this->alterHistorico->setData($this->dispositivo, $apId);
+            $this->alterHistorico->delete($_);
+
+            return responseJson($response, $_);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,

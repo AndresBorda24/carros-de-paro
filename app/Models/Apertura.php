@@ -43,6 +43,39 @@ class Apertura
         }
     }
 
+    public function createHistorico(int $id, array $data): bool
+    {
+        try {
+            $e = null;
+            $this->db->action(function() use($id, $data, &$e) {
+                try {
+                    $h = new Historico($this->db);
+                    $h->create([
+                        "model" => Medicamento::MODEL,
+                        "before" => $data["medicamentos"],
+                        "after"  => $data["medicamentos"],
+                        "apertura_id" => $id
+                    ]);
+                    $h->create([
+                        "model" => Dispositivo::MODEL,
+                        "before" => $data["dispositivos"],
+                        "after"  => $data["dispositivos"],
+                        "apertura_id" => $id
+                    ]);
+                    return true;
+                } catch(\Exception $ex) {
+                    $e = $ex;
+                    return false;
+                }
+            });
+
+            if ($e) throw $e;
+            return true;
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
     /**
      * Obtiene todos los carros
     */
@@ -136,6 +169,23 @@ class Apertura
             if (! array_key_exists($required, $data)) {
                 throw new \Exception("Faltan Campos Requeridos");
             }
+        }
+    }
+
+    /**
+     * Elimina una apertura. Unicamente se emplea si se genera un error
+     * al crear el historico en el AperturasController.
+    */
+    public function delete(int $id): int
+    {
+        try {
+            $_ = $this->db->delete(self::TABLE, [
+                "id" => $id
+            ]);
+
+            return $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
         }
     }
 }

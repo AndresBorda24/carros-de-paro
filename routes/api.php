@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Slim\App;
+use App\Controllers\Api\AperturasController;
 use App\Controllers\Api\CarroController;
 use App\Controllers\Api\DispositivoController;
 use App\Controllers\Api\HistoricoController;
@@ -52,11 +53,11 @@ function loadApiRoutes(App $app) {
         /* ---------------------------------------------------------------------
         *  Medicamentos
         */
-        $api->post("/medicamentos/create", [
+        $api->post("/medicamentos/create/{apId:[0-9]+}", [
             MedicamentoController::class,
             "create"
         ]);
-        $api->put("/medicamentos/{id:[0-9]+}/update", [
+        $api->put("/medicamentos/{id:[0-9]+}/update/{apId:[0-9]+}", [
             MedicamentoController::class,
             "update"
         ]);
@@ -64,7 +65,7 @@ function loadApiRoutes(App $app) {
             MedicamentoController::class,
             "updateCarro"
         ]);
-        $api->delete("/medicamentos/{id:[0-9]+}/delete", [
+        $api->delete("/medicamentos/{id:[0-9]+}/delete/{apId:[0-9]+}", [
             MedicamentoController::class,
             "delete"
         ]);
@@ -72,11 +73,11 @@ function loadApiRoutes(App $app) {
         /* ---------------------------------------------------------------------
         *  Dispositivos
         */
-        $api->post("/dispositivos/create", [
+        $api->post("/dispositivos/create/{apId:[0-9]+}", [
             DispositivoController::class,
             "create"
         ]);
-        $api->put("/dispositivos/{id:[0-9]+}/update", [
+        $api->put("/dispositivos/{id:[0-9]+}/update/{apId:[0-9]+}", [
             DispositivoController::class,
             "update"
         ]);
@@ -84,7 +85,7 @@ function loadApiRoutes(App $app) {
             DispositivoController::class,
             "updateCarro"
         ]);
-        $api->delete("/dispositivos/{id:[0-9]+}/delete", [
+        $api->delete("/dispositivos/{id:[0-9]+}/delete/{apId:[0-9]+}", [
             DispositivoController::class,
             "delete"
         ]);
@@ -105,6 +106,9 @@ function loadApiRoutes(App $app) {
             "searchHistorico"
         ]);
 
+        $api->group("/aperturas", function(Group $apertura) {
+            $apertura->post("/create", [AperturasController::class, "store"]);
+        });
 
         /* ---------------------------------------------------------------------
         *  Tratando de evitar el error de las sesiones

@@ -8,6 +8,8 @@ use Medoo\Medoo;
 
 class Dispositivo implements ModelInterface
 {
+    public const MODEL = "Dispositivo";
+
     private Medoo $db;
     private string $table;
     private array $required;
@@ -28,6 +30,15 @@ class Dispositivo implements ModelInterface
             "vencimiento",
             "presentacion",
         ];
+    }
+
+    /**
+     * Devuelve el valor de la constante model. Util para los campos `model` en
+     * la base de datos.
+    */
+    public function getModel(): string
+    {
+        return static::MODEL;
     }
 
     /** Crea un Nuevo Carro de Paro */
