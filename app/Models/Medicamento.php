@@ -8,6 +8,8 @@ use Medoo\Medoo;
 
 class Medicamento implements ModelInterface
 {
+    public const MODEL = "Medicamento";
+
     private Medoo $db;
     private string $table;
     private array $required;

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Controllers\Api\AperturasController;
 use Slim\App;
 use App\Controllers\Api\CarroController;
 use App\Controllers\Api\DispositivoController;
@@ -105,6 +106,9 @@ function loadApiRoutes(App $app) {
             "searchHistorico"
         ]);
 
+        $api->group("/aperturas", function(Group $apertura) {
+            $apertura->post("/create", [AperturasController::class, "store"]);
+        });
 
         /* ---------------------------------------------------------------------
         *  Tratando de evitar el error de las sesiones
