@@ -1,0 +1,19 @@
+services:
+  web:
+    build: ./docker
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html/
+      - ./docker/apache.conf:/etc/apache2/sites-available/000-default.conf
+  db:
+    image: mysql:5.7.42
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass123
+    volumes:
+      - carrosData:/var/lib/mysql
+    ports:
+      - "3306:3306"
+volumes:
+  carrosData:
