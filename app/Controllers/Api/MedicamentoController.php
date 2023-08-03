@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers\Api;
 
 use App\Models\Medicamento;
+use App\Services\AlterHistorico;
 use App\Services\HistoricoService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -14,24 +15,28 @@ class MedicamentoController
 {
     private Medicamento $medicamento;
     private HistoricoService $historico;
+    private AlterHistorico $alterHistorico;
 
     public function __construct(
         Medicamento $medicamento,
-        HistoricoService $historico
+        HistoricoService $historico,
+        AlterHistorico $alterHistorico
     ) {
         $this->historico = $historico;
         $this->medicamento = $medicamento;
+        $this->alterHistorico = $alterHistorico;
     }
 
-    public function create(Request $request, Response $response): Response
+    public function create(Request $request, Response $response, int $apId): Response
     {
         try {
             $data = $request->getParsedBody();
             $this->medicamento->create($data);
+            $data["id"] = $this->medicamento->getInsertId();
+            $this->alterHistorico->setData($this->medicamento, $apId);
+            $this->alterHistorico->insert($data);
 
-            return responseJson($response, [
-                "id" => $this->medicamento->getInsertId()
-            ]);
+            return responseJson($response, ["id" => $data["id"]]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -43,15 +48,17 @@ class MedicamentoController
     public function update(
         Request $request,
         Response $response,
-        int $id
+        int $id,
+        int $apId
     ): Response {
         try {
             $data = $request->getParsedBody();
+            $_ = $this->medicamento->update($id, $data);
 
-            return responseJson(
-                $response,
-                $this->medicamento->update($id, $data)
-            );
+            $this->alterHistorico->setData($this->medicamento, $apId);
+            $this->alterHistorico->update($data);
+
+            return responseJson($response, $_);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -105,13 +112,14 @@ class MedicamentoController
         }
     }
 
-    public function delete(Response $response, int $id): Response
+    public function delete(Response $response, int $id, int $apId): Response
     {
         try {
-            return responseJson(
-                $response,
-                $this->medicamento->delete($id)
-            );
+            $_ = $this->medicamento->delete($id);
+            $this->alterHistorico->setData($this->medicamento, $apId);
+            $this->alterHistorico->delete($id);
+
+            return responseJson($response, $_);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
