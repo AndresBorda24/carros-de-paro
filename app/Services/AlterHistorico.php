@@ -41,7 +41,7 @@ class AlterHistorico
             $after = $this->findHistorico();
             array_push($after["after"], $data);
 
-            $this->historico->setAfter($after["id"], $after["after"]);
+            $this->historico->setAfter((int) $after["id"], $after["after"]);
         } catch(\Exception $e) {
             throw $e;
         }
@@ -54,10 +54,10 @@ class AlterHistorico
     {
         try {
             $after = $this->findHistorico();
-            $index = $this->findIndex($data["id"], $after["after"]);
+            $index = $this->findIndex((int) $data["id"], $after["after"]);
             $after["after"][$index] = $data;
 
-            $this->historico->setAfter($after["id"], $after["after"]);
+            $this->historico->setAfter((int) $after["id"], $after["after"]);
         } catch(\Exception $e) {
             throw $e;
         }
@@ -73,7 +73,7 @@ class AlterHistorico
             $index = $this->findIndex($id, $after["after"]);
             array_splice($after["after"], $index, 1);
 
-            $this->historico->setAfter($after["id"], $after["after"]);
+            $this->historico->setAfter((int) $after["id"], $after["after"]);
         } catch(\Exception $e) {
             throw $e;
         }
@@ -86,7 +86,7 @@ class AlterHistorico
     {
         $i = null;
         foreach ($after as $key => $_) {
-            if ($_['id'] === $id) {
+            if ((int) $_['id'] === $id) {
                 $i = $key;
                 break;
             }
