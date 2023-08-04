@@ -5,7 +5,7 @@ namespace App\Controllers\Api;
 
 use App\Models\Medicamento;
 use App\Services\AlterHistorico;
-use App\Requests\MedicamentoRequest;
+use App\Requests\MedicamentosRequest;
 use App\Requests\Exceptions\RequestException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -17,12 +17,12 @@ class MedicamentoController
 {
     private Medicamento $medicamento;
     private AlterHistorico $alterHistorico;
-    private MedicamentoRequest $validator;
+    private MedicamentosRequest $validator;
 
     public function __construct(
         Medicamento $medicamento,
         AlterHistorico $alterHistorico,
-        MedicamentoRequest $validator
+        MedicamentosRequest $validator
     ) {
         $this->medicamento = $medicamento;
         $this->alterHistorico = $alterHistorico;
@@ -41,7 +41,7 @@ class MedicamentoController
 
             $this->alterHistorico
                 ->setData($this->medicamento, (int) $aperturaId)
-                ->insert($data["data"]);
+                ->insert($data);
 
             return responseJson($response, [
                 "status" => true,
@@ -102,11 +102,7 @@ class MedicamentoController
                 $this->medicamento->getFromCarro($carroId)
             );
         } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+            return responseError($response, $e);
         }
     }
-
 }
