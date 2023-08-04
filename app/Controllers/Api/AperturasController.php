@@ -5,19 +5,23 @@ namespace App\Controllers\Api;
 
 use App\Models\Apertura;
 use App\Contracts\UserInterface;
-
+use App\Requests\AperturaRequest;
+use App\Requests\Exceptions\RequestException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use function App\responseJson;
+use function App\responseError;
 
 class AperturasController
 {
     private Apertura $apertura;
+    private AperturaRequest $validator;
 
-    public function __construct(Apertura $apertura)
+    public function __construct(Apertura $apertura, AperturaRequest $validator)
     {
         $this->apertura = $apertura;
+        $this->validator = $validator;
     }
 
     public function store(
@@ -26,25 +30,20 @@ class AperturasController
         UserInterface $user
     ): Response {
         try {
-            $data = $request->getParsedBody();
-            $id = $this->apertura->create($data + ["quien" => $user->getId()]);
+            $body = $request->getParsedBody();
+            $data = $this->validator->validateInsert($body);
+            $data += ["quien" => $user->getId()];
 
-            if (! $this->apertura->createHistorico($id, $data["before"])) {
-                $this->apertura->delete($id);
-                throw new \Exception("No se ha podido guardar la apertura.");
-            }
+            $id = $this->apertura->create($data);
+            $this->apertura->createHistorico($id, $data["before"]);
 
             return responseJson($response, [
                 "status" => true,
                 "__id"   => $id
             ]);
-        } catch(\Exception $e) {
+        } catch(\Exception|RequestException $e) {
             isset($id) ? $this->apertura->delete($id) : null;
-
-            return responseJson($response, [
-                "status" => false,
-                "error"  => $e->getMessage()
-            ], 422);
+            return responseError($response, $e);
         }
     }
 }

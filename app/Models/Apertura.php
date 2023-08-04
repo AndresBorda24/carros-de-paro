@@ -43,6 +43,10 @@ class Apertura
         }
     }
 
+    /**
+     * Crea los registros en el historico a partir de una apertura. Si no se
+     * puede generar el historico ELIMINA la apertura.
+    */
     public function createHistorico(int $id, array $data): bool
     {
         try {
@@ -72,7 +76,8 @@ class Apertura
             if ($e) throw $e;
             return true;
         } catch(\Exception $e) {
-            throw $e;
+            $this->delete($id);
+            throw new \Exception("No se ha podido guardar la apertura.", 24002, $e);
         }
     }
 
