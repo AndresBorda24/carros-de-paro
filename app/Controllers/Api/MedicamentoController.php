@@ -5,74 +5,92 @@ namespace App\Controllers\Api;
 
 use App\Models\Medicamento;
 use App\Services\AlterHistorico;
-use App\Services\HistoricoService;
+use App\Requests\MedicamentosRequest;
+use App\Requests\Exceptions\RequestException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use function App\responseJson;
+use function App\responseError;
 
 class MedicamentoController
 {
     private Medicamento $medicamento;
-    private HistoricoService $historico;
     private AlterHistorico $alterHistorico;
+    private MedicamentosRequest $validator;
 
     public function __construct(
         Medicamento $medicamento,
-        HistoricoService $historico,
-        AlterHistorico $alterHistorico
+        AlterHistorico $alterHistorico,
+        MedicamentosRequest $validator
     ) {
-        $this->historico = $historico;
         $this->medicamento = $medicamento;
         $this->alterHistorico = $alterHistorico;
+        $this->validator = $validator;
     }
 
     public function create(Request $request, Response $response): Response
     {
         try {
-            $body = $request->getParsedBody();
-            $data = $body["data"];
-            $aperturaId = (int) $body["apertura_id"];
+            list(
+                "data" => $data,
+                "apertura_id" => $aperturaId
+            ) = $this->validator->validateInsert($request->getParsedBody());
 
-            $this->medicamento->create($data);
-            $data["id"] = $this->medicamento->getInsertId();
+            $data["id"] = $this->medicamento->create($data);;
 
-            $this->alterHistorico->setData($this->medicamento, $aperturaId);
-            $this->alterHistorico->insert($data);
+            $this->alterHistorico
+                ->setData($this->medicamento, (int) $aperturaId)
+                ->insert($data);
 
             return responseJson($response, [
                 "status" => true,
                 "__id"   => $data["id"]
             ]);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+        } catch(\Exception|RequestException $e) {
+            return responseError($response, $e);
         }
     }
 
     public function update(Request $request, Response $response, int $id): Response
     {
         try {
-            $body = $request->getParsedBody();
-            $data = $body["data"];
-            $aperturaId = (int) $body["apertura_id"];
-
+            list(
+                "data" => $data,
+                "apertura_id" => $aperturaId
+            )  = $this->validator->validateUpdate($request->getParsedBody());
             $_ = $this->medicamento->update($id, $data);
 
-            $this->alterHistorico->setData($this->medicamento, $aperturaId);
-            $this->alterHistorico->update($data);
+            $this->alterHistorico
+                ->setData($this->medicamento, $aperturaId)
+                ->update($data);
+
+            return responseJson($response, [
+                "status" => true,
+                "__ctrl" => $_
+            ]);
+        } catch(\Exception|RequestException $e) {
+            return responseError($response, $e);
+        }
+    }
+
+    public function delete(Request $request, Response $response, int $id): Response
+    {
+        try {
+            $body = $request->getParsedBody();
+            $aperturaId = (int) $body["apertura_id"];
+
+            $_ = $this->medicamento->delete($id);
+            $this->alterHistorico
+                ->setData($this->medicamento, $aperturaId)
+                ->delete($id);
 
             return responseJson($response, [
                 "status" => true,
                 "__ctrl" => $_
             ]);
         } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+            return responseError($response, $e);
         }
     }
 
@@ -84,32 +102,7 @@ class MedicamentoController
                 $this->medicamento->getFromCarro($carroId)
             );
         } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
-        }
-    }
-
-    public function delete(Request $request, Response $response, int $id): Response
-    {
-        try {
-            $body = $request->getParsedBody();
-            $aperturaId = (int) $body["apertura_id"];
-
-            $_ = $this->medicamento->delete($id);
-            $this->alterHistorico->setData($this->medicamento, $aperturaId);
-            $this->alterHistorico->delete($id);
-
-            return responseJson($response, [
-                "status" => true,
-                "__ctrl" => $_
-            ]);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+            return responseError($response, $e);
         }
     }
 }

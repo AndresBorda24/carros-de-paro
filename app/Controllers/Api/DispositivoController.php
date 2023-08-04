@@ -5,74 +5,72 @@ namespace App\Controllers\Api;
 
 use App\Models\Dispositivo;
 use App\Services\AlterHistorico;
-use App\Services\HistoricoService;
+use App\Requests\DispositivosRequest;
+use App\Requests\Exceptions\RequestException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use function App\responseJson;
+use function App\responseError;
 
 class DispositivoController
 {
     private Dispositivo $dispositivo;
-    private HistoricoService $historico;
     private AlterHistorico $alterHistorico;
+    private DispositivosRequest $validator;
 
     public function __construct(
         Dispositivo $dispositivo,
-        HistoricoService $historico,
-        AlterHistorico $alterHistorico
+        AlterHistorico $alterHistorico,
+        DispositivosRequest $validator
     ) {
-        $this->historico = $historico;
         $this->dispositivo = $dispositivo;
         $this->alterHistorico = $alterHistorico;
+        $this->validator = $validator;
     }
 
     public function create(Request $request, Response $response): Response
     {
         try {
-            $body = $request->getParsedBody();
-            $data = $body["data"];
-            $aperturaId = (int) $body["apertura_id"];
+            list(
+                "data" => $data,
+                "apertura_id" => $aperturaId
+            ) = $this->validator->validateInsert($request->getParsedBody());
+            $data["id"] = $this->dispositivo->create($data);
 
-            $this->dispositivo->create($data);
-            $data["id"] = $this->dispositivo->getInsertId();
-
-            $this->alterHistorico->setData($this->dispositivo, $aperturaId);
-            $this->alterHistorico->insert($data);
+            $this->alterHistorico
+                ->setData($this->dispositivo, (int) $aperturaId)
+                ->insert($data);
 
             return responseJson($response, [
                 "status" => true,
                 "__id"   => $data["id"]
             ]);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+        } catch(\Exception|RequestException $e) {
+            return responseError($response, $e);
         }
     }
 
     public function update(Request $request, Response $response, int $id): Response
     {
         try {
-            $body = $request->getParsedBody();
-            $data = $body["data"];
-            $aperturaId = (int) $body["apertura_id"];
+            list(
+                "data" => $data,
+                "apertura_id" => $aperturaId
+            )  = $this->validator->validateUpdate($request->getParsedBody());
 
-            $updated = $this->dispositivo->update($id, $data);
+            $_ = $this->dispositivo->update($id, $data);
 
-            $this->alterHistorico->setData($this->dispositivo, $aperturaId);
-            $this->alterHistorico->update($data);
+            $this->alterHistorico
+                ->setData($this->dispositivo, $aperturaId)
+                ->update($data);
 
             return responseJson($response, [
                 "status" => true,
-                "__ctrl" => $updated
+                "__ctrl" => $_
             ]);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+        } catch(\Exception|RequestException $e) {
+            return responseError($response, $e);
         }
     }
 
@@ -83,11 +81,8 @@ class DispositivoController
                 $response,
                 $this->dispositivo->getFromCarro($carroId)
             );
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+        } catch(\Exception|RequestException $e) {
+            return responseError($response, $e);
         }
     }
 
@@ -99,18 +94,16 @@ class DispositivoController
 
             $_ = $this->dispositivo->delete($id);
 
-            $this->alterHistorico->setData($this->dispositivo, $aperturaId);
-            $this->alterHistorico->delete($id);
+            $this->alterHistorico
+                ->setData($this->dispositivo, $aperturaId)
+                ->delete($id);
 
             return responseJson($response, [
                 "status" => true,
                 "__ctrl" => $_
             ]);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
+        } catch(\Exception|RequestException $e) {
+            return responseError($response, $e);
         }
     }
 }

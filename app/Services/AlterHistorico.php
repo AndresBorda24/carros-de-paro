@@ -26,10 +26,12 @@ class AlterHistorico
     /**
      * Setea informacion necesaria.
     */
-    public function setData(ModelInterface $model, int $aperturaId)
+    public function setData(ModelInterface $model, int $aperturaId): self
     {
         $this->model = $model;
         $this->aperturaId = $aperturaId;
+
+        return $this;
     }
 
     /**
