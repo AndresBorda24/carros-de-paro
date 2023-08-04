@@ -20,7 +20,7 @@ class DispositivoController
     public function __construct(
         Dispositivo $dispositivo,
         HistoricoService $historico,
-        AlterHistorico $alterHistorico,
+        AlterHistorico $alterHistorico
     ) {
         $this->historico = $historico;
         $this->dispositivo = $dispositivo;
