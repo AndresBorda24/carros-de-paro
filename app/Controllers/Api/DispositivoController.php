@@ -27,17 +27,23 @@ class DispositivoController
         $this->alterHistorico = $alterHistorico;
     }
 
-    public function create(Request $request, Response $response, int $apId): Response
+    public function create(Request $request, Response $response): Response
     {
         try {
-            $data = $request->getParsedBody();
+            $body = $request->getParsedBody();
+            $data = $body["data"];
+            $aperturaId = (int) $body["apertura_id"];
+
             $this->dispositivo->create($data);
             $data["id"] = $this->dispositivo->getInsertId();
 
-            $this->alterHistorico->setData($this->dispositivo, $apId);
+            $this->alterHistorico->setData($this->dispositivo, $aperturaId);
             $this->alterHistorico->insert($data);
 
-            return responseJson($response, ["id" => $data["id"]]);
+            return responseJson($response, [
+                "status" => true,
+                "__id"   => $data["id"]
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -46,51 +52,26 @@ class DispositivoController
         }
     }
 
-    public function update(
-        Request $request,
-        Response $response,
-        int $id,
-        int $apId
-    ): Response {
-        try {
-            $data = $request->getParsedBody();
-            $updated = $this->dispositivo->update($id, $data);
-
-            $this->alterHistorico->setData($this->dispositivo, $apId);
-            $this->alterHistorico->update($data);
-
-            return responseJson($response, $updated);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
-        }
-    }
-
-    /**
-     * Realiza las inserciones, actualizaciones y eliminaciones correspondientes
-     * a los dispositivos de un carro de paro especifico.
-    */
-    public function updateCarro(
-        Request $request,
-        Response $response,
-        int $carroId
-    ): Response
+    public function update(Request $request, Response $response, int $id): Response
     {
         try {
-            $data = $request->getParsedBody();
-            $this->historico->store(
-                $data,
-                $this->dispositivo,
-                $carroId
-            );
+            $body = $request->getParsedBody();
+            $data = $body["data"];
+            $aperturaId = (int) $body["apertura_id"];
 
-            return responseJson($response, true);
+            $updated = $this->dispositivo->update($id, $data);
+
+            $this->alterHistorico->setData($this->dispositivo, $aperturaId);
+            $this->alterHistorico->update($data);
+
+            return responseJson($response, [
+                "status" => true,
+                "__ctrl" => $updated
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
-                "error"  => $e->getMessage()
+                "message"=> $e->getMessage()
             ], 422);
         }
     }
@@ -110,15 +91,21 @@ class DispositivoController
         }
     }
 
-    public function delete(Response $response, int $id, int $apId): Response
+    public function delete(Request $request, Response $response, int $id): Response
     {
         try {
+            $body = $request->getParsedBody();
+            $aperturaId = (int) $body["apertura_id"];
+
             $_ = $this->dispositivo->delete($id);
 
-            $this->alterHistorico->setData($this->dispositivo, $apId);
-            $this->alterHistorico->delete($_);
+            $this->alterHistorico->setData($this->dispositivo, $aperturaId);
+            $this->alterHistorico->delete($id);
 
-            return responseJson($response, $_);
+            return responseJson($response, [
+                "status" => true,
+                "__ctrl" => $_
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,

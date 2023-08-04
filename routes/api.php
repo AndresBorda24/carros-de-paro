@@ -53,42 +53,30 @@ function loadApiRoutes(App $app) {
         /* ---------------------------------------------------------------------
         *  Medicamentos
         */
-        $api->post("/medicamentos/create/{apId:[0-9]+}", [
-            MedicamentoController::class,
-            "create"
-        ]);
-        $api->put("/medicamentos/{id:[0-9]+}/update/{apId:[0-9]+}", [
-            MedicamentoController::class,
-            "update"
-        ]);
-        $api->put("/medicamentos/{carroId:[0-9]+}/update-carro", [
-            MedicamentoController::class,
-            "updateCarro"
-        ]);
-        $api->delete("/medicamentos/{id:[0-9]+}/delete/{apId:[0-9]+}", [
-            MedicamentoController::class,
-            "delete"
-        ]);
+        $api->group("/medicamentos", function(Group $med) {
+            $med->post("/create", [MedicamentoController::class, "create"]);
+            $med->put("/{id:[0-9]+}/update", [
+                MedicamentoController::class, "update"
+            ]);
+            $med->delete("/{id:[0-9]+}/delete", [
+                MedicamentoController::class, "delete"
+            ]);
+        });
 
         /* ---------------------------------------------------------------------
         *  Dispositivos
         */
-        $api->post("/dispositivos/create/{apId:[0-9]+}", [
-            DispositivoController::class,
-            "create"
-        ]);
-        $api->put("/dispositivos/{id:[0-9]+}/update/{apId:[0-9]+}", [
-            DispositivoController::class,
-            "update"
-        ]);
-        $api->put("/dispositivos/{carroId:[0-9]+}/update-carro", [
-            DispositivoController::class,
-            "updateCarro"
-        ]);
-        $api->delete("/dispositivos/{id:[0-9]+}/delete/{apId:[0-9]+}", [
-            DispositivoController::class,
-            "delete"
-        ]);
+        $api->group("/dispositivos", function(Group $dis) {
+            $dis->post("/create", [DispositivoController::class, "create"]);
+            $dis->put("/{id:[0-9]+}/update", [
+                DispositivoController::class,
+                "update"
+            ]);
+            $dis->delete("/{id:[0-9]+}/delete", [
+                DispositivoController::class,
+                "delete"
+            ]);
+        });
 
         /* ---------------------------------------------------------------------
         *  Historico

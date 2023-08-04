@@ -27,16 +27,23 @@ class MedicamentoController
         $this->alterHistorico = $alterHistorico;
     }
 
-    public function create(Request $request, Response $response, int $apId): Response
+    public function create(Request $request, Response $response): Response
     {
         try {
-            $data = $request->getParsedBody();
+            $body = $request->getParsedBody();
+            $data = $body["data"];
+            $aperturaId = (int) $body["apertura_id"];
+
             $this->medicamento->create($data);
             $data["id"] = $this->medicamento->getInsertId();
-            $this->alterHistorico->setData($this->medicamento, $apId);
+
+            $this->alterHistorico->setData($this->medicamento, $aperturaId);
             $this->alterHistorico->insert($data);
 
-            return responseJson($response, ["id" => $data["id"]]);
+            return responseJson($response, [
+                "status" => true,
+                "__id"   => $data["id"]
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
@@ -45,57 +52,29 @@ class MedicamentoController
         }
     }
 
-    public function update(
-        Request $request,
-        Response $response,
-        int $id,
-        int $apId
-    ): Response {
-        try {
-            $data = $request->getParsedBody();
-            $_ = $this->medicamento->update($id, $data);
-
-            $this->alterHistorico->setData($this->medicamento, $apId);
-            $this->alterHistorico->update($data);
-
-            return responseJson($response, $_);
-        } catch(\Exception $e) {
-            return responseJson($response, [
-                "status" => false,
-                "message"=> $e->getMessage()
-            ], 422);
-        }
-    }
-
-
-    /**
-     * Realiza las inserciones, actualizaciones y eliminaciones correspondientes
-     * a los medicamentos de un carro de paro especifico. `carro_id` debe estar
-     * en `$data`
-    */
-    public function updateCarro(
-        Request $request,
-        Response $response,
-        int $carroId
-    ): Response
+    public function update(Request $request, Response $response, int $id): Response
     {
         try {
-            $data = $request->getParsedBody();
-            $this->historico->store(
-                $data,
-                $this->medicamento,
-                $carroId
-            );
+            $body = $request->getParsedBody();
+            $data = $body["data"];
+            $aperturaId = (int) $body["apertura_id"];
 
-            return responseJson($response, true);
+            $_ = $this->medicamento->update($id, $data);
+
+            $this->alterHistorico->setData($this->medicamento, $aperturaId);
+            $this->alterHistorico->update($data);
+
+            return responseJson($response, [
+                "status" => true,
+                "__ctrl" => $_
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
-                "error"  => $e->getMessage()
+                "message"=> $e->getMessage()
             ], 422);
         }
     }
-
 
     public function getFromCarro(Response $response, int $carroId): Response
     {
@@ -112,14 +91,20 @@ class MedicamentoController
         }
     }
 
-    public function delete(Response $response, int $id, int $apId): Response
+    public function delete(Request $request, Response $response, int $id): Response
     {
         try {
+            $body = $request->getParsedBody();
+            $aperturaId = (int) $body["apertura_id"];
+
             $_ = $this->medicamento->delete($id);
-            $this->alterHistorico->setData($this->medicamento, $apId);
+            $this->alterHistorico->setData($this->medicamento, $aperturaId);
             $this->alterHistorico->delete($id);
 
-            return responseJson($response, $_);
+            return responseJson($response, [
+                "status" => true,
+                "__ctrl" => $_
+            ]);
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,
