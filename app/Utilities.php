@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Requests\Exceptions\RequestException;
 use Psr\Http\Message\ResponseInterface as Response;
 
 if (! function_exists('App\responseJson')) {
@@ -35,5 +36,25 @@ if (! function_exists('App\trimUtf8')) {
         return trim(
             mb_convert_encoding($str, 'UTF-8')
         );
+    }
+}
+
+if (! function_exists('App\responseError')) {
+    /**
+     *  Helper para retornar una respuesta de error y que esta pueda
+     * deberse a un error del body del request
+    */
+    function responseError(Response $response, \Exception $e): Response
+    {
+        $data =  [
+            "status" => false,
+            "error"  => $e->getMessage(),
+        ];
+
+        if ($e instanceof RequestException) {
+            $data["fields"] = $e->getErrors();
+        }
+
+        return responseJson($response, $data, 422);
     }
 }
