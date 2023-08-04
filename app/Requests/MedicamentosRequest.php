@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Requests;
 
-class MedicamentoRequest extends BodyRequest
+class MedicamentosRequest extends BodyRequest
 {
     /**
      * Valida que los datos de la solicitud sean correctos. Helper con
