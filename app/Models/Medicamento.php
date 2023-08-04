@@ -41,11 +41,9 @@ class Medicamento implements ModelInterface
     }
 
     /** Crea un Nuevo Carro de Paro */
-    public function create(array $data): bool
+    public function create(array $data): int
     {
         try {
-            $this->checkRequired($data);
-
             $this->db->insert($this->table, [
                 "lote"  => trim($data["lote"]),
                 "invima"    => trim($data["invima"]),
@@ -58,7 +56,7 @@ class Medicamento implements ModelInterface
                 "p_activo_concentracion"  => trim($data["p_activo_concentracion"])
             ]);
 
-            return true;
+            return $this->getInsertId();
         } catch (\Exception $e) {
             throw $e;
         }
@@ -72,8 +70,6 @@ class Medicamento implements ModelInterface
     public function update(int $id, array $data)
     {
         try {
-            $this->checkRequired($data);
-
             $_ = $this->db->update($this->table, [
                 "lote"  => trim($data["lote"]),
                 "invima"    => trim($data["invima"]),
@@ -130,15 +126,5 @@ class Medicamento implements ModelInterface
     public function getInsertId(): int
     {
         return (int) $this->db->id();
-    }
-
-    /** Revisa si `$data` tiene los campos requeridos */
-    private function checkRequired(array $data)
-    {
-        foreach($this->required as $required) {
-            if (! array_key_exists($required, $data)) {
-                throw new \Exception("Faltan Campos Requeridos");
-            }
-        }
     }
 }
