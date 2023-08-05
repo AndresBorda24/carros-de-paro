@@ -179,6 +179,7 @@ export default () => ({
 
             // Actualizamos la tabla
             this.updateTableRows( this.data );
+            this.$store["MED_DATA"] = this.data;
         } catch(e) {
             console.error("Error get med: ", e);
             errorAlert("Error al obtener los medicamentos")

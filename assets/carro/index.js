@@ -14,12 +14,19 @@ import "../css/carro.css";
 window.Alpine = Alpine;
 
 document.addEventListener("alpine:init", function() {
+    /** Global stores para la info de las grillas **/
+    Alpine.store("MED_DATA", []);
+    Alpine.store("DIS_DATA", []);
+    Alpine.store("APERTURA_ID", 0);
+
     Alpine.data("carro", Carro.carro);
     Alpine.data("carrosList", Carro.carrosList);
     Alpine.data("createCarro", Carro.createCarro);
-    Alpine.data("modifyCarro", Carro.modifyCarro);
     Alpine.data("deleteCarro", Carro.deleteCarro);
-    Alpine.data("carroModify", Carro.carroModify);
+    Alpine.data("createApertura", Carro.apertura);
+    Alpine.data("closeApertura", Carro.closeApertura);
+
+
 
     Alpine.data("createMedicamento", Medicamentos.manage);
     Alpine.data("deleteMedicamento", Medicamentos.remove);
