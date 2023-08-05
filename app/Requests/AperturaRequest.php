@@ -23,8 +23,8 @@ class AperturaRequest extends BodyRequest
             "carro_id" => "required|numeric",
             "motivo"   => "required",
             "before"   => "required|array",
-            "before.medicamentos" => "required|array",
-            "before.dispositivos" => "required|array"
+            "before.medicamentos" => "required|array|nullable",
+            "before.dispositivos" => "required|array|nullable"
         ];
     }
 }
