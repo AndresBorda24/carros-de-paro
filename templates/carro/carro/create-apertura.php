@@ -1,5 +1,7 @@
-<div x-data="carroModify" class="d-flex align-items-center gap-1" x-bind="events">
-  <details class="position-relative" @click.outside="$el.removeAttribute('open')">
+<div x-data="createApertura" class="d-flex align-items-center gap-1" x-bind="events">
+  <details
+  class="position-relative"
+  @click.outside="$el.removeAttribute('open')">
     <summary class="btn btn-sm">
       <span class="text-sm text-danger" x-cloak x-show="! carroStatus">
         <?= $this->fetch("./icons/lock.php") ?>
@@ -12,20 +14,12 @@
     <div class="position-absolute p-3 border-danger border bg-white rounded
     top-100 end-0 shadow z-1">
       <template x-if="carroStatus">
-        <div style="min-width: 150px;">
-          <button
-          @click="cancel"
-          class="btn btn-sm btn-danger mb-3 d-block mx-auto">
-            <span class="text-sm">Cancelar Apertura!</span>
-          </button>
-
-          <span class="small text-muted">
-            Si cancelas la apertura <span class="fw-bold">TODOS</span> los cambios
-            realizados se perder&aacute;n
-          </span>
-        </div>
+        <p class="small m-0" style="width: 150px;">
+          Realiza todoas las modificaciones necesarias y luego da click en: <br>
+          <span class="text-success border border-success badge">
+          Guardar Revisi&oacute;n</span>
+        </p>
       </template>
-
       <template x-if="! carroStatus">
         <div class="text-center">
           <select x-model="motivo" class="form-select form-select-sm mb-3 w-auto">
@@ -39,8 +33,8 @@
 
           <button
           class="btn btn-outline-success btn-sm"
-          :disabled="canOpenCarro"
-          @click="open">
+          :disabled="! canOpenCarro"
+          @click="saveApertura">
             <span class="text-sm">Abrir Carro!</span>
           </button>
         </div>
