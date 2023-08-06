@@ -13,110 +13,27 @@
 </head>
 <body class="bg-white">
   <table class="table table-borderless table-sm">
-    <thead>
-      <tr>
-        <th class=" d-flex align-items-center justify-content-between">
-          <img
-          height="35"
-          src="<?= $this->asset("img/logo.png") ?>"
-          alt="logo-asotrauma">
-          <span class="badge text-bg-light rounded-1 fw-medium">
-            <span >Carro de paro - </span> <?= $_data["carro_ubicacion"] ?? '' ?>
-          </span>
-        </th>
-      </tr>
-      <tr>
-        <th class="small text-muted">
-          <span class="small">
-            Revisi&oacute;n <?= $_data["usuario"] ?> | <?= $_data["fecha"] ?>
-          </span>
-        </th>
-      </tr>
-    </thead>
+    <?= $this->fetch("./print/partials/header.php") ?>
 
     <tbody>
       <tr>
         <td>
-          <table class="table table-sm mb-5 border small">
-            <thead>
-              <tr>
-                <th colspan="8">
-                  <span class="fw-bodl">Medicamentos</span>
-                </th>
-              </tr>
-              <tr>
-                <th>Principio Activo / Concentraci&oacute;n</th>
-                <th>Forma Farmac&eacute;utica</th>
-                <th>U / medida</th>
-                <th>Presentaci&oacute;n</th>
-                <th>Invima</th>
-                <th>Lote</th>
-                <th>Fecha Vencimiento</th>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody class="small">
-              <?php foreach($_data[\App\Services\HistoricoService::MEDICAMENTO]["after"] as $row): ?>
-                <tr>
-                  <td><?= $row->p_activo_concentracion ?></td>
-                  <td><?= $row->forma_farma ?></td>
-                  <td><?= $row->medida ?></td>
-                  <td><?= $row->presentacion ?></td>
-                  <td><?= $row->invima ?></td>
-                  <td><?= $row->lote ?></td>
-                  <td class="<?= $dateColor($row->vencimiento) ?>">
-                    <?= $printDate($row->vencimiento) ?>
-                  </td>
-                  <td><?= $row->cantidad ?></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
+          <?= $this->fetch("./print/partials/medicamentos.php", [
+            "med" => $_data[\App\Services\HistoricoService::MEDICAMENTO]
+          ]) ?>
         </td>
       </tr>
 
       <tr>
         <td>
-          <table class="table table-sm mb-5 border small">
-            <thead>
-              <tr>
-                <th colspan="9">
-                  <span class="fw-bodl">Dispositivos</span>
-                </th>
-              </tr>
-              <tr>
-                <th>Descripci&oacute;n</th>
-                <th>Marca</th>
-                <th>Presentaci&oacute;n</th>
-                <th>Invima</th>
-                <th>Lote</th>
-                <th>Fecha Vencimiento</th>
-                <th>Cant.</th>
-                <th>Vida &uacute;til</th>
-                <th>Riesgo</th>
-              </tr>
-            </thead>
-            <tbody class="small">
-              <?php foreach($_data[\App\Services\HistoricoService::DISPOSITIVO]["after"] as $row): ?>
-                <tr>
-                  <td><?= $row->desc ?></td>
-                  <td><?= $row->marca ?></td>
-                  <td><?= $row->presentacion ?></td>
-                  <td><?= $row->invima ?></td>
-                  <td><?= $row->lote ?></td>
-                  <td class="<?= $dateColor($row->vencimiento) ?>">
-                    <?= $printDate($row->vencimiento) ?>
-                  </td>
-                  <td><?= $row->cantidad ?></td>
-                  <td><?= $row->vida_util ?></td>
-                  <td><?= $row->riesgo ?></td>
-                </tr>
-              <?php endforeach ?>
-            </tbody>
-          </table>
+          <?= $this->fetch("./print/partials/dispositivos.php", [
+            "dis" => $_data[\App\Services\HistoricoService::DISPOSITIVO]
+          ]) ?>
         </td>
       </tr>
     </tbody>
+
+    <?= $this->fetch("./print/partials/footer.php") ?>
   </table>
 </body>
 </html>
