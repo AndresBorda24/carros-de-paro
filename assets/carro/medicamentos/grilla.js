@@ -19,8 +19,7 @@ export default () => ({
         ['@medicamento-deleted.document']: "removeMedicamento",
         ['@medicamento-updated.document']: "updateMedicamento",
         ["@carro-apertura-cancelada.document"] : "revertChanges",
-        ["@carro-apertura-update.document"]: "getData",
-        ["@carro-apertura-save.document"]: "sendSaveData",
+        ["@carro-apertura-update.document"]: "getData"
     },
 
     init() {
@@ -157,14 +156,6 @@ export default () => ({
     },
 
     /**
-     * Envia la informacion de la grilla para que se realice la peticion y
-     * se guarden los datos en la base de datos.
-    */
-    sendSaveData() {
-        this.$dispatch("save-medicamentos-data", this.getTableData());
-    },
-
-    /**
      * Obtiene los datos de la tabla.
     */
     async getData() {
@@ -222,18 +213,6 @@ export default () => ({
         //     await this.fixResponsive();
         // });
     },
-
-    /**
-     * Ajusta el ancho de las columnas. Si. Es necesario.
-    */
-    // async fixResponsive() {
-    //     await this.$nextTick();
-    //     setTimeout(() =>
-    //         this.table
-    //             .columns.adjust()
-    //             .responsive.recalc()
-    //     , 50);
-    // },
 
     /**
      * Obtiene los datos actuales de la tabla

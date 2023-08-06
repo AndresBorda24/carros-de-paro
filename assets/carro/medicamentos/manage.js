@@ -1,3 +1,4 @@
+import { createMedicamento } from "./handle";
 import { successAlert } from "../../partials/alerts";
 
 /**
@@ -64,13 +65,13 @@ export default () => ({
     },
 
     /** Realiza la consulta */
-    save() {
-        // Se crea un ID provicional
-        this.state.id = (Math.random() + 3).toString(36).substring(3);
-        this.$dispatch("new-medicamento-created", this.state);
-
-        successAlert();
-        this.close();
+    async save() {
+        const create = await createMedicamento( this.state );
+        if(create) {
+            this.$dispatch("new-medicamento-created", create);
+            successAlert();
+            this.close();
+        }
     },
 
     /**
