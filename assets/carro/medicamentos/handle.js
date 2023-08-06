@@ -43,7 +43,30 @@ export async function updateMedicamento(state) {
         return true;
     } catch(e) {
         errorAlert("Ha ocurrido un error...");
-        console.error("Med create: ", e);
+        console.error("Med update: ", e);
+        return false;
+    }
+}
+
+/**
+ * Se encarga de realizar la peticion al backend para crear un nuebo
+ * medicamento.
+*/
+export async function deleteMedicamento(state) {
+    try {
+        showLoader();
+
+        await axios.delete(
+            process.env.API + `/medicamentos/${state.id}/delete`, {
+                data: {
+                    "apertura_id": Alpine.store("APERTURA_ID")
+                }
+            }).finally(hideLoader);
+
+        return true;
+    } catch(e) {
+        errorAlert("Ha ocurrido un error...");
+        console.error("Med delete: ", e);
         return false;
     }
 }

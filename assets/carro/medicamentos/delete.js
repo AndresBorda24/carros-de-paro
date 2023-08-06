@@ -1,12 +1,15 @@
+import { deleteMedicamento } from "./handle"
 import { successAlert } from "../../partials/alerts";
 
 export default () => ({
-    delMed() {
+    async delMed() {
         if (! confirm("Realmente desea eliminar el registro?") ) {
             return;
         }
 
-        successAlert("Medicamento Eliminado!");
-        this.$dispatch("medicamento-deleted", this.__rowIndex);
+        if (await deleteMedicamento(this.state)) {
+            successAlert("Medicamento Eliminado!");
+            this.$dispatch("medicamento-deleted", this.__rowIndex);
+        }
     }
 });
