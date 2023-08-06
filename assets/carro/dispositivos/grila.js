@@ -228,10 +228,11 @@ export default () => ({
      * Muestra la data de la tabla esto es mas para debug jeje
     */
     showData() {
-        const _ = this.table.rows().data();
-        const x = Object.values(_).slice(0, _.length);
-
-        console.log("Datos en `data`: ", JSON.parse( JSON.stringify(this.data)))
-        console.log("Datos en datatable: ", JSON.parse( JSON.stringify(x) ));
+        console.log("Datos en `data`: ", JSON.parse(
+            JSON.stringify(this.data)
+        ));
+        console.log("Datos en datatable: ", JSON.parse(
+            JSON.stringify(this.getTableData())
+        ));
     },
 });
