@@ -183,6 +183,7 @@ export default () => ({
 
             // Actualizamos la tabla
             this.updateTableRows( this.data );
+            this.$store["DIS_DATA"] = this.data;
         } catch(e) {
             console.error("Error get med: ", e);
             errorAlert("Error al obtener los dispositivos")
@@ -225,18 +226,6 @@ export default () => ({
         //     await this.fixResponsive();
         // });
     },
-
-    /**
-     * Ajusta el ancho de las columnas. Si. Es necesario.
-    */
-    // async fixResponsive() {
-    //     await this.$nextTick();
-    //     setTimeout(() => {
-    //         this.table
-    //             .columns.adjust()
-    //             .responsive.recalc()
-    //     }, 50);
-    // },
 
     /**
      * Obtiene los datos actuales de la tabla
