@@ -94,8 +94,12 @@ function loadApiRoutes(App $app) {
             "searchHistorico"
         ]);
 
+        /* ---------------------------------------------------------------------
+        + Aperturas
+        */
         $api->group("/aperturas", function(Group $apertura) {
             $apertura->post("/create", [AperturasController::class, "store"]);
+            $apertura->put("/{id:[0-9]+}/update", [AperturasController::class, "update"]);
         });
 
         /* ---------------------------------------------------------------------

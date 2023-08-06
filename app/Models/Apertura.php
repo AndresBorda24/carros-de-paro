@@ -10,11 +10,6 @@ class Apertura
     CONST TABLE = "carro_aperturas";
 
     private Medoo $db;
-    private array $required = [
-        "carro_id",
-        "quien",
-        "motivo"
-    ];
 
     public function __construct(Medoo $db)
     {
@@ -27,8 +22,6 @@ class Apertura
     public function create(array $data): int
     {
         try {
-            $this->checkRequired($data);
-
             $this->db->insert(static::TABLE, [
                 "quien"  => $data["quien"],
                 "fecha"  => Medoo::raw("CURDATE()"),
@@ -39,6 +32,22 @@ class Apertura
 
             return (int) $this->db->id();
         } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Actualiza una Apertura dependiendo de su id
+    */
+    public function update(int $id, array $data): int
+    {
+        try {
+            $_ = $this->db->update(static::TABLE, [
+                "mensaje" => $data["mensaje"]
+            ], ["id" => $id]);
+
+            return $_->rowCount();
+        } catch(\Exception $e) {
             throw $e;
         }
     }
@@ -162,18 +171,6 @@ class Apertura
             return $_;
         } catch(\Exception $e) {
             throw $e;
-        }
-    }
-
-    /**
-     * Revisa si `$data` tiene los campos requeridos
-    */
-    private function checkRequired(array $data)
-    {
-        foreach($this->required as $required) {
-            if (! array_key_exists($required, $data)) {
-                throw new \Exception("Faltan Campos Requeridos");
-            }
         }
     }
 
