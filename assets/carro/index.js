@@ -24,9 +24,7 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("createCarro", Carro.createCarro);
     Alpine.data("deleteCarro", Carro.deleteCarro);
     Alpine.data("createApertura", Carro.apertura);
-    Alpine.data("closeApertura", Carro.closeApertura);
-
-
+    Alpine.data("updateApertura", Carro.updateApertura);
 
     Alpine.data("createMedicamento", Medicamentos.manage);
     Alpine.data("deleteMedicamento", Medicamentos.remove);

@@ -4,7 +4,7 @@ import carrosList from "./components/carros-list";
 import deleteCarro from "./components/delete-carro";
 import createCarro from "./components/create-carro";
 import carroModify from "./components/carro-modify";
-import closeApertura from "./components/close-apertura";
+import updateApertura from "./components/update-apertura";
 
 export {
     carro,
@@ -13,5 +13,5 @@ export {
     deleteCarro,
     carroModify,
     apertura,
-    closeApertura
+    updateApertura
 }
