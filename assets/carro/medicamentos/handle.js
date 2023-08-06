@@ -27,6 +27,28 @@ export async function createMedicamento(state) {
 }
 
 /**
+ * Se encarga de realizar la peticion al backend para crear un nuebo
+ * medicamento.
+*/
+export async function updateMedicamento(state) {
+    try {
+        showLoader();
+
+        await axios.put(
+            process.env.API + `/medicamentos/${state.id}/update`, {
+            "apertura_id": Alpine.store("APERTURA_ID"),
+            "data": state
+        }).finally(hideLoader);
+
+        return true;
+    } catch(e) {
+        errorAlert("Ha ocurrido un error...");
+        console.error("Med create: ", e);
+        return false;
+    }
+}
+
+/**
 * Establece la propiedad new para identificar en el historico que es un
 * item nuevo
 */

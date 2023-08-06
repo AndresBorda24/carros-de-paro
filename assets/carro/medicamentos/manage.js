@@ -1,5 +1,5 @@
-import { createMedicamento } from "./handle";
 import { successAlert } from "../../partials/alerts";
+import { createMedicamento, updateMedicamento } from "./handle";
 
 /**
  * Este componente se encarga de crear (anexar) y modificar medicamentos.
@@ -78,13 +78,15 @@ export default () => ({
      * Sip. Se parece mucho a `save` pero me pidieron que fuera rapido
      * asi que...
     */
-    update() {
-        this.$dispatch("medicamento-updated", {
-            medicamento: this.state,
-            rowIndex: this.__rowIndex
-        });
-        successAlert();
-        this.close();
+    async update() {
+        if (await updateMedicamento(this.state)) {
+            this.$dispatch("medicamento-updated", {
+                medicamento: this.state,
+                rowIndex: this.__rowIndex
+            });
+            successAlert();
+            this.close();
+        }
     },
 
     /**
