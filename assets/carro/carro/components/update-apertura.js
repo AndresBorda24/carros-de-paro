@@ -24,6 +24,8 @@ export default () => ({
             /** Establecemos que el carro esta abierto **/
             this.carroStatus = false;
             this.message = "";
+
+            this.$dispatch("carro-apertura-update");
         } catch(e) {
             errorAlert("Ha ocurrido un error al guardar la apertura.");
             console.error("Apertura: ", e);

@@ -18,7 +18,6 @@ export default () => ({
         ['@new-medicamento-created.document']: "newMedicamento",
         ['@medicamento-deleted.document']: "removeMedicamento",
         ['@medicamento-updated.document']: "updateMedicamento",
-        ["@carro-apertura-cancelada.document"] : "revertChanges",
         ["@carro-apertura-update.document"]: "getData"
     },
 
