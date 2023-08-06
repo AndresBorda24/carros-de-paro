@@ -10,17 +10,29 @@ class="position-relative"
 
   <div
   class="position-absolute border bg-success-subtle z-1 top-100 end-0 p-2 small border-success rounded shadow mt-1 text-center"
-  style="width: 180px;">
-    Recuerda registrar <span class="fw-bold">TODOS</span> los cambios en
-    <span class="fw-bold">Medicamentos</span> y
-    <span class="fw-bold">Dispositivos</span>.
-    Si ya lo hiciste, pulsa en:
+  style="width: 280px;">
+    <form @submit.prevent="update">
+      <label
+      for="apertura-mensaje"
+      class="fotm-label small text-muted">Mensaje(opcional):</label>
+      <span class="small text-muted">
+        ( <span
+        :class="{ 'text-danger': messageLength > 300 }"
+        x-text="messageLength"></span> / 300 )
+      </span>
+      <textarea
+      id="apertura-mensaje"
+      style="min-height: 150px; max-height: 220px;"
+      x-model="message"
+      class="form-control form-control-sm small"></textarea>
 
-    <button
-    @click="update"
-    class="btn btn-sm btn-success text-sm mt-2 d-block mx-auto">
-      Guardar
-      <?= $this->fetch("./icons/check.php") ?>
-    </button>
+      <button
+      type="submit"
+      :disabled="(messageLength > 300)"
+      class="btn btn-sm btn-success text-sm mt-2 d-block mx-auto">
+        Guardar
+        <?= $this->fetch("./icons/check.php") ?>
+      </button>
+    </form>
   </div>
 </details>

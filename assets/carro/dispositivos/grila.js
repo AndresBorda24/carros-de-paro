@@ -21,9 +21,7 @@ export default () => ({
         ['@new-dispositivo-created.document']: "newDispositivo",
         ['@dispositivo-deleted.document']: "removeDispositivo",
         ['@dispositivo-updated.document']: "updateDispositivo",
-        ["@carro-apertura-cancelada.document"] : "revertChanges",
         ['@carro-apertura-update.document']: "getData",
-        ["@carro-apertura-save.document"]: "sendSaveData",
     },
 
     init() {
@@ -146,13 +144,6 @@ export default () => ({
         this.table.draw();
     },
 
-    /**
-     * Envia la informacion de la grilla para que se realice la peticion y
-     * se guarden los datos en la base de datos.
-    */
-    sendSaveData() {
-        this.$dispatch("save-dispositivos-data", this.getTableData());
-    },
 
     /**
      * Indica que se debe modificar un dispositivo
@@ -222,9 +213,6 @@ export default () => ({
                 this.table.columns.adjust().draw();
             }
         });
-        // this.$watch("carroStatus", async () => {
-        //     await this.fixResponsive();
-        // });
     },
 
     /**
@@ -240,10 +228,11 @@ export default () => ({
      * Muestra la data de la tabla esto es mas para debug jeje
     */
     showData() {
-        const _ = this.table.rows().data();
-        const x = Object.values(_).slice(0, _.length);
-
-        console.log("Datos en `data`: ", JSON.parse( JSON.stringify(this.data)))
-        console.log("Datos en datatable: ", JSON.parse( JSON.stringify(x) ));
+        console.log("Datos en `data`: ", JSON.parse(
+            JSON.stringify(this.data)
+        ));
+        console.log("Datos en datatable: ", JSON.parse(
+            JSON.stringify(this.getTableData())
+        ));
     },
 });

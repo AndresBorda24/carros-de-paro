@@ -18,7 +18,6 @@ export default () => ({
         ['@new-medicamento-created.document']: "newMedicamento",
         ['@medicamento-deleted.document']: "removeMedicamento",
         ['@medicamento-updated.document']: "updateMedicamento",
-        ["@carro-apertura-cancelada.document"] : "revertChanges",
         ["@carro-apertura-update.document"]: "getData"
     },
 
@@ -64,13 +63,6 @@ export default () => ({
             .row( data.rowIndex )
             .node()
             .classList.add("bg-warning-subtle");
-    },
-
-    /**
-     * Deshace todos los cambios `NO` guardados.
-    */
-    revertChanges() {
-        this.updateTableRows( this.data );
     },
 
     /** Crea la tabla */
@@ -196,7 +188,6 @@ export default () => ({
 
                 console.log("Cambio el ID dispositivo: ", this.getCarroId());
             }
-            // await this.fixResponsive();
         });
 
 
@@ -209,9 +200,6 @@ export default () => ({
                 this.table.columns.adjust().draw();
             }
         });
-        // this.$watch("carroStatus", async () => {
-        //     await this.fixResponsive();
-        // });
     },
 
     /**
@@ -227,10 +215,11 @@ export default () => ({
      * Muestra la data de la tabla
     */
     showData() {
-        const _ = this.table.rows().data();
-        const x = Object.values(_).slice(0, _.length);
-
-        console.log("Datos en `data`: ", JSON.parse( JSON.stringify(this.data)))
-        console.log("Datos en datatable: ", JSON.parse( JSON.stringify(x) ));
+        console.log("Datos en `data`: ", JSON.parse(
+            JSON.stringify(this.data))
+        );
+        console.log("Datos en datatable: ", JSON.parse(
+            JSON.stringify(this.getTableData())
+        ));
     },
 });

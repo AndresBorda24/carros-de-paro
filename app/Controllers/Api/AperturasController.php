@@ -46,4 +46,20 @@ class AperturasController
             return responseError($response, $e);
         }
     }
+
+    public function update(Request $request, Response $response, int $id): Response
+    {
+        try {
+            $data = $this
+                ->validator
+                ->validateUpdate($request->getParsedBody());
+
+            return responseJson($response, [
+                "status" => true,
+                "__ctrl" => $this->apertura->update($id, $data)
+            ]);
+        } catch(\Exception $e) {
+            return responseError($response, $e);
+        }
+    }
 }

@@ -46,7 +46,8 @@ class DispositivosRequest extends BodyRequest
     private function updateRules(): array
     {
         return $this->insertRules() + [
-            "data.id"   => "required|numeric"
+            "data.id"   => "required|numeric",
+            "data.motivo_edicion" => "required"
         ];
     }
 }

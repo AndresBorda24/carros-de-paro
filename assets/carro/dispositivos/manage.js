@@ -1,4 +1,5 @@
 import { successAlert } from "../../partials/alerts";
+import { createDispositivo, updateDispositivo } from "./handle"
 
 export default () => ({
     show: false,
@@ -57,30 +58,32 @@ export default () => ({
     },
 
     /** Realiza la consulta */
-    save() {
+    async save() {
         this.checkFechaVencimiento();
-
-        // Id temporal
-        this.state.id = (Math.random() + 3).toString(36).substring(3);
-        this.$dispatch("new-dispositivo-created", this.state);
-        successAlert();
-        this.close();
+        const create = await createDispositivo(this.state);
+        if (create) {
+            this.$dispatch("new-dispositivo-created", create);
+            successAlert();
+            this.close();
+        }
     },
 
     /**
      * Sip. Se parece mucho a `save` pero me pidieron que fuera rapido
      * asi que... Copy and Paste ...
     */
-    update() {
+    async update() {
         this.checkFechaVencimiento();
 
-        this.$dispatch("dispositivo-updated", {
-            dispositivo: this.state,
-            rowIndex: this.__rowIndex
-        });
+        if (await updateDispositivo(this.state)) {
+            this.$dispatch("dispositivo-updated", {
+                dispositivo: this.state,
+                rowIndex: this.__rowIndex
+            });
 
-        successAlert();
-        this.close();
+            successAlert();
+            this.close();
+        }
     },
 
     /**
