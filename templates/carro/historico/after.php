@@ -2,7 +2,7 @@
 <ul class="list-group">
   <template x-for="a in after" :key="a.id">
     <li
-    :class="isNaN(a.id) ?
+    :class="a.new ?
       'list-group-item-success' :
       'list-group-item-primary'
     "

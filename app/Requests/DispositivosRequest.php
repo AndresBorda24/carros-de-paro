@@ -39,7 +39,8 @@ class DispositivosRequest extends BodyRequest
             "data.carro_id" => "required|numeric",
             "data.vida_util" => "required",
             "data.vencimiento" => "required",
-            "data.presentacion" => "required"
+            "data.presentacion" => "required",
+            "data.new" => "nullable|default:1"
         ];
     }
 
@@ -47,7 +48,8 @@ class DispositivosRequest extends BodyRequest
     {
         return $this->insertRules() + [
             "data.id"   => "required|numeric",
-            "data.motivo_edicion" => "required"
+            "data.motivo_edicion" => "required",
+            "data.new" => "nullable"
         ];
     }
 }

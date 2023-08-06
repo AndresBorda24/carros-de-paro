@@ -39,6 +39,7 @@ class MedicamentosRequest extends BodyRequest
             "data.vencimiento"  => "required",
             "data.presentacion" => "required",
             "data.p_activo_concentracion" => "required",
+            "data.new" => "nullable|default:1"
         ];
     }
 
@@ -46,7 +47,8 @@ class MedicamentosRequest extends BodyRequest
     {
         return $this->insertRules() + [
             "data.id"   => "required|numeric",
-            "data.motivo_edicion" => "required"
+            "data.motivo_edicion" => "required",
+            "data.new" => "nullable"
         ];
     }
 }
