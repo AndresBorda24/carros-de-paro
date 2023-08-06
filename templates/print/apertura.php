@@ -12,90 +12,28 @@
   <title>Revisi&oacute;n <?= $_data["usuario"] ?> | <?= $_data["fecha"] ?></title>
 </head>
 <body class="bg-white">
-  <?= $this->fetch("./print/partials/header.php") ?>
-  <div class="p-3 small">
-    <h4>Medicamentos</h4>
-    <table class="table table-sm mb-5 border small">
-      <thead>
-        <tr>
-          <th>Principio Activo / Concentraci&oacute;n</th>
-          <th>Forma Farmac&eacute;utica</th>
-          <th>U / medida</th>
-          <th>Presentaci&oacute;n</th>
-          <th>Invima</th>
-          <th>Lote</th>
-          <th>Fecha Vencimiento</th>
-          <th>Cantidad</th>
-        </tr>
-      </thead>
-      <tbody class="small">
-        <?php foreach($_data[\App\Services\HistoricoService::MEDICAMENTO]["after"] as $row): ?>
-          <tr>
-            <td><?= $row->p_activo_concentracion ?></td>
-            <td><?= $row->forma_farma ?></td>
-            <td><?= $row->medida ?></td>
-            <td><?= $row->presentacion ?></td>
-            <td><?= $row->invima ?></td>
-            <td><?= $row->lote ?></td>
-            <td class="<?= $dateColor($row->vencimiento) ?>">
-              <?= $printDate($row->vencimiento) ?>
-            </td>
-            <td><?= $row->cantidad ?></td>
-          </tr>
-        <?php endforeach ?>
-      </tbody>
-    </table>
+  <table class="table table-borderless table-sm">
+    <?= $this->fetch("./print/partials/header.php") ?>
 
-    <h4>Dispositivos</h4>
-    <table class="table table-sm mb-5 border small">
-      <thead>
-        <tr>
-          <th>Descripci&oacute;n</th>
-          <th>Marca</th>
-          <th>Presentaci&oacute;n</th>
-          <th>Invima</th>
-          <th>Lote</th>
-          <th>Fecha Vencimiento</th>
-          <th>Cant.</th>
-          <th>Vida &uacute;til</th>
-          <th>Riesgo</th>
-        </tr>
-      </thead>
-      <tbody class="small">
-        <?php foreach($_data[\App\Services\HistoricoService::DISPOSITIVO]["after"] as $row): ?>
-          <tr>
-            <td><?= $row->desc ?></td>
-            <td><?= $row->marca ?></td>
-            <td><?= $row->presentacion ?></td>
-            <td><?= $row->invima ?></td>
-            <td><?= $row->lote ?></td>
-            <td class="<?= $dateColor($row->vencimiento) ?>">
-              <?= $printDate($row->vencimiento) ?>
-            </td>
-            <td><?= $row->cantidad ?></td>
-            <td><?= $row->vida_util ?></td>
-            <td><?= $row->riesgo ?></td>
-          </tr>
-        <?php endforeach ?>
-      </tbody>
-    </table>
-  </div>
+    <tbody>
+      <tr>
+        <td>
+          <?= $this->fetch("./print/partials/medicamentos.php", [
+            "med" => $_data[\App\Services\HistoricoService::MEDICAMENTO]
+          ]) ?>
+        </td>
+      </tr>
 
-  <div class="text-sm">
-    Impresi&oacute;n Generada por:
-    <span class="mx-2 fw-bold"><?= $user->getNombre() ?></span>
-    el
-    <span class="mx-2 fw-bold"><?= date("Y-m-d") ?></span>
-  </div>
+      <tr>
+        <td>
+          <?= $this->fetch("./print/partials/dispositivos.php", [
+            "dis" => $_data[\App\Services\HistoricoService::DISPOSITIVO]
+          ]) ?>
+        </td>
+      </tr>
+    </tbody>
 
-  <div class="text-center p-1 bg-blue-main small">
-    <span class="small text-light">
-        NIT: 800209891-7
-    </span>
-    <span class="mx-2 text-light">|</span>
-    <span class="small text-light">
-      Cra. 4D No. 32 - 34 , Ibagu&eacute;, Tolima
-    </span>
-  </div>
+    <?= $this->fetch("./print/partials/footer.php") ?>
+  </table>
 </body>
 </html>

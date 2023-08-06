@@ -136,10 +136,9 @@ class Apertura
                 "[>]".User::TABLE." (U)" => ["quien" => "usuario_id"],
                 "[>]".Carro::TABLE." (C)" => ["carro_id" => "id"]
             ], [
-                "C.nombre (carro_nombre)",
-                "C.ubicacion (carro_ubicacion)",
+                "C.nombre (carro_nombre)", "C.ubicacion (carro_ubicacion)",
                 "H.after", "H.before", "H.model",
-                "A.id", "A.fecha", "A.hora", "A.motivo",
+                "A.id", "A.fecha", "A.hora", "A.motivo", "A.mensaje",
                 "usuario" => Medoo::raw("CONCAT_WS(
                     ' ',
                     U.`usuario_apellido1`,
@@ -154,6 +153,7 @@ class Apertura
                 $_["hora"]    = $reg["hora"];
                 $_["fecha"]   = $reg["fecha"];
                 $_["motivo"]  = $reg["motivo"];
+                $_["mensaje"] = $reg["mensaje"];
                 $_["usuario"] = $reg["usuario"];
                 $_["carro_nombre"] = $reg["carro_nombre"];
                 $_["carro_ubicacion"] = $reg["carro_ubicacion"];
