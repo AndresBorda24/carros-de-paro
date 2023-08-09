@@ -122,21 +122,21 @@ class Historico
             $aperturaTable = Apertura::TABLE;
 
             $sts = $this->db->pdo->prepare("
-            SELECT $table.id, nombre, apertura_id, fecha, hora
-            FROM $table
-            LEFT JOIN $aperturaTable
-            ON $aperturaTable.`id` = $table.`apertura_id`
-            LEFT JOIN $carroTable
-            ON $carroTable.`id` = $aperturaTable.`carro_id`
-            WHERE
-                `model` = :model
-                AND
-                JSON_CONTAINS(
-                    JSON_EXTRACT(
-                        $table.`after`,
-                        '$[*].$field'
-                ), :query, '$')
-            ORDER BY nombre ASC, fecha ASC, hora ASC
+                SELECT $table.id, nombre, apertura_id, fecha, hora
+                FROM $table
+                LEFT JOIN $aperturaTable
+                ON $aperturaTable.`id` = $table.`apertura_id`
+                LEFT JOIN $carroTable
+                ON $carroTable.`id` = $aperturaTable.`carro_id`
+                WHERE
+                    `model` = :model
+                    AND
+                    JSON_CONTAINS(
+                        JSON_EXTRACT(
+                            $table.`after`,
+                            '$[*].$field'
+                    ), :query, '$')
+                ORDER BY nombre ASC, fecha ASC, hora ASC
             ");
 
             if(! $sts->execute([

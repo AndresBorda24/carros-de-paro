@@ -15,6 +15,7 @@ autocomplete="off">
         type="radio"
         name="model"
         x-model="state.model"
+        @change="state.field = ''"
         required
         value="<?= \App\Services\HistoricoService::MEDICAMENTO ?>"
         class="visually-hidden"
@@ -32,6 +33,7 @@ autocomplete="off">
         type="radio"
         name="model"
         x-model="state.model"
+        @change="state.field = ''"
         class="visually-hidden"
         value="<?= \App\Services\HistoricoService::DISPOSITIVO ?>"
         id="model-dispositivo">
@@ -50,7 +52,11 @@ autocomplete="off">
         <option value="" hidden selected>Selecciona</option>
         <option value="invima">Invima</option>
         <option value="lote">Lote</option>
-        <option value="nombre">Nombre</option>
+        <option
+        :value="(state.model === '<?= \App\Services\HistoricoService::DISPOSITIVO ?>')
+        ? 'desc' : 'p_activo_concentracion'"
+        >
+          Nombre</option>
       </select>
     </div>
   </div>
