@@ -44,17 +44,17 @@ export default (date) => ({
         if (! Boolean(this.date)) return "";
 
         // Rojo < 6 meses (180)
-        if (this.diff < 180) {
+        if (this.diff < 183) {
             return "text-bg-danger bg-opacity-75 text-black";
         }
 
-        // Amarillo > 6 y < 12 (entre 181 y 360)
-        if (this.diff > 180 && this.diff < 360) {
+        // Amarillo > 6 y < 12 (entre 181 y 365)
+        if (this.diff >= 183 && this.diff <= 365) {
             return "text-bg-warning bg-opacity-75 text-black";
         }
 
-        // Verde > 12 meses (361)
-        if (this.diff > 360) {
+        // Verde > 12 meses (365)
+        if (this.diff > 365) {
             return "text-bg-success bg-opacity-75 text-black";
         }
     },
