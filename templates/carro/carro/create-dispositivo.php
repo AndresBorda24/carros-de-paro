@@ -94,7 +94,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         class="form-label small text-muted">Vida &uacute;til:</label>
         <input
         id="new-dispositivo-vida-util"
-        x-model.number="state.vida_util"
+        x-model="state.vida_util"
         type="text"
         required
         class="form-control form-control-sm">
