@@ -51,5 +51,5 @@ document.addEventListener("DOMContentLoaded", function() {
             .removeAttribute('open');
     }
 
-    window.setInterval(sessionPulse, 1000 * 60 * 15);
+    window.setInterval(sessionPulse, 1000 * 60 * 10);
 });
