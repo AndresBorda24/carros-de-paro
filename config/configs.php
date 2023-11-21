@@ -4,7 +4,8 @@ return [
         "name" => $_ENV["APP_NAME"],
         "ver"  => $_ENV["APP_VER"],
         "base" => $_ENV["APP_PATH"],
-        "url"  => $_ENV["APP_URL"]
+        "url"  => $_ENV["APP_URL"],
+        "env"  => $_ENV["APP_ENV"]
     ],
     "db" => [
         "host" => $_ENV["DB_HOST"],
