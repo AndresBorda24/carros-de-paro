@@ -126,3 +126,17 @@ export async function deleteMedicamento(id, conf) {
     `/medicamentos/${id}/delete`, conf
   ));
 }
+
+/** @param carId {string|int} Carro id */
+export async function getAperturas( carId ) {
+  return await request(async () => await ax.get(
+    `/carros/${carId}/get-aperturas`
+  ));
+}
+
+/** @param apeId {string|int} Apertura id */
+export async function getSingleApertura( apeId ) {
+  return await request(async () => await ax.get(
+    `/carros/aperturas/${apeId}/get`
+  ));
+}
