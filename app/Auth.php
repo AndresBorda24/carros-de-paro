@@ -10,12 +10,17 @@ use App\Contracts\UserInterface;
 class Auth
 {
     private Medoo $db;
+    private Config $config;
     private Session $session;
     private ?UserInterface $user = null;
 
-    public function __construct(Session $session, Medoo $db)
-    {
+    public function __construct(
+        Session $session,
+        Config $config,
+        Medoo $db
+    ) {
         $this->db = $db;
+        $this->config = $config;
         $this->session = $session;
     }
 
@@ -28,7 +33,10 @@ class Auth
             return $this->user;
         }
 
-        $id = $this->session->get("usu_id", 617); // 133 // 617
+        $id = ($this->config->get("app.env") == "prod")
+            ? $this->session->get("usu_id")
+            : 617; // 133: Merly | 617: Andres | 603: Marly
+
         if(! $id) return null;
 
         $data = $this->db->get(User::TABLE, [
