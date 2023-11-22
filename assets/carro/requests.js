@@ -66,3 +66,34 @@ export async function updateApertura(apId, body) {
   ));
 }
 
+/** @param carId {string|int} Id del carro */
+export async function findDispositivos( carId ) {
+  return await request(async () =>
+    ax.get(`/carros/${carId}/get-dispositivos`)
+  );
+}
+
+/** @param body {object} data del nuevo dispositivo */
+export async function createDispositivo( body ) {
+  return await request(async () => ax.post(`/dispositivos/create`, body));
+}
+
+/**
+ * @param body {object} data del nuevo dispositivo
+ * @param id {string|id} dispositivo id
+*/
+export async function updateDispositivo( id, body ) {
+  return await request(async () => ax.put(
+    `/dispositivos/${ id }/update`, body
+  ));
+}
+
+/**
+ * @param body {object} data del nuevo dispositivo
+ * @param id {string|id} dispositivo id
+*/
+export async function deleteDispositivo( id, config ) {
+  return await request(async () => ax.delete(
+    `/dispositivos/${ id }/delete`, config
+  ));
+}

@@ -1,5 +1,8 @@
-import { successAlert } from "../../partials/alerts";
-import { createDispositivo, updateDispositivo } from "./handle"
+import Alpine from "alpinejs";
+import { showLoader, hideLoader } from "@/partials/loader";
+import { successAlert, errorAlert } from "@/partials/alerts";
+// import { createDispositivo, updateDispositivo } from "./handle"
+import { createDispositivo, updateDispositivo } from "@/carro/requests"
 
 export default () => ({
     show: false,
@@ -60,12 +63,19 @@ export default () => ({
     /** Realiza la consulta */
     async save() {
         this.checkFechaVencimiento();
-        const create = await createDispositivo(this.state);
-        if (create) {
-            this.$dispatch("new-dispositivo-created", create);
-            successAlert();
-            this.close();
-        }
+        showLoader();
+        const { data, error } = await createDispositivo({
+            "apertura_id": Alpine.store("APERTURA_ID"),
+            data: { new: 1, ... this.state }
+        });
+        hideLoader();
+
+        if (error !== null) return errorAlert();
+        this.state.id = data.__id;
+
+        this.$dispatch("new-dispositivo-created", {... this.state});
+        successAlert();
+        this.close();
     },
 
     /**
@@ -74,16 +84,21 @@ export default () => ({
     */
     async update() {
         this.checkFechaVencimiento();
+        showLoader();
+        const { error } = await updateDispositivo(this.state.id, {
+            "apertura_id": Alpine.store("APERTURA_ID"),
+            "data": this.state
+        });
+        hideLoader();
 
-        if (await updateDispositivo(this.state)) {
-            this.$dispatch("dispositivo-updated", {
-                dispositivo: this.state,
-                rowIndex: this.__rowIndex
-            });
+        if (error !== null) return errorAlert();
 
-            successAlert();
-            this.close();
-        }
+        this.$dispatch("dispositivo-updated", {
+            dispositivo: this.state,
+            rowIndex: this.__rowIndex
+        })
+        successAlert();
+        this.close();
     },
 
     /**
