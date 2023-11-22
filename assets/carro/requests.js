@@ -61,7 +61,7 @@ export async function createApertura( body ) {
  * @param body {object} Cuerpo de la solicitud
 */
 export async function updateApertura(apId, body) {
-  return await request(async () => ax.put(
+  return await request(async () => await ax.put(
     `/aperturas/${apId}/update`, body
   ));
 }
@@ -69,13 +69,13 @@ export async function updateApertura(apId, body) {
 /** @param carId {string|int} Id del carro */
 export async function findDispositivos( carId ) {
   return await request(async () =>
-    ax.get(`/carros/${carId}/get-dispositivos`)
+    await ax.get(`/carros/${carId}/get-dispositivos`)
   );
 }
 
 /** @param body {object} data del nuevo dispositivo */
 export async function createDispositivo( body ) {
-  return await request(async () => ax.post(`/dispositivos/create`, body));
+  return await request(async () => await ax.post(`/dispositivos/create`, body));
 }
 
 /**
@@ -83,7 +83,7 @@ export async function createDispositivo( body ) {
  * @param id {string|id} dispositivo id
 */
 export async function updateDispositivo( id, body ) {
-  return await request(async () => ax.put(
+  return await request(async () => await ax.put(
     `/dispositivos/${ id }/update`, body
   ));
 }
@@ -93,7 +93,36 @@ export async function updateDispositivo( id, body ) {
  * @param id {string|id} dispositivo id
 */
 export async function deleteDispositivo( id, config ) {
-  return await request(async () => ax.delete(
+  return await request(async () => await ax.delete(
     `/dispositivos/${ id }/delete`, config
+  ));
+}
+
+/** @param carId {string|int} Id del carro */
+export async function findMedicamentos( carId ) {
+  return await request(async () =>
+    await ax.get(`/carros/${carId}/get-medicamentos`)
+  );
+}
+
+/** @param body {object} data del nuevo medicamento */
+export async function createMedicamento( body) {
+  return await request(async () => await ax.post(`/medicamentos/create`, body));
+}
+
+/**
+ * @param body {object} data del nuevo medicamento
+ * @param id {string|id} medicamento id
+*/
+export async function updateMedicamento(id, body) {
+  return await request(async () => await ax.put(
+    `/medicamentos/${id}/update`, body
+  ));
+}
+
+/** @param conf {object} configuracion de la request */
+export async function deleteMedicamento(id, conf) {
+  return await request(async() => await ax.delete(
+    `/medicamentos/${id}/delete`, conf
   ));
 }
