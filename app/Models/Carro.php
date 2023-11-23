@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\CarroTipo;
 use Medoo\Medoo;
 
 class Carro
@@ -81,10 +82,12 @@ class Carro
     /**
      * Obtiene todos los carros
     */
-    public function getAll(): ?array
+    public function getAll(CarroTipo $tipo): ?array
     {
         try {
-            return $this->db->select(static::TABLE, "*");
+            return $this->db->select(static::TABLE, "*", [
+                "tipo" => $tipo->getValue()
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

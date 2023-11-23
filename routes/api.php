@@ -49,6 +49,8 @@ function loadApiRoutes(App $app) {
             "getFromCarro"
         ]);
 
+        $api->get("/estantes/get-all", [CarroController::class, "getAllEstantes"]);
+
 
         /* ---------------------------------------------------------------------
         *  Medicamentos
