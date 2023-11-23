@@ -9,7 +9,7 @@ x-bind="events">
         '<?= \App\Services\HistoricoService::MEDICAMENTO ?>',
         '<?= \App\Services\HistoricoService::DISPOSITIVO ?>'
       ]">
-        <div x-data="histoComparacion('data.'+i)" class="small">
+        <div x-data="histoComparacion(i)" class="small">
           <h5 class="text-center" x-text="i +'s'"></h5>
           <?= $this->fetch("./carro/histo/comparacion.php") ?>
         </div>

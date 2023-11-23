@@ -21,7 +21,7 @@
   <template x-if="data.mensaje">
     <section class="small text-muted border rounded m-3 shadow-sm">
       <span class="fw-bold">Mensaje:</span>
-      <p x-text="data.mensaje"></p>
+      <p x-text="data?.mensaje"></p>
     </section>
   </template>
   <?= $this->fetch("./partials/print.php") ?>

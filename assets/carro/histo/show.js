@@ -16,8 +16,8 @@ export default () => ({
 
         /* Cuando se selecciona otro carro, reiniciamos los valores */
         this.$watch("CARRO", () => {
-            this.data = undefined;
             this.aperturaId = undefined;
+            this.data = undefined;
         });
     },
 
