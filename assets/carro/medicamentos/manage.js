@@ -1,5 +1,6 @@
-import { successAlert } from "../../partials/alerts";
-import { createMedicamento, updateMedicamento } from "./handle";
+import { showLoader, hideLoader } from "@/partials/loader";
+import { successAlert, errorAlert } from "@/partials/alerts";
+import { createMedicamento, updateMedicamento } from "@/carro/requests";
 
 /**
  * Este componente se encarga de crear (anexar) y modificar medicamentos.
@@ -66,12 +67,20 @@ export default () => ({
 
     /** Realiza la consulta */
     async save() {
-        const create = await createMedicamento( this.state );
-        if(create) {
-            this.$dispatch("new-medicamento-created", create);
-            successAlert();
-            this.close();
-        }
+        this.state.new = 1;
+        showLoader()
+        const { data, error } = await createMedicamento({
+            "apertura_id": Alpine.store("APERTURA_ID"),
+            "data": this.state
+        });
+        hideLoader();
+
+        if (error !== null) return errorAlert();
+
+        this.state.id = data.__id;
+        this.$dispatch("new-medicamento-created", {... this.state });
+        successAlert();
+        this.close();
     },
 
     /**
@@ -79,14 +88,21 @@ export default () => ({
      * asi que...
     */
     async update() {
-        if (await updateMedicamento(this.state)) {
-            this.$dispatch("medicamento-updated", {
-                medicamento: this.state,
-                rowIndex: this.__rowIndex
-            });
-            successAlert();
-            this.close();
-        }
+        showLoader();
+        const { error } = await updateMedicamento(this.state.id, {
+            "apertura_id": Alpine.store("APERTURA_ID"),
+            "data": this.state
+        });
+        hideLoader();
+
+        if (error !== null) return errorAlert();
+
+        this.$dispatch("medicamento-updated", {
+            medicamento: this.state,
+            rowIndex: this.__rowIndex
+        });
+        successAlert();
+        this.close();
     },
 
     /**

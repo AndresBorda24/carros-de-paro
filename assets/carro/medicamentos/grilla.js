@@ -1,9 +1,9 @@
-import axios from "axios";
 import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-fixedcolumns-dt';
-import { errorAlert } from "../../partials/alerts";
-import { showLoader, hideLoader } from "../../partials/loader";
+import { errorAlert } from "@/partials/alerts";
+import { findMedicamentos } from "@/carro/requests";
+import { showLoader, hideLoader } from "@/partials/loader";
 
 // Spanish para la grilla
 import ES from "../../partials/ES"
@@ -151,22 +151,17 @@ export default () => ({
      * Obtiene los datos de la tabla.
     */
     async getData() {
-        try {
-            showLoader();
+        showLoader();
+        const { data, error } = await findMedicamentos(this.getCarroId());
+        hideLoader();
 
-            const { data } = await axios.get(
-                `${this.api}/carros/${this.getCarroId()}/get-medicamentos`
-            ).finally(hideLoader);
+        if (error !== null) return errorAlert("Error al obtener los medicamentos");
 
-            this.data = data;
+        this.data = data;
 
-            // Actualizamos la tabla
-            this.updateTableRows( this.data );
-            this.$store["MED_DATA"] = this.data;
-        } catch(e) {
-            console.error("Error get med: ", e);
-            errorAlert("Error al obtener los medicamentos")
-        }
+        // Actualizamos la tabla
+        this.updateTableRows( this.data );
+        this.$store["MED_DATA"] = this.data;
     },
 
     /**
