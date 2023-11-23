@@ -39,7 +39,8 @@ class CarroController
 
             $carro->create([
                 "nombre" => $data["nombre"],
-                "ubicacion" => $data["ubicacion"]
+                "ubicacion" => $data["ubicacion"],
+                "tipo" => $data["tipo"]
             ]);
 
             return responseJson($response, [

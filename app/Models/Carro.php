@@ -31,7 +31,8 @@ class Carro
 
             $this->db->insert(static::TABLE, [
                 "nombre"    => trim($data["nombre"]),
-                "ubicacion" => trim($data["ubicacion"])
+                "ubicacion" => trim($data["ubicacion"]),
+                "tipo"      => trim($data["tipo"])
             ]);
 
             return true;
@@ -50,7 +51,8 @@ class Carro
 
             $_ = $this->db->update(static::TABLE, [
                 "nombre"    => trim($data["nombre"]),
-                "ubicacion" => trim($data["ubicacion"])
+                "ubicacion" => trim($data["ubicacion"]),
+                "tipo"      => trim($data["tipo"])
             ], [
                 "id" => $id
             ]);

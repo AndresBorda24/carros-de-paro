@@ -5,7 +5,6 @@ import { errorAlert, successAlert } from "@/partials/alerts";
 export default () => ({
     show: false,
     state: {},
-    api: process.env.API,
     events: {
         ['@create-carro.document.stop']: "open",
         ['@update-carro.document.stop']: "open"

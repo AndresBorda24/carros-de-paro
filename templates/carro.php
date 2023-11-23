@@ -13,7 +13,7 @@
   href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css"
   rel="stylesheet">
   <?= $this->loadAssets("carro/app") ?>
-  <title>Carros de Paro</title>
+  <title>Carros de Paro <?= $this->isRoute("carros.estantes") ? "| Estantes" : "" ?></title>
 </head>
 <body class="bg-body-tertiary">
   <?= $this->fetch("./partials/header.php") ?>

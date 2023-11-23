@@ -32,6 +32,27 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       required
       class="form-control mb-3 form-control-sm">
 
+      <div class="mb-3">
+        <span>Tipo de Carro</span>
+
+        <?php foreach(\App\Enums\CarroTipo::toArray() as $tipo => $val): ?>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            required
+            x-model="state.tipo"
+            name="carro-tipo"
+            value="<?= $val ?>"
+            id="carro-tipo-<?=$tipo?>"
+          >
+          <label class="form-check-label" for="carro-tipo-<?=$tipo?>">
+            <?= $tipo ?>
+          </label>
+        </div>
+        <?php endforeach ?>
+      </div>
+
       <div class="d-flex justify-content-between">
         <button
         @click="close"
