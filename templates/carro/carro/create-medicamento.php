@@ -5,19 +5,18 @@ x-show="show"
 x-cloak
 class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
-  style="width: 80%; max-width: 500px; max-height: 80%;"
-  class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto d-flex flex-column">
-    <h5 class="border-bottom text-center p-2">Medicamento</h5>
+  style="width: 80%; max-width: 400px; max-height: 80%;"
+  class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto d-flex flex-column border border-2 border-success">
+    <h5 class="border-bottom text-center p-2 m-0 fw-bold">Medicamento</h5>
     <form
     id="create-medicamento"
     @submit.prevent="guardar"
-    class="small d-grid gap-2 p-2 overflow-auto"
-    style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));"
+    class="bg-body-tertiary gap-3 p-3 overflow-auto d-flex flex-column"
     autocomplete="off">
       <div>
         <label
         for="new-medicamento-p-activo"
-        class="form-label small text-muted"
+        class="form-label m-0 small"
         >Principio Activo / Concentraci&oacute;n:</label>
         <input
         id="new-medicamento-p-activo"
@@ -32,7 +31,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-forma-farma"
-        class="form-label small text-muted">Forma Farmac&eacute;utica:</label>
+        class="form-label m-0 small">Forma Farmac&eacute;utica:</label>
         <input
         id="new-medicamento-forma-farma"
         x-model="state.forma_farma"
@@ -44,7 +43,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-medida"
-        class="form-label small text-muted">Unidad de Medida:</label>
+        class="form-label m-0 small">Unidad de Medida:</label>
         <input
         id="new-medicamento-medida"
         x-model="state.medida"
@@ -56,7 +55,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-presentacion"
-        class="form-label small text-muted">Presentaci&oacute;n Comercial:</label>
+        class="form-label m-0 small">Presentaci&oacute;n Comercial:</label>
         <input
         id="new-medicamento-presentacion"
         x-model="state.presentacion"
@@ -68,7 +67,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-invima"
-        class="form-label small text-muted">Invima:</label>
+        class="form-label m-0 small">Invima:</label>
         <input
         id="new-medicamento-invima"
         x-model="state.invima"
@@ -80,7 +79,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-lote"
-        class="form-label small text-muted">Lote:</label>
+        class="form-label m-0 small">Lote:</label>
         <input
         id="new-medicamento-lote"
         x-model="state.lote"
@@ -92,7 +91,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-vencimiento"
-        class="form-label small text-muted">Fecha de Vencimiento:</label>
+        class="form-label m-0 small">Fecha de Vencimiento:</label>
         <input
         id="new-medicamento-vencimiento"
         x-model="state.vencimiento"
@@ -104,7 +103,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <div>
         <label
         for="new-medicamento-cantidad"
-        class="form-label small text-muted">Cantidad:</label>
+        class="form-label m-0 small">Cantidad:</label>
         <input
         id="new-medicamento-cantidad"
         x-model.number="state.cantidad"
@@ -117,18 +116,18 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <?= $this->fetch("./carro/historico/select-motivos.php") ?>
     </form>
 
-    <div class="d-flex justify-content-between mt-3 border-top p-2">
+    <div class="d-flex justify-content-between border-top p-2">
       <button
       @click="close"
       type="button"
-      class="btn btn-sm text-sm btn-outline-danger">Cancelar</button>
+      class="btn btn-sm btn-dark">Cancelar</button>
 
       <?php if($this->can("medicamentos.delete")): ?>
         <button
         x-data="deleteMedicamento"
         @click="delMed"
         x-show="isEdit"
-        class="btn btn-sm text-sm btn-danger">
+        class="btn btn-sm btn-danger">
           <?= $this->fetch("./icons/trash.php") ?>
           Eliminar
         </button>
@@ -137,7 +136,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
       <button
       form="create-medicamento"
       type="submit"
-      class="btn btn-sm text-sm btn-success">Guardar</button>
+      class="btn btn-sm btn-success">Guardar</button>
     </div>
   </div>
 </div>
