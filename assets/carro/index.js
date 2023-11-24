@@ -6,8 +6,9 @@ import * as Medicamentos from "./medicamentos/index";
 import * as Dispositivos from "./dispositivos/index";
 
 import print from "../partials/print";
-import resaltarVencimiento from "./partials/resaltar-vencimiento";
+import fieldsOrder from "@/partials/fields-order";
 import sessionPulse from "./partials/session-pulse";
+import resaltarVencimiento from "./partials/resaltar-vencimiento";
 
 import "../css/carro.css";
 
@@ -39,6 +40,7 @@ document.addEventListener("alpine:init", function() {
     Alpine.data("histoComparacion", Historico.comparacion);
 
     Alpine.data("print", print);
+    Alpine.data("fieldsOrder", fieldsOrder);
     Alpine.data("resaltarVencimiento", resaltarVencimiento);
 });
 

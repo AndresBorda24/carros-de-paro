@@ -1,7 +1,6 @@
 import Alpine from "alpinejs";
 import { showLoader, hideLoader } from "@/partials/loader";
 import { successAlert, errorAlert } from "@/partials/alerts";
-// import { createDispositivo, updateDispositivo } from "./handle"
 import { createDispositivo, updateDispositivo } from "@/carro/requests"
 
 export default () => ({

@@ -2,17 +2,33 @@
 x-data="createDispositivo"
 x-bind="events"
 x-show="show"
+@items-orderd="setState($event.detail)"
 x-cloak
 class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
-  style="width: 80%; max-width: 400px; max-height: 80%;"
+  style="width: 80%; max-width: 400px; max-height: 90%;"
   class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto border border-2 border-success d-flex flex-column">
     <h5 class="border-bottom text-center p-2 m-0 fw-bold">Dispositivo</h5>
     <form
     id="create-dispositivo"
     @submit.prevent="guardar"
-    class="d-flex flex-column bg-body-tertiary gap-3 p-3 m-0 overflow-auto"
+    class="d-flex flex-column position-relative bg-body-tertiary gap-3 p-3 m-0 overflow-auto"
     autocomplete="off">
+      <?= true ? "" : $this->fetch("./carro/carro/copy-excel.php", [
+        "listId" => "dis-list",
+        "items"  => [
+          "desc"          => "Descripción",
+          "marca"         => "Marca",
+          "presentacion"  => "Presentación",
+          "invima"        => "Invima",
+          "lote"          => "Lote",
+          "vencimiento"   => "Fecha de Vencimiento",
+          "vida_util"     => "Vida Util",
+          "cantidad"      => "Cantidad",
+          "riesgo"        => "Riesgo"
+        ]
+      ]) ?>
+
       <div>
         <label
         for="new-dispositivo-desc"

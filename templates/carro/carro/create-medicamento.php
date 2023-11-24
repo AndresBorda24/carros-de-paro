@@ -3,16 +3,31 @@ x-data="createMedicamento"
 x-bind="events"
 x-show="show"
 x-cloak
+@items-orderd="setState($event.detail)"
 class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
-  style="width: 80%; max-width: 400px; max-height: 80%;"
+  style="width: 80%; max-width: 400px; max-height: 90%;"
   class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto d-flex flex-column border border-2 border-success">
     <h5 class="border-bottom text-center p-2 m-0 fw-bold">Medicamento</h5>
     <form
     id="create-medicamento"
     @submit.prevent="guardar"
-    class="bg-body-tertiary gap-3 p-3 overflow-auto d-flex flex-column"
+    class="bg-body-tertiary gap-3 p-3 overflow-auto d-flex flex-column position-relative"
     autocomplete="off">
+
+      <?= true ? "" : $this->fetch("./carro/carro/copy-excel.php", [ // true ? "" para que no se cargue xD
+        "listId" => "dis-list",
+        "items"  => [
+          "p_activo_concentracion" => "Principio Activo / Concentración",
+          "forma_farma"            => "Forma Farmacéutica",
+          "medida"                 => "Unidad de Medida",
+          "presentacion"           => "Presentación Comercial",
+          "invima"                 => "Invima",
+          "lote"                   => "Lote",
+          "vencimiento"            => "Fecha de Vencimiento",
+        ]
+      ]) ?>
+
       <div>
         <label
         for="new-medicamento-p-activo"
