@@ -37,6 +37,17 @@ export default () => ({
     },
 
     /**
+     * Aqui le indicamos al componente "print" cual es la ruta que debe
+     * imprimir
+    */
+    __getPrintWeb() {
+        return process.env.API.substring(0, process.env.API.length - 3)
+            + "print/"
+            + this.getCarroId()
+            + "/current";
+    },
+
+    /**
      * -------------------------------------------------------------------------
      * Las funciones aqui abajo son para evitar errores a la hora de
      * obtener la informacion del carro
