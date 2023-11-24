@@ -54,6 +54,7 @@ class PrintController
     public function printCurrent(Response $response, int $carroId): Response
     {
         $data = $this->apertura->getLatest($carroId);
+        $data["isCurrent"] = 1;
 
         $this->view->addAttribute("user", $this->auth->user());
         $this->view->addAttribute("_data", $data);

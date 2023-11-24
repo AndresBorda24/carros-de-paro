@@ -73,7 +73,7 @@
         @click="__print"
         class="btn btn-sm btn-dark text-sm"
       >
-        Imprimir
+        Imprimir Actual
         <?= $this->fetch("./icons/print.php") ?>
       </button>
 

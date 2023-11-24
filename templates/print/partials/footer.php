@@ -14,4 +14,13 @@
       </span>
     </td>
   </tr>
+  <tr>
+    <td class="lh-1 p-0 small text-center text-muted">
+      <span class="small">
+        <?= isset($_data["isCurrent"])
+          ? date("Y-m-d H:i")
+          : date("Y-m-d H:i", strtotime($_data["fecha"])) ?>
+      </span>
+    </td>
+  </tr>
 </tfoot>
