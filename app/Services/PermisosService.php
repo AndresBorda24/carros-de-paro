@@ -20,38 +20,47 @@ class PermisosService
 
     /**
      * Revisa si el usuario loggeado actualmente puede realizar cierta
-     * accion $permiso
+     * accion
+     * @param string $permiso Representa la llave del permiso en el array.
+     * @param ?string $vista Para organizar algunos permisos por vistas. Representa
+     *                       el nombre de la ruta actual. O una llave en el array
+     *                       de permisos.
     */
-    public function check(string $permiso): bool
+    public function check(string $permiso, ?string $vista = null): bool
     {
-        if (! array_key_exists($permiso, $this->permisos)) {
+        $listaPermisos =  ($vista !== null && array_key_exists($vista, $this->permisos))
+            ? $this->permisos[ $vista ]
+            : $this->permisos;
+
+
+        if (! array_key_exists($permiso, $listaPermisos)) {
             return false;
         }
 
         if (in_array(
                 $this->auth->getGrupo(),
-                $this->permisos[ $permiso ]["grupos"]
+                $listaPermisos[ $permiso ]["grupos"]
         )) {
             return true;
         }
 
         if (in_array(
                 $this->auth->getCargoId(),
-                $this->permisos[ $permiso ]["cargos"]
+                $listaPermisos[ $permiso ]["cargos"]
         )) {
             return true;
         }
 
         if (in_array(
                 $this->auth->getAreaId(),
-                $this->permisos[ $permiso ]["area"]
+                $listaPermisos[ $permiso ]["area"]
         )) {
             return true;
         }
 
         if (in_array(
                 $this->auth->getId(),
-                $this->permisos[ $permiso ]["id"]
+                $listaPermisos[ $permiso ]["id"]
         )) {
             return true;
         }
