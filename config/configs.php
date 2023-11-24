@@ -18,6 +18,10 @@ return [
         "templates"   => __DIR__ . "/.." . $_ENV["TEMPLATES"],
         "entrypoints" => __DIR__ . "/.." . $_ENV["ENTRYPOINTS_PATH"]
     ],
+    "wp" => [
+        "token" => $_ENV["WP_TOKEN"],
+        "instance" => $_ENV["WP_INSTANCE"]
+    ],
     "temp" => __DIR__ . "/../temp",
     "permisos" => require __DIR__ . "/permisos.php"
 ];

@@ -22,6 +22,7 @@
         "catfan/medoo": "^2.1",
         "phpmailer/phpmailer": "^6.8",
         "rakit/validation": "^1.4",
-        "myclabs/php-enum": "^1.8"
+        "myclabs/php-enum": "^1.8",
+        "ultramsg/whatsapp-php-sdk": "^2.0"
     }
 }
