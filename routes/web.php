@@ -22,5 +22,10 @@ function loadWebRoutes(App $app) {
         PrintController::class,
         "printApertura"
     ])->setName("print.apertura");
+
+    $app->get("/print/{carroId:[0-9]+}/current", [
+        PrintController::class,
+        "printCurrent"
+    ])->setName("print.apertura");
 }
 

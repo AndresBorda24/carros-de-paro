@@ -190,4 +190,25 @@ class Apertura
             throw $e;
         }
     }
+
+
+    /**
+     * Obtiene la ultima apertura de un carro.
+    */
+    public function getLatest(int $carroId)
+    {
+        try {
+            /** @var int|null */
+            $id = $this->db->get(self::TABLE, "id [Int]", [
+                "carro_id" => $carroId,
+                "ORDER" => [ "id" => "DESC" ]
+            ]);
+
+            $id ??= 0;
+
+            return $this->find($id);
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
 }
