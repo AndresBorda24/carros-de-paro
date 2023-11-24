@@ -35,7 +35,7 @@ class Auth
 
         $id = ($this->config->get("app.env") == "prod")
             ? $this->session->get("usu_id")
-            : 172; // 133: Merly | 617: Andres | 603: Marly | 172: Nohemy
+            : 617; // 133: Merly | 617: Andres | 603: Marly | 172: Nohemy
 
         if(! $id) return null;
 

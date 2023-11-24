@@ -133,15 +133,17 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
 
     <div class="d-flex justify-content-between border-top p-2">
       <button
-      @click="close"
+      tabindex="-1"
       type="button"
+      @click="close"
       class="btn btn-sm btn-dark">Cancelar</button>
 
       <?php if($this->can("medicamentos.delete")): ?>
         <button
-        x-data="deleteMedicamento"
+        tabindex="-1"
         @click="delMed"
         x-show="isEdit"
+        x-data="deleteMedicamento"
         class="btn btn-sm btn-danger">
           <?= $this->fetch("./icons/trash.php") ?>
           Eliminar
