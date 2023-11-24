@@ -1,4 +1,3 @@
-import axios from "axios";
 import { updateApertura } from "@/carro/requests";
 import { showLoader, hideLoader } from "@/partials/loader";
 import { errorAlert, successAlert } from "@/partials/alerts";
@@ -8,6 +7,18 @@ import { errorAlert, successAlert } from "@/partials/alerts";
 */
 export default () => ({
     message: "",
+    show: false,
+
+    open() {
+        this.show = true;
+        setTimeout(() =>
+            document.getElementById("apertura-mensaje")?.focus()
+        , 200)
+    },
+
+    close() {
+        this.show = false;
+    },
 
     /**
      * Registra una nueva apertura en la base de datos.

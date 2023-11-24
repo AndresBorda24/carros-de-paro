@@ -48,11 +48,11 @@ export default () => ({
      * Reliza el Focus al input del formulario
     */
     focus() {
-        this.$nextTick(() => {
+        setTimeout(() => {
             document
                 .querySelector('[x-model="state.p_activo_concentracion"]')
                 .focus();
-        });
+        }, 100);
     },
 
     /**

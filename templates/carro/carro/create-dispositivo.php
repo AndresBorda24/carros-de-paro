@@ -1,9 +1,7 @@
 <div
 x-data="createDispositivo"
 x-bind="events"
-x-show="show"
-@items-orderd="setState($event.detail)"
-x-cloak
+x-show="show" x-transition.opacity x-cloak
 class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div
   style="width: 80%; max-width: 400px; max-height: 90%;"

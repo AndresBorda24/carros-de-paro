@@ -1,8 +1,7 @@
 <div
 x-data="createMedicamento"
 x-bind="events"
-x-show="show"
-x-cloak
+x-show="show" x-transition.opacity x-cloak
 @items-orderd="setState($event.detail)"
 class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
   <div

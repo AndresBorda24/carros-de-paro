@@ -42,11 +42,11 @@ export default () => ({
      * Focus para el formulario
     */
     focus() {
-        this.$nextTick(() => {
+        setTimeout(() => {
             document
                 .querySelector('[x-model="state.desc"]')
                 .focus();
-        });
+        }, 100);
     },
 
     /**
