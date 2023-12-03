@@ -82,15 +82,16 @@ export default () => ({
             paging: false,
             rowId: 'id',
             columnDefs: [
-                { data: 'p_activo_concentracion', targets: 0 },
-                { data: 'forma_farma', targets: 1, orderable: false },
-                { data: 'medida', targets: 2, orderable: false },
-                { data: 'presentacion', targets:  3, orderable: false },
-                { data: 'invima', targets: 4, orderable: false },
-                { data: 'lote', targets: 5, orderable: false },
+                { data: 'p_activo_concentracion', targets: "med_p_activo_concentracion" },
+                { data: 'forma_farma', targets: "med_forma_farma", orderable: false },
+                { data: 'medida', targets: "med_medida", orderable: false },
+                { data: 'presentacion', targets: "med_presentacion", orderable: false },
+                { data: 'invima', targets: "med_invima", orderable: false },
+                { data: 'nombre_comercial', targets: "med_nombre_comercial", orderable: false },
+                { data: 'lote', targets: "med_lote", orderable: false },
                 {
                     data: 'vencimiento',
-                    targets: 6,
+                    targets: 'med_vencimiento',
                     render: data => data.split('-').reverse().join("-"),
                     createdCell: (td, data) => {
                         const _ = jQuery(td);
@@ -103,7 +104,7 @@ export default () => ({
                         );
                     }
                 },
-                { data: 'cantidad', targets: 7 },
+                { data: 'cantidad', targets: 'med_cantidad' },
                 {
                     targets: -1,
                     data: 'id',

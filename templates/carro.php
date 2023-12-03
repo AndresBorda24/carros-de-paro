@@ -18,7 +18,7 @@
 <body class="bg-body-tertiary">
   <div id="app" class="overflow-auto vh-100">
     <?= $this->fetch("./partials/header.php") ?>
-    <main class="d-lg-flex container g-0">
+    <main class="d-lg-flex container-lg g-0">
       <div class="col-lg-3" style="max-width: 250px;">
         <?= $this->fetch("./partials/sidebar.php") ?>
       </div>

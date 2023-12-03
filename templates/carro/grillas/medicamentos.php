@@ -33,23 +33,34 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
     <thead>
       <tr>
         <th
+        class="med_p_activo_concentracion"
         style="word-break: normal; white-space: pre-line"
         data-priority="0">Principio Activo / Concentraci&oacute;n</th>
         <th
+        class="med_forma_farma"
         style="word-break: normal; white-space: pre-line"
         data-priority="4">Forma Farmaceutica</th>
         <th
+        class="med_medida"
         style="word-break: normal; white-space: pre-line"
         data-priority="5">Unidad Medida</th>
         <th
+        class="med_presentacion"
         style="word-break: normal; white-space: pre-line"
         data-priority="4">Presentaci&oacute;n Comercial</th>
-        <th data-priority="3">Invima</th>
-        <th data-priority="3">Lote</th>
+        <?php if($this->isRoute("carros.estantes")): ?>
+          <th
+          class="med_nombre_comercial"
+          style="word-break: normal; white-space: pre-line"
+          data-priority="5">Nombre Comercial</th>
+        <?php endif ?>
+        <th class="med_invima" data-priority="3">Invima</th>
+        <th class="med_lote" data-priority="3">Lote</th>
         <th
+        class="med_vencimiento"
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Fecha Vencimiento</th>
-        <th data-priority="1">Cant.</th>
+        <th class="med_cantidad" data-priority="1">Cant.</th>
         <th data-priority="0"></th>
       </tr>
     </thead>
