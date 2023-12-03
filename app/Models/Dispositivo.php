@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Contracts\ModelInterface;
 use Medoo\Medoo;
+use App\Contracts\ModelInterface;
 
 class Dispositivo implements ModelInterface
 {
@@ -15,8 +15,8 @@ class Dispositivo implements ModelInterface
 
     public function __construct(Medoo $db)
     {
-        $this->db       = $db;
-        $this->table    = "carro_reg_dispositivos";
+        $this->db    = $db;
+        $this->table = "carro_reg_dispositivos";
     }
 
     /**
@@ -36,10 +36,11 @@ class Dispositivo implements ModelInterface
                 "lote" => trim($data["lote"]),
                 "desc" => trim($data["desc"]),
                 "marca" => trim($data["marca"]),
+                "serie" => @$data["serie"],
                 "invima" => trim($data["invima"]),
                 "riesgo" => trim($data["riesgo"]),
                 "cantidad" => $data["cantidad"],
-                "carro_id" => trim($data["carro_id"]),
+                "carro_id" => trim((string) $data["carro_id"]),
                 "vida_util" => trim($data["vida_util"]),
                 "vencimiento" => $data["vencimiento"],
                 "presentacion" => trim($data["presentacion"]),
@@ -63,6 +64,7 @@ class Dispositivo implements ModelInterface
                 "lote" => trim($data["lote"]),
                 "desc" => trim($data["desc"]),
                 "marca" => trim($data["marca"]),
+                "serie" => @$data["serie"],
                 "invima" => trim($data["invima"]),
                 "riesgo" => trim($data["riesgo"]),
                 "cantidad" => $data["cantidad"],

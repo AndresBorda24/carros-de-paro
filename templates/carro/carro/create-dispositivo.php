@@ -2,10 +2,10 @@
 x-data="createDispositivo"
 x-bind="events"
 x-show="show" x-transition.opacity x-cloak
-class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
+class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
   <div
-  style="width: 80%; max-width: 400px; max-height: 90%;"
-  class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto border border-2 border-success d-flex flex-column">
+  style="width: 80%; max-width: 400px;"
+  class="my-4 mx-2 bg-body mx-auto rounded-1 border border-2 border-success d-flex flex-column">
     <h5 class="border-bottom text-center p-2 m-0 fw-bold">Dispositivo</h5>
     <form
     id="create-dispositivo"
@@ -53,6 +53,20 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         required
         class="form-control form-control-sm">
       </div>
+
+      <?php if($this->isRoute("carros.estantes")): ?>
+        <div>
+          <label
+          for="new-dispositivo-serie"
+          class="form-label m-0 small">Serie:</label>
+          <input
+          id="new-dispositivo-serie"
+          x-model="state.serie"
+          type="text"
+          required
+          class="form-control form-control-sm">
+        </div>
+      <?php endif ?>
 
       <div>
         <label

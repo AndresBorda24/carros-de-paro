@@ -3,10 +3,10 @@ x-data="createMedicamento"
 x-bind="events"
 x-show="show" x-transition.opacity x-cloak
 @items-orderd="setState($event.detail)"
-class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
+class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
   <div
-  style="width: 80%; max-width: 400px; max-height: 90%;"
-  class="mt-4 mx-2 bg-body mx-auto rounded-1 overflow-auto d-flex flex-column border border-2 border-success">
+  style="width: 80%; max-width: 400px;"
+  class="my-4 mx-2 bg-body mx-auto rounded-1 d-flex flex-column border border-2 border-success">
     <h5 class="border-bottom text-center p-2 m-0 fw-bold">Medicamento</h5>
     <form
     id="create-medicamento"
@@ -77,6 +77,20 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75">
         required
         class="form-control form-control-sm">
       </div>
+
+      <?php if($this->isRoute("carros.estantes")): ?>
+        <div>
+          <label
+          for="new-medicamento-nombre-com"
+          class="form-label m-0 small">Nombre Comercial:</label>
+          <input
+          id="new-medicamento-nombre-com"
+          x-model="state.nombre_comercial"
+          type="text"
+          required
+          class="form-control form-control-sm">
+        </div>
+      <?php endif ?>
 
       <div>
         <label
