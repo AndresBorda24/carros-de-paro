@@ -24,18 +24,26 @@
         <div class="text-center">
           <select x-model="motivo" class="form-select form-select-sm mb-3 w-auto">
             <option value="" hidden selected>Selecciona Motivo</option>
-            <option value="Auditor&iacute;a Interna">Auditor&iacute;a Interna</option>
-            <option value="Auditor&Iacute;a Externa">Auditor&Iacute;a Externa</option>
-            <option value="C&oacute;digo Azul">C&oacute;digo Azul</option>
-            <option value="Mantenimiento">Mantenimiento</option>
-            <option value="Revisi&oacute;n Mensual">Revisi&oacute;n Mensual</option>
+            <?php if ($this->isRoute("carros.estantes")): ?>
+              <option value="Actualizaci&oacute;n">Actualizaci&oacute;n</option>
+              <option value="Revisi&oacute;n Mensual">Revisi&oacute;n Mensual</option>
+              <option value="Auditor&iacute;a">Auditor&iacute;a</option>
+            <?php elseif ($this->isRoute("carros.index")): ?>
+              <option value="Auditor&iacute;a Interna">Auditor&iacute;a Interna</option>
+              <option value="Auditor&Iacute;a Externa">Auditor&Iacute;a Externa</option>
+              <option value="C&oacute;digo Azul">C&oacute;digo Azul</option>
+              <option value="Mantenimiento">Mantenimiento</option>
+              <option value="Revisi&oacute;n Mensual">Revisi&oacute;n Mensual</option>
+            <?php endif ?>
           </select>
 
           <button
           class="btn btn-outline-success btn-sm"
           :disabled="! canOpenCarro"
           @click="saveApertura">
-            <span class="text-sm">Abrir Carro!</span>
+            <span class="text-sm">Abrir <?= $this->isRoute("carros.index")
+              ? "Carro"
+              : "Estante" ?>!</span>
           </button>
         </div>
       </template>
