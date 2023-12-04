@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\CarroTipo;
 use Medoo\Medoo;
 
 class Carro
@@ -30,7 +31,8 @@ class Carro
 
             $this->db->insert(static::TABLE, [
                 "nombre"    => trim($data["nombre"]),
-                "ubicacion" => trim($data["ubicacion"])
+                "ubicacion" => trim($data["ubicacion"]),
+                "tipo"      => trim($data["tipo"])
             ]);
 
             return true;
@@ -49,7 +51,8 @@ class Carro
 
             $_ = $this->db->update(static::TABLE, [
                 "nombre"    => trim($data["nombre"]),
-                "ubicacion" => trim($data["ubicacion"])
+                "ubicacion" => trim($data["ubicacion"]),
+                "tipo"      => trim($data["tipo"])
             ], [
                 "id" => $id
             ]);
@@ -81,10 +84,12 @@ class Carro
     /**
      * Obtiene todos los carros
     */
-    public function getAll(): ?array
+    public function getAll(CarroTipo $tipo): ?array
     {
         try {
-            return $this->db->select(static::TABLE, "*");
+            return $this->db->select(static::TABLE, "*", [
+                "tipo" => $tipo->getValue()
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

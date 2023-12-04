@@ -33,6 +33,7 @@ class DispositivosRequest extends BodyRequest
             "data.lote" => "required",
             "data.desc" => "required",
             "data.marca" => "required",
+            "data.serie" => "nullable",
             "data.invima" => "required",
             "data.riesgo" => "required",
             "data.cantidad" => "required|numeric",

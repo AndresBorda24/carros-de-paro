@@ -1,5 +1,5 @@
-import { deleteMedicamento } from "./handle"
-import { successAlert } from "../../partials/alerts";
+import { deleteMedicamento } from "@/carro/requests"
+import { successAlert, errorAlert } from "@/partials/alerts";
 
 export default () => ({
     async delMed() {
@@ -7,9 +7,15 @@ export default () => ({
             return;
         }
 
-        if (await deleteMedicamento(this.state)) {
-            successAlert("Medicamento Eliminado!");
-            this.$dispatch("medicamento-deleted", this.__rowIndex);
-        }
+        const { error } = await deleteMedicamento(this.state.id, {
+            data: {
+                "apertura_id": Alpine.store("APERTURA_ID")
+            }
+        });
+
+        if (error !== null) return errorAlert();
+
+        successAlert("Medicamento Eliminado!");
+        this.$dispatch("medicamento-deleted", this.__rowIndex);
     }
 });

@@ -5,29 +5,35 @@ namespace App\Services;
 
 use App\Config;
 use PHPMailer\PHPMailer\PHPMailer;
+use UltraMsg\WhatsAppApi;
 
 class EnvioVencimientoService
 {
     private Config $config;
+    private WhatsAppApi $wp;
+
     /**
      * Telefonos al que se enviara el mensaje de whatsapp
     */
     private array $telefonos = [
         "3209353216", // Andres
-        "3116390529", // Nicolas
+        // "3116390529", // Nicolas
         // Aqui va el telefono de farmacia (creo)
+        "3102837720", // Farmacia
     ];
 
     /**
      * Correo al que se debe enviar la info.
     */
     private array $correos = [
-        "soporte@asotrauma.com.co"
+        "soporte@asotrauma.com.co",
+        "farmacia@asotrauma.com.co"
     ];
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, WhatsAppApi $wp)
     {
         $this->config = $config;
+        $this->wp = $wp;
     }
 
     /**
@@ -62,8 +68,6 @@ class EnvioVencimientoService
         try {
             $html = $this->getMarkup($data);
 
-            // Documentacion de PHPMailer:
-            // https://github.com/PHPMailer/PHPMailer/
             $mail = new PHPMailer();
             $mail->isSMTP();
             $mail->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_OFF;
@@ -71,12 +75,8 @@ class EnvioVencimientoService
             $mail->Port = 465;
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->SMTPAuth = true;
-            // $mail->SMTPSecure = 'tls';
-            // Credenciales
             $mail->Username = 'envio.correos@asotrauma.com.co';
             $mail->Password = 'Asotrauma2018';
-            // Entiendo que aqui puede ir otro correo, no necesariamente debe
-            // corresponder con el Username
             $mail->setFrom("referencia2@asotrauma.com.co");
             $mail->Subject = "Vencimientos | Carro de paro";
             $mail->msgHTML($html);
@@ -104,37 +104,11 @@ class EnvioVencimientoService
     {
         try {
             $body = "_*Vencimientos | Carro de Paro*_ \n\n". $this->getWpBody($data);
-            $curl = curl_init();
 
             foreach($this->telefonos as $telefono) {
-                curl_setopt_array($curl, [
-                    CURLOPT_URL => "https://api.ultramsg.com/instance4491/messages/chat",
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 30,
-                    CURLOPT_SSL_VERIFYHOST => 0,
-                    CURLOPT_SSL_VERIFYPEER => 0,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => http_build_query([
-                        "to"    => $telefono,
-                        "body"  => $body,
-                        "token" => "svd2x9nz46at55kw",
-                        "priority" => 1
-                    ]),
-                    CURLOPT_HTTPHEADER => [
-                        "content-type: application/x-www-form-urlencoded"
-                    ]
-                ]);
-
-                curl_exec($curl);
-                $err = curl_error($curl);
-
-                if ($err) echo "cURL Error #:" . $err;
+                $this->wp->sendChatMessage($telefono, $body, 1);
             }
 
-            curl_close($curl);
             echo "\nWhatsapp enviados...";
             return true;
         } catch(\Exception $e) {

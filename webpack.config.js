@@ -1,5 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
 const dotenv = require('dotenv-webpack');
+const resolve = require('path').resolve;
+
 
 require("dotenv").config({
     path: `./.env${Encore.isProduction() ? '.prod' : ''}`

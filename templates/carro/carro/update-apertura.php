@@ -1,16 +1,19 @@
-<details
+<section
 x-data="updateApertura"
-x-cloak
-x-show="carroStatus"
+x-show="carroStatus" x-cloak
 class="position-relative"
-@click.outside="$el.removeAttribute('open')">
-  <summary class="btn btn-sm btn-outline-success">
+@click.outside="close">
+  <button
+    @click="open"
+    class="btn btn-sm btn-outline-success"
+  >
     Guardar Revisi&oacute;n
-  </summary>
+  </button>
 
   <div
-  class="position-absolute border bg-success-subtle z-1 top-100 end-0 p-2 small border-success rounded shadow mt-1 text-center"
-  style="width: 280px;">
+  x-show="show" x-transition
+  class="position-absolute border bg-success-subtle z-1 top-100 p-2 small border-success rounded shadow mt-1 text-center"
+  style="width: 380px; max-width: 80vw; right: -25%;">
     <form @submit.prevent="update">
       <label
       for="apertura-mensaje"
@@ -35,4 +38,4 @@ class="position-relative"
       </button>
     </form>
   </div>
-</details>
+</section>

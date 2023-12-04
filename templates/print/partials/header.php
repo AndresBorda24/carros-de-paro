@@ -6,7 +6,10 @@
       src="<?= $this->asset("img/logo.png") ?>"
       alt="logo-asotrauma">
       <span class="badge text-bg-light rounded-1 fw-medium">
-        <span >Carro de paro - </span> <?= $_data["carro_ubicacion"] ?? '' ?>
+        <span> <?= $_data["tipo"] == \App\Enums\CarroTipo::CARRO()
+          ? "Carro de paro"
+          : "Revisi&oacute;n de Estante"
+        ?> - </span> <?= $_data["carro_ubicacion"] ?? '' ?>
       </span>
     </th>
   </tr>

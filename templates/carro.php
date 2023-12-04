@@ -13,19 +13,21 @@
   href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css"
   rel="stylesheet">
   <?= $this->loadAssets("carro/app") ?>
-  <title>Carros de Paro</title>
+  <title>Carros de Paro <?= $this->isRoute("carros.estantes") ? "| Estantes" : "" ?></title>
 </head>
 <body class="bg-body-tertiary">
-  <?= $this->fetch("./partials/header.php") ?>
-  <main class="d-lg-flex container g-0">
-    <div class="col-lg-3" style="max-width: 250px;">
-      <?= $this->fetch("./partials/sidebar.php") ?>
-    </div>
+  <div id="app" class="overflow-auto vh-100">
+    <?= $this->fetch("./partials/header.php") ?>
+    <main class="d-lg-flex container-lg g-0">
+      <div class="col-lg-3" style="max-width: 250px;">
+        <?= $this->fetch("./partials/sidebar.php") ?>
+      </div>
 
-    <div class="col-lg-9 flex-grow-1">
-      <?= $this->fetch("./carro/carro/carro.php") // xD ?>
-    </div>
-  </main>
+      <div class="col-lg-9 flex-grow-1">
+        <?= $this->fetch("./carro/carro/carro.php") // xD ?>
+      </div>
+    </main>
+  </div>
 
   <!-- Modals -->
   <?php if ($this->can("carro.create") || $this->can('carro.edit')) {

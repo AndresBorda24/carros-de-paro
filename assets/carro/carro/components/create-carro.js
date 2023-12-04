@@ -1,11 +1,10 @@
-import axios from "axios";
-import { showLoader, hideLoader } from "../../../partials/loader";
-import { errorAlert, successAlert } from "../../../partials/alerts";
+import { showLoader, hideLoader } from "@/partials/loader";
+import { createCarro, updateCarro } from "@/carro/requests";
+import { errorAlert, successAlert } from "@/partials/alerts";
 
 export default () => ({
     show: false,
     state: {},
-    api: process.env.API,
     events: {
         ['@create-carro.document.stop']: "open",
         ['@update-carro.document.stop']: "open"
@@ -30,50 +29,24 @@ export default () => ({
      * la consulta.
     */
     async guardar() {
-        if (Boolean(this.state.id)) {
-            await this.update()
-            return;
-        }
+        showLoader();
+        const { error } = (Boolean(this.state.id))
+            ? await updateCarro(this.state.id, this.state)
+            : await createCarro(this.state);
+        hideLoader();
 
-        await this.save();
+        if (error) return errorAlert();
+
+        (Boolean(this.state.id))
+            ? this.$dispatch("carro-updated", this.state)
+            : this.$dispatch("new-carro-created");
+
+        successAlert();
+        this.close();
     },
 
     /** Cerramos el Modal. No se reinicia `state` ya que se hace en open */
     close() {
         this.show = false;
     },
-
-    /** Realiza la consulta */
-    async save() {
-        try {
-            showLoader();
-            await axios
-                .post(this.api + "/carros/create", this.state)
-                .finally(hideLoader);
-
-            // notificamos que se ha creado un carro de manera exitosa.
-            this.$dispatch("new-carro-created");
-            successAlert();
-            this.close();
-        } catch(e) {
-            errorAlert();
-        }
-    },
-
-    /** Realiza la consulta */
-    async update() {
-        try {
-            showLoader();
-            await axios.put(
-                `${this.api}/carros/${this.state.id}/update`,
-                this.state
-            ).finally(hideLoader);
-
-            this.$dispatch("carro-updated", this.state);
-            successAlert();
-            this.close();
-        } catch(e) {
-            errorAlert();
-        }
-    }
 });

@@ -32,21 +32,24 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
   class="display compact small nowrap w-100">
     <thead>
       <tr>
-        <th data-priority="0">Descripci&oacute;n</th>
-        <th data-priority="5">Marca</th>
-        <th
+        <th class="dis_desc" data-priority="0">Descripci&oacute;n</th>
+        <th class="dis_marca" data-priority="5">Marca</th>
+        <th class="dis_presentacion"
         style="word-break: normal; white-space: pre-line"
         data-priority="4">Presentaci&oacute;n Comercial</th>
-        <th data-priority="3">Invima</th>
-        <th data-priority="3">Lote</th>
-        <th
+        <?php if($this->isRoute("carros.estantes")): ?>
+          <th class="dis_serie" data-priority="3">Serie</th>
+        <?php endif ?>
+        <th class="dis_invima" data-priority="3">Invima</th>
+        <th class="dis_lote" data-priority="3">Lote</th>
+        <th class="dis_vencimiento"
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Fecha Vencimiento</th>
-        <th
+        <th class="dis_vida_util"
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Vida &uacute;til</th>
-        <th data-priority="3">Riesgo</th>
-        <th data-priority="1">Cant.</th>
+        <th class="dis_riesgo" data-priority="3">Riesgo</th>
+        <th class="dis_cantidad" data-priority="1">Cant.</th>
         <th data-priority="0"></th>
       </tr>
     </thead>

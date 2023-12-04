@@ -38,6 +38,7 @@ class MedicamentosRequest extends BodyRequest
             "data.forma_farma"  => "required",
             "data.vencimiento"  => "required",
             "data.presentacion" => "required",
+            "data.nombre_comercial" => "nullable",
             "data.p_activo_concentracion" => "required",
             "data.new" => "nullable|default:1"
         ];

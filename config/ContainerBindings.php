@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Config;
 use Medoo\Medoo;
 use DI\ContainerBuilder;
+use UltraMsg\WhatsAppApi;
 
 $container = new ContainerBuilder();
 
@@ -23,6 +24,10 @@ $container->addDefinitions([
             // 'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_general_ci',
         ]);
+    },
+
+    WhatsAppApi::class => function (Config $c) {
+        return new WhatsAppApi($c->get("wp.token"), $c->get("wp.instance"));
     }
 ]);
 

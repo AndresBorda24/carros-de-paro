@@ -36,6 +36,32 @@ class PrintController
         );
         $this->view->addAttribute("dateColor", function(string $date) use($data) {
             $diff = ceil((strtotime($date) - strtotime($data["fecha"])) / (3600 * 24));
+
+            // Rojo < 6 meses (180)
+            if ($diff < 183) return "text-bg-danger text-black bg-opacity-75";
+            // Amarillo > 6 y < 12 (entre 181 y 360)
+            if ($diff >= 183 && $diff <= 365) return "text-bg-warning text-black bg-opacity-75";
+            // Verde > 12 meses (361)
+            if ($diff > 365) return "text-bg-success text-black bg-opacity-75";
+        });
+
+        return $this->view->render($response, "print/apertura.php");
+    }
+
+    /**
+     * Genera una vista para que se pueda imprimir el estado de un carro.
+    */
+    public function printCurrent(Response $response, int $carroId): Response
+    {
+        $data = $this->apertura->getLatest($carroId);
+        $data["isCurrent"] = 1;
+
+        $this->view->addAttribute("user", $this->auth->user());
+        $this->view->addAttribute("_data", $data);
+        $this->view->addAttribute("printDate", fn(string $date) =>
+            implode("-", array_reverse(explode("-", $date)))
+        );
+        $this->view->addAttribute("dateColor", function(string $date) {
             $diff = ceil((strtotime($date) - strtotime("now")) / (3600 * 24));
 
             // Rojo < 6 meses (180)

@@ -39,7 +39,8 @@ class CarroController
 
             $carro->create([
                 "nombre" => $data["nombre"],
-                "ubicacion" => $data["ubicacion"]
+                "ubicacion" => $data["ubicacion"],
+                "tipo" => $data["tipo"]
             ]);
 
             return responseJson($response, [
@@ -96,7 +97,30 @@ class CarroController
         try {
             $carro = new Carro($this->db);
 
-            return responseJson($response, $carro->getAll());
+            return responseJson(
+                $response,
+                $carro->getAll(\App\Enums\CarroTipo::CARRO())
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
+    /**
+     * Retorna un array con todos los estantes.
+    */
+    public function getAllEstantes(Response $response): Response
+    {
+        try {
+            $carro = new Carro($this->db);
+
+            return responseJson(
+                $response,
+                $carro->getAll(\App\Enums\CarroTipo::ESTANTE())
+            );
         } catch(\Exception $e) {
             return responseJson($response, [
                 "status" => false,

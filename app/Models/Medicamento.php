@@ -41,6 +41,7 @@ class Medicamento implements ModelInterface
                 "forma_farma"   => trim($data["forma_farma"]),
                 "presentacion"  => trim($data["presentacion"]),
                 "vencimiento"   => trim($data["vencimiento"]),
+                "nombre_comercial" => @$data["nombre_comercial"],
                 "p_activo_concentracion"  => trim($data["p_activo_concentracion"])
             ]);
 
@@ -67,6 +68,7 @@ class Medicamento implements ModelInterface
                 "forma_farma"   => trim($data["forma_farma"]),
                 "presentacion"  => trim($data["presentacion"]),
                 "vencimiento"   => trim($data["vencimiento"]),
+                "nombre_comercial" => @$data["nombre_comercial"],
                 "p_activo_concentracion"  => trim($data["p_activo_concentracion"])
             ], [
                 "id" => $id

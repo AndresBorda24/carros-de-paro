@@ -1,7 +1,7 @@
 <div class="fixed-bottom bg-blue-main d-flex d-lg-none p-1 justify-content-between">
   <details class="position-relative" @click.outside="$el.removeAttribute('open')">
     <summary class="btn btn-sm btn-outline-light text-sm">
-      Carros
+      <?= $this->isRoute("carros.index") ? "Carros" : "Estantes" ?>
     </summary>
     <nav
     style="width: 230px; border-color: var(--color-main) !important;"

@@ -129,6 +129,10 @@ class Views extends PhpRenderer
     */
     public function can(string $action): bool
     {
-        return $this->permisos->check($action);
+        $rutaName = ($this->route !== null)
+            ? $this->route->getName()
+            : null;
+
+        return $this->permisos->check($action, $rutaName);
     }
 }

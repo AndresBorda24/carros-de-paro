@@ -1,9 +1,9 @@
-import axios from "axios";
 import jQuery from "jquery";
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-fixedcolumns-dt';
-import { errorAlert } from "../../partials/alerts";
-import { showLoader, hideLoader } from "../../partials/loader";
+import { errorAlert } from "@/partials/alerts";
+import { findDispositivos } from "@/carro/requests";
+import { showLoader, hideLoader } from "@/partials/loader";
 
 // Spanish
 import ES from "../../partials/ES"
@@ -92,14 +92,15 @@ export default () => ({
             paging: false,
             rowId: 'id',
             columnDefs: [
-                { data: 'desc', targets: 0 },
-                { data: 'marca', targets: 1 },
-                { data: 'presentacion', targets: 2, orderable: false },
-                { data: 'invima', targets: 3, orderable: false },
-                { data: 'lote', targets: 4, orderable: false },
+                { data: 'desc', targets: 'dis_desc' },
+                { data: 'marca', targets: 'dis_marca' },
+                { data: 'presentacion', targets: 'dis_presentacion', orderable: false },
+                { data: 'invima', targets: 'dis_invima', orderable: false },
+                { data: 'lote', targets: 'dis_lote', orderable: false },
+                { data: 'serie', targets: 'dis_serie', orderable: false },
                 {
                     data: 'vencimiento',
-                    targets: 5,
+                    targets: 'dis_vencimiento',
                     render: data => data.split('-').reverse().join("-"),
                     createdCell: (td, data) => {
                         const _ = jQuery(td);
@@ -112,9 +113,9 @@ export default () => ({
                         );
                     }
                 },
-                { data: 'vida_util', targets:  6 },
-                { data: 'riesgo', targets: 7 },
-                { data: 'cantidad', targets:  8 },
+                { data: 'vida_util', targets: 'dis_vida_util' },
+                { data: 'riesgo', targets: 'dis_riesgo' },
+                { data: 'cantidad', targets: 'dis_cantidad' },
                 {
                     targets: -1,
                     data: 'id',
@@ -163,22 +164,16 @@ export default () => ({
      * Obtiene los datos de la tabla.
     */
     async getData() {
-        try {
-            showLoader();
+        showLoader();
+        const { data, error } = await findDispositivos( this.getCarroId() );
+        hideLoader();
 
-            const { data } = await axios.get(
-                `${this.api}/carros/${this.getCarroId()}/get-dispositivos`
-            ).finally(hideLoader);
+        if (error !== null) return errorAlert("Error al obtener los dispositivos");
 
-            this.data = data;
-
-            // Actualizamos la tabla
-            this.updateTableRows( this.data );
-            this.$store["DIS_DATA"] = this.data;
-        } catch(e) {
-            console.error("Error get med: ", e);
-            errorAlert("Error al obtener los dispositivos")
-        }
+        this.data = data;
+        // Actualizamos la tabla
+        this.updateTableRows( this.data );
+        this.$store["DIS_DATA"] = this.data;
     },
 
     /**

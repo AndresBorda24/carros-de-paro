@@ -1,9 +1,9 @@
 <div
-x-data="carrosList"
+x-data="carrosList(<?= $this->isRoute("carros.estantes") ? 'true' : 'false' ?>)"
 x-bind="events"
 class="position-sticky top-0">
   <div class="d-none d-lg-block p-3">
-    <h5>Listado de Carros:</h5>
+    <h5>Listado de <?= $this->isRoute("carros.estantes") ? "Estantes" : "Carros" ?>:</h5>
 
     <!-- Funciona como un loader chiquito -->
     <img

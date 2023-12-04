@@ -22,6 +22,12 @@ class HomeController
         return $this->views->render($response, "carro.php");
     }
 
+    public function estantes(Request $request, Response $response): Response
+    {
+        $this->views->setRouteContext($request);
+        return $this->views->render($response, "carro.php");
+    }
+
     public function buscarHistorico(Request $request, Response $response): Response
     {
         $this->views->setRouteContext($request);

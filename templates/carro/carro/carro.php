@@ -68,6 +68,17 @@
       @click="grillaShow = 3"
       class="btn btn-warning btn-sm text-sm">Hist&oacute;rico</button>
 
+      <button
+        x-data="print"
+        @click="__print"
+        class="btn btn-sm btn-dark text-sm"
+      >
+        Imprimir Actual
+        <?= $this->fetch("./icons/print.php") ?>
+      </button>
+
+
+
       <details
       x-cloak
       x-show="(grillaShow == 1 || grillaShow == 2)"

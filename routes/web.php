@@ -11,15 +11,21 @@ function loadWebRoutes(App $app) {
     */
     $app->get("", [HomeController::class, "index"]);
 
-    $app->get("/", [HomeController::class, "index"])->setName("carros.index");
-    $app->get("/buscar-historico", [
-        HomeController::class,
-        "buscarHistorico"
-    ])->setName("carros.buscar-historico");
+    $app->get("/", [HomeController::class, "index"])
+        ->setName("carros.index");
+    $app->get("/estantes", [HomeController::class, "estantes"])
+        ->setName("carros.estantes");
+    $app->get("/buscar-historico", [HomeController::class, "buscarHistorico" ])
+        ->setName("carros.buscar-historico");
 
     $app->get("/print/{aperturaId:[0-9]+}/apertura", [
         PrintController::class,
         "printApertura"
     ])->setName("print.apertura");
+
+    $app->get("/print/{carroId:[0-9]+}/current", [
+        PrintController::class,
+        "printCurrent"
+    ])->setName("print.current");
 }
 

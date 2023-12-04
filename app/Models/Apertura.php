@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\CarroTipo;
 use Medoo\Medoo;
 
 class Apertura
@@ -136,7 +137,7 @@ class Apertura
                 "[>]".User::TABLE." (U)" => ["quien" => "usuario_id"],
                 "[>]".Carro::TABLE." (C)" => ["carro_id" => "id"]
             ], [
-                "C.nombre (carro_nombre)", "C.ubicacion (carro_ubicacion)",
+                "C.nombre (carro_nombre)", "C.ubicacion (carro_ubicacion)", "C.tipo",
                 "H.after", "H.before", "H.model",
                 "A.id", "A.fecha", "A.hora", "A.motivo", "A.mensaje",
                 "usuario" => Medoo::raw("CONCAT_WS(
@@ -151,6 +152,7 @@ class Apertura
             ], function($reg) use(&$_){
                 $_["id"]      = $reg["id"];
                 $_["hora"]    = $reg["hora"];
+                $_["tipo"]    = CarroTipo::from($reg["tipo"]);
                 $_["fecha"]   = $reg["fecha"];
                 $_["motivo"]  = $reg["motivo"];
                 $_["mensaje"] = $reg["mensaje"];
@@ -186,6 +188,27 @@ class Apertura
             ]);
 
             return $_->rowCount();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * Obtiene la ultima apertura de un carro.
+    */
+    public function getLatest(int $carroId)
+    {
+        try {
+            /** @var int|null */
+            $id = $this->db->get(self::TABLE, "id [Int]", [
+                "carro_id" => $carroId,
+                "ORDER" => [ "id" => "DESC" ]
+            ]);
+
+            $id ??= 0;
+
+            return $this->find($id);
         } catch(\Exception $e) {
             throw $e;
         }

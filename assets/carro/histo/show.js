@@ -1,6 +1,6 @@
-import axios from "axios";
-import { errorAlert } from "../../partials/alerts";
-import { showLoader, hideLoader } from "../../partials/loader";
+import { errorAlert } from "@/partials/alerts";
+import { getSingleApertura } from "@/carro/requests";
+import { showLoader, hideLoader } from "@/partials/loader";
 
 export default () => ({
     data: undefined,
@@ -16,8 +16,8 @@ export default () => ({
 
         /* Cuando se selecciona otro carro, reiniciamos los valores */
         this.$watch("CARRO", () => {
-            this.data = undefined;
             this.aperturaId = undefined;
+            this.data = undefined;
         });
     },
 
@@ -25,17 +25,12 @@ export default () => ({
      * Recupera la informacion relacionada con `id`
     */
     async getData() {
-        try {
-            showLoader();
-            const {data} = await axios.get(
-                process.env.API + "/carros/aperturas/" + this.aperturaId + "/get"
-            ).finally(hideLoader);
+        showLoader();
+        const { data, error } = await getSingleApertura(this.aperturaId);
+        hideLoader();
 
-            this.data = data;
-        } catch(e) {
-            errorAlert("Ha ocurrido un error al recuperar la info.");
-            console.error("Get Apertura", e);
-        }
+        if (error !== null) return errorAlert();
+        this.data = data;
     },
 
     /**
@@ -55,7 +50,8 @@ export default () => ({
     /**
      * Importante!!
      *
-     * Este metodo DEBE devolver la url de la pagina que se desea imprima
+     * Este metodo DEBE devolver la url de la pagina que se desea imprima.
+     * Este metodo lo utiliza otro componente -> [print (/assets/partials)]
     */
     __getPrintWeb() {
         return process.env.API.substring(0, process.env.API.length - 3)

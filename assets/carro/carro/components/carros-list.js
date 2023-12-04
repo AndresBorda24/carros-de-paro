@@ -1,13 +1,12 @@
-import axios from "axios";
-import { errorAlert } from "../../../partials/alerts";
-import { showLoader, hideLoader } from "../../../partials/loader";
+import { getList, getEstantesList } from "@/carro/requests";
+import { errorAlert } from "@/partials/alerts";
+import { showLoader, hideLoader } from "@/partials/loader";
 
-export default () => ({
+export default (isEstante = false) => ({
     carros: [],
     selected: undefined,
     carroStatus: false, // true open & false closed
     loader: "#carro-list-loader",
-    api: process.env.API + "/carros/get-all",
     events: {
         ['@new-carro-created.document']: "getList",
         ["@carro-updated.document"]: "updateCarro",
@@ -28,16 +27,14 @@ export default () => ({
 
     /** Realiza la consulta */
     async getList() {
-        try {
-            showLoader(this.loader);
-            const { data } = await axios
-                .get(this.api, this.state)
-                .finally(() => hideLoader(this.loader));
+        showLoader(this.loader);
+        const { data, error } = (isEstante)
+            ? await getEstantesList()
+            : await getList();
+        hideLoader(this.loader);
 
-            this.carros = data;
-        } catch(e) {
-            errorAlert();
-        }
+        this.carros = data;
+        if (error !== null) errorAlert();
     },
 
     /**
@@ -95,6 +92,6 @@ export default () => ({
      * Determina si hay carros xD
     */
     get areThereCars() {
-        return this.carros.length > 0;
+        return this.carros?.length > 0;
     }
 });

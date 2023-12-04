@@ -1,4 +1,5 @@
-import axios from "axios";
+import { errorAlert } from "@/partials/alerts";
+import { getAperturas } from "@/carro/requests";
 
 export default () => ({
     aperturas: [],
@@ -15,18 +16,9 @@ export default () => ({
      * actualmente.
     */
     async getAperturas() {
-        try {
-            const {data} = await axios.get(
-                process.env.API
-                + "/carros/"
-                + this.getCarroId()
-                + "/get-aperturas"
-            );
-
-            this.aperturas = data;
-        } catch(e) {
-            console.error("Histo: ", e);
-        }
+        const { data, error } = await getAperturas( this.getCarroId() );
+        if (error !== null) return errorAlert();
+        this.aperturas = data;
     },
 
     /**
