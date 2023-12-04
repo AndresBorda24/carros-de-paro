@@ -12,8 +12,8 @@ class="position-relative"
 
   <div
   x-show="show" x-transition
-  class="position-absolute border bg-success-subtle z-1 top-100 end-0 p-2 small border-success rounded shadow mt-1 text-center"
-  style="width: 380px;">
+  class="position-absolute border bg-success-subtle z-1 top-100 p-2 small border-success rounded shadow mt-1 text-center"
+  style="width: 380px; max-width: 80vw; right: -25%;">
     <form @submit.prevent="update">
       <label
       for="apertura-mensaje"
