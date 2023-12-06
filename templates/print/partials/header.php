@@ -7,9 +7,9 @@
       alt="logo-asotrauma">
       <span class="badge text-bg-light rounded-1 fw-medium">
         <span> <?= $_data["tipo"] == \App\Enums\CarroTipo::CARRO()
-          ? "Carro de paro"
-          : "Revisi&oacute;n de Estante"
-        ?> - </span> <?= $_data["carro_ubicacion"] ?? '' ?>
+          ? "Carro de paro"." - ".($_data["carro_ubicacion"] ?? '')
+          : "Revisi&oacute;n de Estante"." - ".($_data["carro_nombre"] ?? '')
+        ?> </span>
       </span>
     </th>
   </tr>
