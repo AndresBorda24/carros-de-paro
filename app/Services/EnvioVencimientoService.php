@@ -27,7 +27,7 @@ class EnvioVencimientoService
     */
     private array $correos = [
         "soporte@asotrauma.com.co",
-        "farmacia@asotrauma.com.co"
+        "coordinacionfarmacia@asotrauma.com.co"
     ];
 
     public function __construct(Config $config, WhatsAppApi $wp)
