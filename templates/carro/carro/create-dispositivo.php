@@ -127,18 +127,20 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
         class="form-control form-control-sm">
       </div>
 
-      <div>
-        <label
-        for="new-dispositivo-cantidad"
-        class="form-label m-0 small">Cantidad:</label>
-        <input
-        id="new-dispositivo-cantidad"
-        x-model.number="state.cantidad"
-        type="number"
-        min="0"
-        required
-        class="form-control form-control-sm">
-      </div>
+      <?php if($this->isRoute("carros.index")): ?>
+        <div>
+          <label
+          for="new-dispositivo-cantidad"
+          class="form-label m-0 small">Cantidad:</label>
+          <input
+          id="new-dispositivo-cantidad"
+          x-model.number="state.cantidad"
+          type="number"
+          min="0"
+          required
+          class="form-control form-control-sm">
+        </div>
+      <?php endif ?>
 
       <div>
         <label
