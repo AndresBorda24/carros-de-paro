@@ -42,14 +42,16 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
         <?php endif ?>
         <th class="dis_invima" data-priority="3">Invima</th>
         <th class="dis_lote" data-priority="3">Lote</th>
-        <th class="dis_vencimiento"
-        style="word-break: normal; white-space: pre-line"
-        data-priority="2">Fecha Vencimiento</th>
         <th class="dis_vida_util"
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Vida &uacute;til</th>
         <th class="dis_riesgo" data-priority="3">Riesgo</th>
-        <th class="dis_cantidad" data-priority="1">Cant.</th>
+        <th class="dis_vencimiento"
+        style="word-break: normal; white-space: pre-line"
+        data-priority="2">Fecha Vencimiento</th>
+        <?php if($this->isRoute("carros.index")): ?>
+          <th class="dis_cantidad" data-priority="1">Cant.</th>
+        <?php endif ?>
         <th data-priority="0"></th>
       </tr>
     </thead>
