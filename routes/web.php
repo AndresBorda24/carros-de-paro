@@ -18,15 +18,10 @@ function loadWebRoutes(App $app) {
     $app->get("/buscar-historico", [HomeController::class, "buscarHistorico" ])
         ->setName("carros.buscar-historico");
 
-    $app->get("/print/{aperturaId:[0-9]+}/apertura", [
+    $app->get("/print/{aperturaId:[0-9]+}/apertura[/{current:[1]}]", [
         PrintController::class,
         "printApertura"
     ])->setName("print.apertura");
-
-    $app->get("/print/{carroId:[0-9]+}/current", [
-        PrintController::class,
-        "printCurrent"
-    ])->setName("print.current");
 
     $app->get("/print/all/{tipo}", [
         PrintController::class,
