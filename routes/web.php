@@ -27,5 +27,10 @@ function loadWebRoutes(App $app) {
         PrintController::class,
         "printCurrent"
     ])->setName("print.current");
+
+    $app->get("/print/all/{tipo}", [
+        PrintController::class,
+        "printAll"
+    ])->setName("print.all");
 }
 
