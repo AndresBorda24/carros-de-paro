@@ -25,7 +25,7 @@
         <td><?= $row->presentacion ?></td>
         <td><?= $row->invima ?></td>
         <td><?= $row->lote ?></td>
-        <td class="<?= $dateColor($row->vencimiento) ?>">
+        <td class="<?= $getDateColor($row->vencimiento, $compDate) ?>">
           <?= $printDate($row->vencimiento) ?>
         </td>
         <td><?= $row->cantidad ?></td>

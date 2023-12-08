@@ -18,21 +18,22 @@
 </head>
 <body class="bg-white">
   <?php foreach($aperturas as $apertura): ?>
-    <table class="table table-borderless table-sm pagebreak">
+    <table class="table table-borderless table-sm">
       <?= $this->fetch("./print/partials/header.php", [
-        "_data" => [
-          "tipo" => $apertura["tipo"],
-          "fecha" => $apertura["fecha"],
-          "usuario" => $apertura["usuario"],
-          "carro_nombre" => $apertura["carro_nombre"],
-          "carro_ubicacion" => $apertura["carro_ubicacion"],
-        ]
+        "tipo" => $apertura["tipo"],
+        "fecha" => $apertura["fecha"],
+        "usuario" => $apertura["usuario"],
+        "carro_nombre" => $apertura["carro_nombre"],
+        "carro_ubicacion" => $apertura["carro_ubicacion"]
       ]) ?>
 
       <tbody>
         <tr>
           <td>
             <?= $this->fetch("./print/partials/medicamentos.php", [
+              "printDate" => $printDate,
+              "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
+              "getDateColor" => $getDateColor,
               "med" => $apertura[\App\Services\HistoricoService::MEDICAMENTO]
             ]) ?>
           </td>
@@ -41,17 +42,18 @@
         <tr>
           <td>
             <?= $this->fetch("./print/partials/dispositivos.php", [
-              "dis" => $apertura[\App\Services\HistoricoService::DISPOSITIVO]
+              "printDate" => $printDate,
+              "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
+              "getDateColor" => $getDateColor,
+              "dis" => $apertura[\App\Services\HistoricoService::DISPOSITIVO],
             ]) ?>
           </td>
         </tr>
       </tbody>
 
       <?= $this->fetch("./print/partials/footer.php", [
-        "_data" => [
-          "fecha" => $apertura["fecha"],
-          "isCurrent" => false
-        ]
+        "compDate" => $compDate,
+        "aperturaFecha" => $apertura["fecha"]
       ]) ?>
     </table>
   <?php endforeach ?>

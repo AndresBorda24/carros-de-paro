@@ -9,17 +9,26 @@
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous">
   <?= $this->loadAssets("print/app") ?>
-  <title>Revisi&oacute;n <?= $_data["usuario"] ?> | <?= $_data["fecha"] ?></title>
+  <title>Revisi&oacute;n <?= $data["usuario"] ?> | <?= $data["fecha"] ?></title>
 </head>
 <body class="bg-white">
   <table class="table table-borderless table-sm">
-    <?= $this->fetch("./print/partials/header.php") ?>
+    <?= $this->fetch("./print/partials/header.php", [
+      "tipo" => $data["tipo"],
+      "fecha" => $data["fecha"],
+      "usuario" => $data["usuario"],
+      "carro_nombre" => $data["carro_nombre"],
+      "carro_ubicacion" => $data["carro_ubicacion"]
+    ]) ?>
 
     <tbody>
       <tr>
         <td>
           <?= $this->fetch("./print/partials/medicamentos.php", [
-            "med" => $_data[\App\Services\HistoricoService::MEDICAMENTO]
+            "printDate" => $printDate,
+            "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
+            "getDateColor" => $getDateColor,
+            "med" => $data[\App\Services\HistoricoService::MEDICAMENTO]
           ]) ?>
         </td>
       </tr>
@@ -27,13 +36,19 @@
       <tr>
         <td>
           <?= $this->fetch("./print/partials/dispositivos.php", [
-            "dis" => $_data[\App\Services\HistoricoService::DISPOSITIVO]
+            "printDate" => $printDate,
+            "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
+            "getDateColor" => $getDateColor,
+            "dis" => $data[\App\Services\HistoricoService::DISPOSITIVO],
           ]) ?>
         </td>
       </tr>
     </tbody>
 
-    <?= $this->fetch("./print/partials/footer.php") ?>
+    <?= $this->fetch("./print/partials/footer.php", [
+      "compDate" => $compDate,
+      "aperturaFecha" => $data["fecha"]
+    ]) ?>
   </table>
 </body>
 </html>
