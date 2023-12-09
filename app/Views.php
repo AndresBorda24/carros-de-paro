@@ -90,7 +90,7 @@ class Views extends PhpRenderer
     /**
      * Genera el link para el nombre de una ruta
     */
-    public function link(string $name): string
+    public function link(string $name, array $data = [], array $query = []): string
     {
         if (! isset($this->routeParser)) {
             throw new \RuntimeException(
@@ -98,7 +98,7 @@ class Views extends PhpRenderer
             );
         }
 
-        return $this->routeParser->urlFor($name);
+        return $this->routeParser->urlFor($name, $data, $query);
     }
 
     /**
