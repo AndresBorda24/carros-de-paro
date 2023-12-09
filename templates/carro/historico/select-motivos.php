@@ -9,9 +9,13 @@
     id="motivo-edicion"
     class="form-control form-control-sm">
       <option value="" selected hidden>-- Motivo --</option>
-      <option value="Aver&amp;iacute;a">Aver&iacute;a</option>
-      <option value="Proximo a vencer">Proximo a vencer</option>
-      <option value="Gasto Paciente">Gasto Paciente</option>
+      <?php if($this->isRoute("carros.estantes")): ?>
+        <option value="Actualización">Actualización</option>
+      <?php elseif ($this->isRoute("carros.index")): ?>
+        <option value="Aver&amp;iacute;a">Aver&iacute;a</option>
+        <option value="Proximo a vencer">Proximo a vencer</option>
+        <option value="Gasto Paciente">Gasto Paciente</option>
+      <?php endif ?>
     </select>
   </div>
 </template>
