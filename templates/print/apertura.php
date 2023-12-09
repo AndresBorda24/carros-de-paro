@@ -25,6 +25,7 @@
       <tr>
         <td>
           <?= $this->fetch("./print/partials/medicamentos.php", [
+            "tipo" => $data["tipo"],
             "printDate" => $printDate,
             "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
             "getDateColor" => $getDateColor,
@@ -36,6 +37,7 @@
       <tr>
         <td>
           <?= $this->fetch("./print/partials/dispositivos.php", [
+            "tipo" => $data["tipo"],
             "printDate" => $printDate,
             "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
             "getDateColor" => $getDateColor,

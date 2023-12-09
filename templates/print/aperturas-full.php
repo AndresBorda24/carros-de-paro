@@ -18,7 +18,7 @@
 </head>
 <body class="bg-white">
   <?php foreach($aperturas as $apertura): ?>
-    <table class="table table-borderless table-sm">
+    <table class="table table-borderless table-sm pagebreak">
       <?= $this->fetch("./print/partials/header.php", [
         "tipo" => $apertura["tipo"],
         "fecha" => $apertura["fecha"],
@@ -31,6 +31,7 @@
         <tr>
           <td>
             <?= $this->fetch("./print/partials/medicamentos.php", [
+              "tipo" => $apertura["tipo"],
               "printDate" => $printDate,
               "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
               "getDateColor" => $getDateColor,
@@ -42,6 +43,7 @@
         <tr>
           <td>
             <?= $this->fetch("./print/partials/dispositivos.php", [
+              "tipo" => $apertura["tipo"],
               "printDate" => $printDate,
               "compDate" => $compDate, //Fecha con la que se compara la f de vencimiento
               "getDateColor" => $getDateColor,
