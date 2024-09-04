@@ -44,7 +44,7 @@ export default () => ({
         return process.env.API.substring(0, process.env.API.length - 3)
             + "print/"
             + this.getCarroId()
-            + "/current";
+            + "/apertura/1";
     },
 
     /**

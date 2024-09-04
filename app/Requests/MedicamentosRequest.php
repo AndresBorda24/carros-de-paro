@@ -34,7 +34,7 @@ class MedicamentosRequest extends BodyRequest
             "data.medida" => "required",
             "data.invima" => "required",
             "data.carro_id" => "required|numeric",
-            "data.cantidad" => "required|numeric",
+            "data.cantidad" => "required_without:data.nombre_comercial|numeric",
             "data.forma_farma"  => "required",
             "data.vencimiento"  => "required",
             "data.presentacion" => "required",

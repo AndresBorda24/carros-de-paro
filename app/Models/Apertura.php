@@ -177,6 +177,35 @@ class Apertura
     }
 
     /**
+     * Encuentra todas las aperturas de un tipo especifico de carro.
+     * @param CarroTipo $carroTipo
+     * @return array
+    */
+    public function findAll(CarroTipo $carroTipo): array
+    {
+        $ids = [];
+
+        // Aqui buscamos el id de la ultima apertura de los carros dependiendo
+        // del tipo
+        $this->db->select(self::TABLE." (A)", [
+            "[>]".Carro::TABLE." (C)" => ["carro_id" => "id"]
+        ], ["id" => Medoo::raw("MAX(<A.id>)")], [
+            "C.tipo" => $carroTipo->getValue(),
+            "GROUP" => ["A.carro_id"]
+        ], function($i) use (&$ids) {
+            array_push($ids, $i["id"]);
+        });
+
+        // Buscamos cada apertura y la anexamos al array
+        $aperturas = [];
+        foreach ($ids as $carroId) {
+            $aperturas[] = $this->find((int) $carroId);
+        }
+
+        return $aperturas;
+    }
+
+    /**
      * Elimina una apertura. Unicamente se emplea si se genera un error
      * al crear el historico en el AperturasController.
     */

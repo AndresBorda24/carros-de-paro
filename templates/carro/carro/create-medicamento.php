@@ -128,18 +128,20 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
         class="form-control form-control-sm">
       </div>
 
-      <div>
-        <label
-        for="new-medicamento-cantidad"
-        class="form-label m-0 small">Cantidad:</label>
-        <input
-        id="new-medicamento-cantidad"
-        x-model.number="state.cantidad"
-        type="number"
-        min="0"
-        required
-        class="form-control form-control-sm">
-      </div>
+      <?php if($this->isRoute("carros.index")): ?>
+        <div>
+          <label
+          for="new-medicamento-cantidad"
+          class="form-label m-0 small">Cantidad:</label>
+          <input
+          required
+          min="0"
+          id="new-medicamento-cantidad"
+          x-model.number="state.cantidad"
+          type="number"
+          class="form-control form-control-sm">
+        </div>
+      <?php endif ?>
 
       <?= $this->fetch("./carro/historico/select-motivos.php") ?>
     </form>

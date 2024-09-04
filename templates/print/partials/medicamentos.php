@@ -10,10 +10,15 @@
       <th>Forma Farmac&eacute;utica</th>
       <th>U / medida</th>
       <th>Presentaci&oacute;n</th>
+      <?php if ($tipo == \App\Enums\CarroTipo::ESTANTE()): ?>
+        <th>N. Comercial</th>
+      <?php endif ?>
       <th>Invima</th>
       <th>Lote</th>
       <th>Fecha Vencimiento</th>
-      <th>Cantidad</th>
+      <?php if ($tipo == \App\Enums\CarroTipo::CARRO()): ?>
+        <th>Cant.</th>
+      <?php endif ?>
     </tr>
   </thead>
   <tbody class="small">
@@ -23,12 +28,17 @@
         <td><?= $row->forma_farma ?></td>
         <td><?= $row->medida ?></td>
         <td><?= $row->presentacion ?></td>
+        <?php if ($tipo == \App\Enums\CarroTipo::ESTANTE()): ?>
+          <td><?= $row->nombre_comercial ?></td>
+        <?php endif ?>
         <td><?= $row->invima ?></td>
         <td><?= $row->lote ?></td>
-        <td class="<?= $dateColor($row->vencimiento) ?>">
+        <td class="<?= $getDateColor($row->vencimiento, $compDate) ?>">
           <?= $printDate($row->vencimiento) ?>
         </td>
-        <td><?= $row->cantidad ?></td>
+        <?php if ($tipo == \App\Enums\CarroTipo::CARRO()): ?>
+          <td><?= $row->cantidad ?></td>
+        <?php endif ?>
       </tr>
     <?php endforeach ?>
   </tbody>

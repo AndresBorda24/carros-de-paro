@@ -6,9 +6,9 @@
       src="<?= $this->asset("img/logo.png") ?>"
       alt="logo-asotrauma">
       <span class="badge text-bg-light rounded-1 fw-medium">
-        <span> <?= $_data["tipo"] == \App\Enums\CarroTipo::CARRO()
-          ? "Carro de paro"." - ".($_data["carro_ubicacion"] ?? '')
-          : "Revisi&oacute;n de Estante"." - ".($_data["carro_nombre"] ?? '')
+        <span> <?= $tipo == \App\Enums\CarroTipo::CARRO()
+          ? "Carro de paro"." - ".($carro_ubicacion ?? '')
+          : "Revisi&oacute;n de Estante"." - ".($carro_nombre ?? '')
         ?> </span>
       </span>
     </th>
@@ -16,7 +16,7 @@
   <tr>
     <th class="small text-muted">
       <span class="small">
-        Revisi&oacute;n <?= $_data["usuario"] ?> | <?= $_data["fecha"] ?>
+        Revisi&oacute;n <?= $usuario ?> | <?= $fecha ?>
       </span>
     </th>
   </tr>

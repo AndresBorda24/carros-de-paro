@@ -5,6 +5,21 @@ class="position-sticky top-0">
   <div class="d-none d-lg-block p-3">
     <h5>Listado de <?= $this->isRoute("carros.estantes") ? "Estantes" : "Carros" ?>:</h5>
 
+    <div x-data="{ __getPrintWeb: () => '<?= $this->link("print.all", [
+        "tipo" => $this->isRoute("carros.index")
+          ? \App\Enums\CarroTipo::CARRO()
+          : \App\Enums\CarroTipo::ESTANTE()
+      ]) ?>' }" class="mb-3">
+      <button
+        x-data="print"
+        @click="__print"
+        class="btn btn-sm btn-dark text-sm w-100"
+      >
+        Imprimir Todos
+        <?= $this->fetch("./icons/print.php") ?>
+      </button>
+    </div>
+
     <!-- Funciona como un loader chiquito -->
     <img
     id="carro-list-loader"
@@ -14,7 +29,11 @@ class="position-sticky top-0">
     src="<?= $this->asset("img/loader-1.png") ?>"
     alt="loader-list">
 
-    <nav class="d-flex flex-column gap-1 mb-3" role="menu">
+    <nav
+      style="max-height: 60vh;"
+      class="d-flex flex-column gap-1 mb-3 overflow-auto"
+      role="menu"
+    >
       <template x-for="carro in carros" :key="carro.id">
         <button
         type="button"

@@ -36,7 +36,7 @@ class DispositivosRequest extends BodyRequest
             "data.serie" => "nullable",
             "data.invima" => "required",
             "data.riesgo" => "required",
-            "data.cantidad" => "required|numeric",
+            "data.cantidad" => "required_without:data.serie|numeric",
             "data.carro_id" => "required|numeric",
             "data.vida_util" => "required",
             "data.vencimiento" => "required",

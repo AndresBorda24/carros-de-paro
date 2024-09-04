@@ -60,7 +60,9 @@ class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
         class="med_vencimiento"
         style="word-break: normal; white-space: pre-line"
         data-priority="2">Fecha Vencimiento</th>
-        <th class="med_cantidad" data-priority="1">Cant.</th>
+        <?php if($this->isRoute("carros.index")): ?>
+          <th class="med_cantidad" data-priority="1">Cant.</th>
+        <?php endif ?>
         <th data-priority="0"></th>
       </tr>
     </thead>

@@ -24,5 +24,8 @@
         "rakit/validation": "^1.4",
         "myclabs/php-enum": "^1.8",
         "ultramsg/whatsapp-php-sdk": "^2.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.4"
     }
 }

@@ -77,8 +77,6 @@
         <?= $this->fetch("./icons/print.php") ?>
       </button>
 
-
-
       <details
       x-cloak
       x-show="(grillaShow == 1 || grillaShow == 2)"
