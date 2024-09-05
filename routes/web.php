@@ -27,5 +27,10 @@ function loadWebRoutes(App $app) {
         PrintController::class,
         "printAll"
     ])->setName("print.all");
-}
 
+
+    $app->get("/to-excel/all/{tipo}", [
+        PrintController::class,
+        "toExcel"
+    ])->setName("excel.all");
+}

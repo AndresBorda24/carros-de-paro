@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Auth;
 use App\Views;
 use App\Models\Apertura;
+use App\Services\AperturaToExcelService;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class PrintController
@@ -63,6 +64,20 @@ class PrintController
                 "-", array_reverse(explode("-", $date))
             )
         ]);
+    }
+
+    public function toExcel(Response $response, string $tipo): Response
+    {
+        $tipo = \App\Enums\CarroTipo::from(mb_strtoupper($tipo));
+
+        $service = new AperturaToExcelService($this->apertura);
+        $service->loadAperturas($tipo);
+        $service->setDispositivosSheet();
+        $service->setMedicamentosSheet();
+        $service->generateExcelIndividual();
+
+        dd('Archivo generado!');
+        return $response;
     }
 
     private function getDateColorFunc()
