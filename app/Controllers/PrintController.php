@@ -86,6 +86,24 @@ class PrintController
         return $response;
     }
 
+    public function toExcelIndividual(Response $response, AperturaToExcelService $service, int $carroId): Response
+    {
+        $service->loadApertura($carroId);
+        $service->setDispositivosSheet();
+        $service->setMedicamentosSheet();
+        [$fileName, $filePath] = $service->generateExcelIndividual();
+
+        $response = $response
+            ->withHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            ->withHeader('Content-Disposition', "attachment; filename=$fileName")
+            ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+            ->withHeader('Pragma', 'no-cache')
+            ->withBody((new \Slim\Psr7\Stream(fopen($filePath, 'rb'))));
+
+        return $response;
+    }
+
     private function getDateColorFunc()
     {
         return function(string $date, ?string $aperturaFecha = null) {

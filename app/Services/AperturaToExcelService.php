@@ -36,6 +36,15 @@ class AperturaToExcelService
         $this->listadoAperturas = $this->apertura->findAll($tipo);
     }
 
+
+    /**
+     * Carga la última apertura para un carro dependiendo de su ID
+    */
+    public function loadApertura(int $carroId): void
+    {
+        $this->listadoAperturas = [$this->apertura->getLatest($carroId)];
+    }
+
     /**
      * Genera una hoja descriminando únicamente por su tipo, es decir, crea dos
      * hojas: una para los medicamentos de todos los carros y otra para

@@ -33,4 +33,9 @@ function loadWebRoutes(App $app) {
         PrintController::class,
         "toExcel"
     ])->setName("excel.all");
+
+    $app->get("/to-excel/{carroId:[0-9]+}", [
+        PrintController::class,
+        "toExcelIndividual"
+    ])->setName("excel.individual");
 }
