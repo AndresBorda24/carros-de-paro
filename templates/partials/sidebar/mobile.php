@@ -34,6 +34,19 @@
     </nav>
   </details>
 
+  <a
+    href="<?= $this->link("excel.all", [
+      "tipo" => $this->isRoute("carros.index")
+        ? \App\Enums\CarroTipo::CARRO()
+        : \App\Enums\CarroTipo::ESTANTE()
+    ]) ?>"
+    download
+    class="btn btn-sm btn-success text-sm"
+  >
+    Excel
+    <?= $this->fetch("./icons/excel.php") ?>
+  </a>
+
   <div x-data="{ __getPrintWeb: () => '<?= $this->link("print.all", [
       "tipo" => $this->isRoute("carros.index")
         ? \App\Enums\CarroTipo::CARRO()
