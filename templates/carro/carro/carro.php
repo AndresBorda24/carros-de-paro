@@ -77,6 +77,18 @@
         <?= $this->fetch("./icons/print.php") ?>
       </button>
 
+      <a
+        download
+        :href="'<?= $this->link('excel.individual', [
+          'carroId' => ""
+        ]) ?>' + getCarroId()"
+        title="Generar Excel para Carro individual"
+        class="btn btn-sm btn-success text-sm"
+      >
+        Excel
+        <?= $this->fetch("./icons/excel.php") ?>
+      </a>
+
       <details
       x-cloak
       x-show="(grillaShow == 1 || grillaShow == 2)"

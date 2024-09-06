@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Auth;
 use App\Views;
 use App\Models\Apertura;
+use App\Services\AperturaToExcelService;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class PrintController
@@ -63,6 +64,47 @@ class PrintController
                 "-", array_reverse(explode("-", $date))
             )
         ]);
+    }
+
+    public function toExcel(Response $response, AperturaToExcelService $service, string $tipo): Response
+    {
+        $tipo = \App\Enums\CarroTipo::from(mb_strtoupper($tipo));
+
+        $service->loadAperturas($tipo);
+        $service->setDispositivosSheet();
+        $service->setMedicamentosSheet();
+        [$fileName, $filePath] = $service->generateExcelIndividual();
+        $fileName = strtolower("excel-general-{$tipo->getKey()}.xlsx");
+
+
+        $response = $response
+            ->withHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            ->withHeader('Content-Disposition', "attachment; filename=$fileName")
+            ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+            ->withHeader('Pragma', 'no-cache')
+            ->withBody((new \Slim\Psr7\Stream(fopen($filePath, 'rb'))));
+
+        return $response;
+    }
+
+    public function toExcelIndividual(Response $response, AperturaToExcelService $service, int $carroId): Response
+    {
+        $service->loadApertura($carroId);
+        $service->setDispositivosSheet();
+        $service->setMedicamentosSheet();
+        [$fileName, $filePath] = $service->generateExcelIndividual();
+        $fileName = "excel-individual-$carroId.xlsx";
+
+        $response = $response
+            ->withHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            ->withHeader('Content-Disposition', "attachment; filename=$fileName")
+            ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+            ->withHeader('Pragma', 'no-cache')
+            ->withBody((new \Slim\Psr7\Stream(fopen($filePath, 'rb'))));
+
+        return $response;
     }
 
     private function getDateColorFunc()
