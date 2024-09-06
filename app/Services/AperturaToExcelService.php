@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Config;
 use App\Enums\CarroTipo;
 use App\Enums\TipoItem;
 use App\Models\Apertura;
@@ -11,6 +12,7 @@ use Shuchkin\SimpleXLSXGen;
 
 class AperturaToExcelService
 {
+    private Config $config;
     private Apertura $apertura;
     private SimpleXLSXGen $excel;
     private array $aperturaData = [];
@@ -19,8 +21,9 @@ class AperturaToExcelService
     /** Almacena la informacion de las Hojas de calculo */
     private array $sheets = [];
 
-    public function __construct(Apertura $apertura)
+    public function __construct(Apertura $apertura, Config $config)
     {
+        $this->config = $config;
         $this->apertura = $apertura;
         $this->excel = new SimpleXLSXGen();
     }
@@ -38,7 +41,7 @@ class AperturaToExcelService
      * hojas: una para los medicamentos de todos los carros y otra para
      * todos los dispositivos.
     */
-    public function generateExcel(): void
+    public function generateExcel(): array
     {
         foreach ($this->sheets as $name => $sheet) {
             $tipo = TipoItem::from($name);
@@ -51,7 +54,7 @@ class AperturaToExcelService
             array_unshift($newData, $headers);
             $this->excel->addSheet($newData, $name);
         }
-        $this->excel->saveAs(sprintf('excel-carros-%s.xlsx', time()));
+        return $this->saveExcel();
     }
 
     /**
@@ -59,7 +62,7 @@ class AperturaToExcelService
      * para un carro  crea 2 hojas: una para medicamentos y otra para los
      * dispositivos.
      */
-    public function generateExcelIndividual(): void
+    public function generateExcelIndividual(): array
     {
         foreach ($this->sheets as $name => $sheet) {
             $tipo = TipoItem::from($name);
@@ -71,7 +74,7 @@ class AperturaToExcelService
                 $this->excel->addSheet($data, "$name-$carroNombre");
             });
         }
-        $this->excel->saveAs(sprintf('excel-carros-indvidual-%s.xlsx', time()));
+        return $this->saveExcel();
     }
 
     /** Crea una nueva Hoja dependiendo del tipo de item seleccionado. */
@@ -116,6 +119,22 @@ class AperturaToExcelService
             $newItem[] = $this->aperturaData['carro_nombre'];
             return $newItem;
         }, $items);
+    }
+
+
+    /**
+     * Guarda el archivo en el disco y retorna un array con el nombre del
+     * archivo junto con su ruta absoluta.
+     * @return string[]
+    */
+    private function saveExcel(): array
+    {
+        $tempPath = $this->config->get('temp', __DIR__ . '/../../temp');
+        $fileName = "excel.xlsx";
+        $fileFullPath = $tempPath.DIRECTORY_SEPARATOR.$fileName;
+
+        $this->excel->saveAs($fileFullPath);
+        return [$fileName, $fileFullPath];
     }
 
     /**

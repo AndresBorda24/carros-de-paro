@@ -66,17 +66,23 @@ class PrintController
         ]);
     }
 
-    public function toExcel(Response $response, string $tipo): Response
+    public function toExcel(Response $response, AperturaToExcelService $service, string $tipo): Response
     {
         $tipo = \App\Enums\CarroTipo::from(mb_strtoupper($tipo));
 
-        $service = new AperturaToExcelService($this->apertura);
         $service->loadAperturas($tipo);
         $service->setDispositivosSheet();
         $service->setMedicamentosSheet();
-        $service->generateExcelIndividual();
+        [$fileName, $filePath] = $service->generateExcelIndividual();
 
-        dd('Archivo generado!');
+        $response = $response
+            ->withHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            ->withHeader('Content-Disposition', "attachment; filename=$fileName")
+            ->withAddedHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->withHeader('Cache-Control', 'post-check=0, pre-check=0')
+            ->withHeader('Pragma', 'no-cache')
+            ->withBody((new \Slim\Psr7\Stream(fopen($filePath, 'rb'))));
+
         return $response;
     }
 
