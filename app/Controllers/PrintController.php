@@ -74,6 +74,8 @@ class PrintController
         $service->setDispositivosSheet();
         $service->setMedicamentosSheet();
         [$fileName, $filePath] = $service->generateExcelIndividual();
+        $fileName = strtolower("excel-general-{$tipo->getKey()}.xlsx");
+
 
         $response = $response
             ->withHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
@@ -92,6 +94,7 @@ class PrintController
         $service->setDispositivosSheet();
         $service->setMedicamentosSheet();
         [$fileName, $filePath] = $service->generateExcelIndividual();
+        $fileName = "excel-individual-$carroId.xlsx";
 
         $response = $response
             ->withHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
