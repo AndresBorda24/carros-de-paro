@@ -7,7 +7,7 @@
       alt="logo-asotrauma">
       <span class="badge text-bg-light rounded-1 fw-medium">
         <span> <?= $tipo == \App\Enums\CarroTipo::CARRO()
-          ? "Carro de paro"." - ".($carro_ubicacion ?? '')
+          ? "Carro de paro"." - ".($carro_nombre ?? '')
           : "Revisi&oacute;n de Estante"." - ".($carro_nombre ?? '')
         ?> </span>
       </span>
