@@ -2,14 +2,19 @@
   <tr>
     <th class=" d-flex align-items-center justify-content-between">
       <img
-      class="w-1 h-1"
+      class="w-41"
       src="<?= $this->asset("img/logo.png") ?>"
       alt="logo-asotrauma">
       <span class="badge text-bg-light rounded-1 fw-medium">
-        <span> <?= $tipo == \App\Enums\CarroTipo::CARRO()
-          ? "Carro de paro"." - ".($carro_nombre ?? '')
-          : "Revisi&oacute;n de Estante"." - ".($carro_nombre ?? '')
-        ?> </span>
+        <span>
+          <?php if($tipo == \App\Enums\CarroTipo::CARRO()): ?>
+            Carro de paro - <?= ($carro_nombre ?? '') ?>
+          <?php elseif($tipo == \App\Enums\CarroTipo::ESTANTE()): ?>
+            Revisi&oacute;n de Estante - <?= ($carro_nombre ?? '') ?>
+          <?php elseif($tipo == \App\Enums\CarroTipo::KIT()): ?>
+            Revisi&oacute;n de Kit - <?= ($carro_nombre ?? '') ?>
+          <?php endif ?>
+        </span>
       </span>
     </th>
   </tr>

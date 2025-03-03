@@ -58,7 +58,7 @@ class="position-sticky top-0">
         }"
         @click="carroClicked( carro.id )"
         class="rounded-1 align-items-center btn btn-sm carro-nav-item d-flex gap-2">
-          <?= $this->fetch("./icons/bookmark.php") ?>
+          <span><?= $this->fetch("./icons/bookmark.php") ?></span>
           <span>
             <span
             class="d-block"
