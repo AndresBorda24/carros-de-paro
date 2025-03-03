@@ -1,8 +1,8 @@
-import { getList, getEstantesList } from "@/carro/requests";
+import { getList, getEstantesList, getKitsList } from "@/carro/requests";
 import { errorAlert } from "@/partials/alerts";
 import { showLoader, hideLoader } from "@/partials/loader";
 
-export default (isEstante = false) => ({
+export default (isEstante = 0) => ({
     carros: [],
     selected: undefined,
     carroStatus: false, // true open & false closed
@@ -28,12 +28,21 @@ export default (isEstante = false) => ({
     /** Realiza la consulta */
     async getList() {
         showLoader(this.loader);
-        const { data, error } = (isEstante)
-            ? await getEstantesList()
-            : await getList();
-        hideLoader(this.loader);
 
+        let response;
+        if (isEstante === 1) {
+            response = await getEstantesList();
+        } else if (isEstante === 2) {
+            response = await getKitsList();
+        } else {
+            response = await getList();
+        }
+
+        const { data, error } = response;
+
+        hideLoader(this.loader);
         this.carros = data;
+
         if (error !== null) errorAlert();
     },
 

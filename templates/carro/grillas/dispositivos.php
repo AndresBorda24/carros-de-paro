@@ -4,14 +4,16 @@ x-bind="events"
 class="small w-100 p-2 border rounded bg-body overflow-x-hidden">
   <div class="d-flex gap-2 mb-2 flex-wrap justify-content-between">
     <?php if ($this->can("dispositivos.create")): ?>
-      <button
-      x-cloak
-      x-show="carroStatus"
-      @click="$dispatch('create-dispositivo', getCarroId())"
-      class="btn btn-success btn-sm text-sm">
-        <?= $this->fetch("./icons/plus.php") ?>
-        Adjuntar Dispositivo
-      </button>
+        <button
+                x-cloak
+                x-show="carroStatus"
+                @click="$dispatch('create-dispositivo', getCarroId())"
+                class="btn btn-success btn-sm text-sm flex items-center gap-2"
+        >
+            <?= $this->fetch("./icons/plus.php") ?>
+            <span>Adjuntar Dispositivo</span>
+        </button>
+
     <?php endif ?>
 
     <div class="d-flex gap-1 flex-grow-1 justify-content-end">

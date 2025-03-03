@@ -129,6 +129,23 @@ class CarroController
         }
     }
 
+    public function getAllKits(Response $response): Response
+    {
+        try {
+            $carro = new Carro($this->db);
+
+            return responseJson(
+                $response,
+                $carro->getAll(\App\Enums\CarroTipo::KIT())
+            );
+        } catch(\Exception $e) {
+            return responseJson($response, [
+                "status" => false,
+                "message"=> $e->getMessage()
+            ], 422);
+        }
+    }
+
     /**
      * Regresa la informacion relacionada con alguna apertura de carro.
     */

@@ -13,7 +13,9 @@
   href="https://cdn.datatables.net/fixedcolumns/4.2.2/css/fixedColumns.dataTables.min.css"
   rel="stylesheet">
   <?= $this->loadAssets("carro/app") ?>
-  <title>Carros de Paro <?= $this->isRoute("carros.estantes") ? "| Estantes" : "" ?></title>
+    <title>Carros de Paro
+        <?= $this->isRoute("carros.kits") ? "| Kits" : ($this->isRoute("carros.estantes") ? "| Estantes" : "") ?>
+    </title>
 </head>
 <body class="bg-body-tertiary">
   <div id="app" class="overflow-auto vh-100">
@@ -31,8 +33,8 @@
 
   <!-- Modals -->
   <?php if ($this->can("carro.create") || $this->can('carro.edit')) {
-    echo $this->fetch("./carro/carro/create-carro.php");
-  }?>
+      echo $this->fetch("./carro/carro/create-carro.php");
+  } ?>
 
   <?php if ($this->can("medicamentos.create") || $this->can('medicamentos.edit')) {
     echo $this->fetch("./carro/carro/create-medicamento.php");

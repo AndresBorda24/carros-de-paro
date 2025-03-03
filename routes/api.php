@@ -50,6 +50,7 @@ function loadApiRoutes(App $app) {
         ]);
 
         $api->get("/estantes/get-all", [CarroController::class, "getAllEstantes"]);
+        $api->get("/kits/get-all", [CarroController::class, "getAllKits"]);
 
 
         /* ---------------------------------------------------------------------

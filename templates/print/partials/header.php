@@ -2,7 +2,7 @@
   <tr>
     <th class=" d-flex align-items-center justify-content-between">
       <img
-      height="35"
+      class="w-1 h-1"
       src="<?= $this->asset("img/logo.png") ?>"
       alt="logo-asotrauma">
       <span class="badge text-bg-light rounded-1 fw-medium">

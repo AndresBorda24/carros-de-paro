@@ -54,7 +54,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
         class="form-control form-control-sm">
       </div>
 
-      <?php if($this->isRoute("carros.estantes")): ?>
+      <?php if($this->isRoute("carros.estantes") || $this->isRoute("carros.kits")): ?>
         <div>
           <label
           for="new-dispositivo-serie"
@@ -165,15 +165,16 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
       class="btn btn-sm btn-dark">Cancelar</button>
 
       <?php if($this->can("dispositivos.delete")): ?>
-        <button
-        tabindex="-1"
-        x-show="isEdit"
-        @click="delDisp"
-        x-data="deleteDispositivo"
-        class="btn btn-sm btn-danger">
-          <?= $this->fetch("./icons/trash.php") ?>
-          Eliminar
-        </button>
+          <button
+                  tabindex="-1"
+                  x-show="isEdit"
+                  @click="delDisp"
+                  x-data="deleteDispositivo"
+                  class="btn btn-sm btn-danger flex items-center gap-2"
+          >
+              <?= $this->fetch("./icons/trash.php") ?>
+              <span>Eliminar</span>
+          </button>
       <?php endif ?>
 
       <button
