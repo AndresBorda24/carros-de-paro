@@ -49,6 +49,10 @@ export async function getEstantesList() {
   return await request(async () => await ax.get(`/estantes/get-all`));
 }
 
+export async function getKitsList() {
+  return await request(async () => await ax.get(`/kits/get-all`));
+}
+
 /** @param body { object } */
 export async function createApertura( body ) {
   return await request(async () => await ax.post(

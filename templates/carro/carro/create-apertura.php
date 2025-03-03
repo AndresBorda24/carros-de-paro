@@ -28,6 +28,10 @@
               <option value="Actualizaci&oacute;n">Actualizaci&oacute;n</option>
               <option value="Revisi&oacute;n Mensual">Revisi&oacute;n Mensual</option>
               <option value="Auditor&iacute;a">Auditor&iacute;a</option>
+              <?php elseif ($this->isRoute("carros.kits")): ?>
+                  <option value="Actualizaci&oacute;n">Actualizaci&oacute;n</option>
+                  <option value="Revisi&oacute;n Mensual">Revisi&oacute;n Mensual</option>
+                  <option value="Auditor&iacute;a">Auditor&iacute;a</option>
             <?php elseif ($this->isRoute("carros.index")): ?>
               <option value="Auditor&iacute;a Interna">Auditor&iacute;a Interna</option>
               <option value="Auditor&Iacute;a Externa">Auditor&Iacute;a Externa</option>

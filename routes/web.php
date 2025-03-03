@@ -15,6 +15,8 @@ function loadWebRoutes(App $app) {
         ->setName("carros.index");
     $app->get("/estantes", [HomeController::class, "estantes"])
         ->setName("carros.estantes");
+    $app->get("/kits", [HomeController::class, "kits"])
+        ->setName("carros.kits");
     $app->get("/buscar-historico", [HomeController::class, "buscarHistorico" ])
         ->setName("carros.buscar-historico");
 

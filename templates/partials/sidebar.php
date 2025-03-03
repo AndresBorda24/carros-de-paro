@@ -1,38 +1,37 @@
-<div
-x-data="carrosList(<?= $this->isRoute("carros.estantes") ? 'true' : 'false' ?>)"
+<div    x-data="carrosList(<?= $this->isRoute('carros.estantes') ? 1 : ($this->isRoute('carros.kits') ? 2 : 0) ?>)"
 x-bind="events"
 class="position-sticky top-0">
   <div class="d-none d-lg-block p-3">
-    <h5>Listado de <?= $this->isRoute("carros.estantes") ? "Estantes" : "Carros" ?>:</h5>
-
+      <h5>Listado de <?= $this->isRoute("carros.kits") ? "Kits" : ($this->isRoute("carros.estantes") ? "Estantes" : "Carros") ?>:</h5>
     <div class="mb-2">
-      <div x-data="{ __getPrintWeb: () => '<?= $this->link("print.all", [
-          "tipo" => $this->isRoute("carros.index")
-            ? \App\Enums\CarroTipo::CARRO()
-            : \App\Enums\CarroTipo::ESTANTE()
-        ]) ?>' }" >
-        <button
-          x-data="print"
-          @click="__print"
-          class="btn btn-sm btn-dark text-sm w-100"
-        >
-          Imprimir Todos
-          <?= $this->fetch("./icons/print.php") ?>
-        </button>
-      </div>
+        <div class="mb-1.5" x-data="{ __getPrintWeb: () => '<?= $this->link("print.all", [
+            "tipo" => $this->isRoute("carros.index") ? \App\Enums\CarroTipo::CARRO() :
+                ($this->isRoute("carros.estantes") ? \App\Enums\CarroTipo::ESTANTE() :
+                    ($this->isRoute("carros.kits") ? \App\Enums\CarroTipo::KIT() : ''))
+        ] ) ?>' }">
 
-      <a
-        href="<?= $this->link("excel.all", [
-          "tipo" => $this->isRoute("carros.index")
-            ? \App\Enums\CarroTipo::CARRO()
-            : \App\Enums\CarroTipo::ESTANTE()
-        ]) ?>"
-        download
-        class="btn btn-sm btn-success text-sm w-100"
-      >
-        Excel
-        <?= $this->fetch("./icons/excel.php") ?>
-      </a>
+        <button
+                  x-data="print"
+                  @click="__print"
+                  class="btn btn-sm btn-dark text-sm w-100 flex items-center justify-center gap-1"
+          >
+              Imprimir Todos
+              <span class="w-4 h-4 mt-0.5"><?= $this->fetch("./icons/print.php") ?></span>
+          </button>
+      </div>
+        <a
+                href="<?= $this->link("excel.all", [
+                    "tipo" => $this->isRoute("carros.index")
+                        ? \App\Enums\CarroTipo::CARRO()
+                        : \App\Enums\CarroTipo::ESTANTE()
+                ]) ?>"
+                download
+                class="btn btn-sm btn-success text-sm w-100 flex items-center justify-center gap-2"
+        >
+            Excel
+            <span class="w-4 h-4 mt-0.5"><?= $this->fetch("./icons/excel.php") ?></span>
+        </a>
+
     </div>
 
     <!-- Funciona como un loader chiquito -->

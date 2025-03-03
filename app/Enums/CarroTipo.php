@@ -9,6 +9,7 @@ final class CarroTipo extends Enum
 {
     private const ESTANTE = "ES";
     private const CARRO = "CA";
+    private const KIT = "KI";
 
     /** ES */
     public static function ESTANTE(): CarroTipo
@@ -20,5 +21,11 @@ final class CarroTipo extends Enum
     public static function CARRO(): CarroTipo
     {
         return new CarroTipo(self::CARRO);
+    }
+
+    /** KI */
+    public static function KIT(): CarroTipo
+    {
+        return new CarroTipo(self::KIT);
     }
 }

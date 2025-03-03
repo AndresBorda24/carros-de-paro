@@ -1,6 +1,7 @@
 @import "./general.css";
 @import "datatables.net-dt";
 @import 'datatables.net-fixedcolumns-dt';
+@import "tailwindcss";
 
 .grilla-medicamentos {
     background-color: var(--color-blue-light);

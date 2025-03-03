@@ -9,7 +9,7 @@
     id="motivo-edicion"
     class="form-control form-control-sm">
       <option value="" selected hidden>-- Motivo --</option>
-      <?php if($this->isRoute("carros.estantes")): ?>
+      <?php if($this->isRoute("carros.estantes") || $this->isRoute("carros.kits")): ?>
         <option value="Actualización">Actualización</option>
       <?php elseif ($this->isRoute("carros.index")): ?>
         <option value="Aver&amp;iacute;a">Aver&iacute;a</option>

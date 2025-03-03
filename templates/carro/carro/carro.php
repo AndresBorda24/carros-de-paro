@@ -30,16 +30,18 @@
 
     <?php if($this->can('carro.delete')): ?>
       <!-- Eliminar Carro -->
-      <button
-      type="button"
-      @click="delCarro"
-      x-show="hasCarro"
-      x-data="deleteCarro"
-      x-cloak
-      class="btn btn-danger btn-sm text-sm">
-        <?= $this->fetch("./icons/trash.php") ?>
-        <span class="d-none d-md-inline">Eliminar</span>
-      </button>
+        <button
+                type="button"
+                @click="delCarro"
+                x-show="hasCarro"
+                x-data="deleteCarro"
+                x-cloak
+                class="btn btn-danger btn-sm text-sm flex items-center "
+        >
+            <span class="w-4 h-4 flex-shrink-0"><?= $this->fetch("./icons/trash.php") ?></span>
+            <span class="hidden md:inline">Eliminar</span>
+        </button>
+
     <?php endif ?>
   </div>
 
@@ -71,7 +73,7 @@
       <button
         x-data="print"
         @click="__print"
-        class="btn btn-sm btn-dark text-sm"
+        class="btn btn-sm btn-dark text-sm flex items-center justify-center gap-1"
       >
         Imprimir Actual
         <?= $this->fetch("./icons/print.php") ?>
@@ -83,7 +85,7 @@
           'carroId' => ""
         ]) ?>' + getCarroId()"
         title="Generar Excel para Carro individual"
-        class="btn btn-sm btn-success text-sm"
+        class="btn btn-sm btn-success text-sm flex items-center justify-center gap-1"
       >
         Excel
         <?= $this->fetch("./icons/excel.php") ?>
@@ -94,7 +96,7 @@
       x-show="(grillaShow == 1 || grillaShow == 2)"
       @click.outside="$el.removeAttribute('open')"
       class="position-relative ms-auto z-2">
-        <summary class="text-sm btn btn-sm">
+        <summary class="text-sm btn btn-sm flex items-center justify-center gap-1">
             &iquest;Ayuda con los colores?
             <?= $this->fetch("./icons/question.php") ?>
         </summary>

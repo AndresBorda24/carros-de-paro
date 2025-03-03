@@ -72,6 +72,9 @@ class Views extends PhpRenderer
             }
         }
 
+
+        $tags.=sprintf("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\">", $this->config->get("app.base"). "/output.css");
+
         return $tags;
     }
 

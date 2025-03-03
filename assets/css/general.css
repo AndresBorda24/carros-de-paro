@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
-@import "~noty/lib/noty.css";
-@import "~noty/lib/themes/mint.css";
+@import "noty/lib/noty.css";
+@import "noty/lib/themes/mint.css";
 
 :root {
     --color-main: #03254c;
