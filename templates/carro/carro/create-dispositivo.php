@@ -54,7 +54,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
         class="form-control form-control-sm">
       </div>
 
-      <?php if($this->isRoute("carros.estantes") || $this->isRoute("carros.kits")): ?>
+      <?php if($this->isRoute("carros.estantes")): ?>
         <div>
           <label
           for="new-dispositivo-serie"
@@ -127,7 +127,7 @@ class="fixed-top vw-100 vh-100 bg-black bg-opacity-75 overflow-auto">
         class="form-control form-control-sm">
       </div>
 
-      <?php if($this->isRoute("carros.index")): ?>
+      <?php if($this->isRoute("carros.index") || $this->isRoute("carros.kits")): ?>
         <div>
           <label
           for="new-dispositivo-cantidad"

@@ -70,7 +70,7 @@
                     style="word-break: normal; white-space: pre-line"
                     data-priority="2">Fecha Vencimiento
             </th>
-            <?php if ($this->isRoute("carros.index")): ?>
+            <?php if ($this->isRoute("carros.index") || $this->isRoute("carros.kits")): ?>
                 <th class="med_cantidad" data-priority="1">Cant.</th>
             <?php endif ?>
             <th data-priority="0"></th>
