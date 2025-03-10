@@ -15,7 +15,7 @@
       <th>Invima</th>
       <th>Lote</th>
       <th>Fecha Vencimiento</th>
-      <?php if ($tipo == \App\Enums\CarroTipo::CARRO()): ?>
+      <?php if ($tipo == \App\Enums\CarroTipo::CARRO() || $tipo == \App\Enums\CarroTipo::KIT()): ?>
         <th>Cant.</th>
       <?php endif ?>
       <th>Vida &uacute;til</th>
@@ -36,7 +36,7 @@
         <td class="<?= $getDateColor($row->vencimiento, $compDate) ?>">
           <?= $printDate($row->vencimiento) ?>
         </td>
-        <?php if ($tipo == \App\Enums\CarroTipo::CARRO()): ?>
+        <?php if ($tipo == \App\Enums\CarroTipo::CARRO() || $tipo == \App\Enums\CarroTipo::KIT()): ?>
           <td><?= $row->cantidad ?></td>
         <?php endif ?>
         <td><?= $row->vida_util ?></td>
