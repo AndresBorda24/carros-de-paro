@@ -63,7 +63,7 @@ class Medicamento implements ModelInterface
                 "lote"  => trim($data["lote"]),
                 "invima"    => trim($data["invima"]),
                 "medida"    => trim($data["medida"]),
-                "carro_id"  => trim($data["carro_id"]),
+                "carro_id"  => trim((string) $data["carro_id"]),
                 "cantidad"  => $data["cantidad"],
                 "forma_farma"   => trim($data["forma_farma"]),
                 "presentacion"  => trim($data["presentacion"]),

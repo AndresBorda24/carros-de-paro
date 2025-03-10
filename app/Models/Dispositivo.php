@@ -68,7 +68,7 @@ class Dispositivo implements ModelInterface
                 "invima" => trim($data["invima"]),
                 "riesgo" => trim($data["riesgo"]),
                 "cantidad" => $data["cantidad"],
-                "carro_id" => trim($data["carro_id"]),
+                "carro_id" => trim((string) $data["carro_id"]),
                 "vida_util" => trim($data["vida_util"]),
                 "vencimiento" => $data["vencimiento"],
                 "presentacion" => trim($data["presentacion"]),
